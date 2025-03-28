@@ -10,7 +10,7 @@
             "longitude": 73.920807
         },
         "category": "plastic",
-        "status": "partially filled",
+        "status": "partially_filled",
         "sensorEnabled": true,
         "ward": "Viman Nagar",
         "zone": "Nagar Road-Wadgaon Sheri",
@@ -61,7 +61,7 @@
             "longitude": 73.891836
         },
         "category": "plastic",
-        "status": "partially filled",
+        "status": "partially_filled",
         "sensorEnabled": true,
         "ward": "Kalas-Dhanori",
         "zone": "Yerwada kalas Dhanori",
@@ -112,7 +112,7 @@
             "longitude": 73.905326
         },
         "category": "dry",
-        "status": "partially filled",
+        "status": "partially_filled",
         "sensorEnabled": true,
         "ward": "Tadiwala Road-Sasoon Hospital",
         "zone": "Dhole Patil Road",
@@ -163,7 +163,7 @@
             "longitude": 73.837085
         },
         "category": "wet",
-        "status": "partially filled",
+        "status": "partially_filled",
         "sensorEnabled": true,
         "ward": "Baner-Balewadi-pashan",
         "zone": "NaN",
@@ -197,7 +197,7 @@
             "longitude": 73.805522
         },
         "category": "wet",
-        "status": "partially filled",
+        "status": "partially_filled",
         "sensorEnabled": true,
         "ward": "Deccan Gymkhana-Model Colony",
         "zone": "NaN",
@@ -214,7 +214,7 @@
             "longitude": 73.89521
         },
         "category": "plastic",
-        "status": "partially filled",
+        "status": "partially_filled",
         "sensorEnabled": true,
         "ward": "Bavdhan-Kothrud Depot",
         "zone": "Kothrud Bavdhan",
@@ -248,7 +248,7 @@
             "longitude": 73.979775
         },
         "category": "plastic",
-        "status": "partially filled",
+        "status": "partially_filled",
         "sensorEnabled": true,
         "ward": "Mayur Colony-Dahanukar Colony",
         "zone": "NaN",
@@ -265,7 +265,7 @@
             "longitude": 73.826409
         },
         "category": "dry",
-        "status": "partially filled",
+        "status": "partially_filled",
         "sensorEnabled": true,
         "ward": "Sahakarnagar-Padmavati",
         "zone": "Dhanawadi Sahakarnagar",
@@ -316,7 +316,7 @@
             "longitude": 73.989984
         },
         "category": "plastic",
-        "status": "partially filled",
+        "status": "partially_filled",
         "sensorEnabled": true,
         "ward": "Janta Vasahat-Duttawadi",
         "zone": "Sinhagad Road",
@@ -350,7 +350,7 @@
             "longitude": 73.850969
         },
         "category": "dry",
-        "status": "partially filled",
+        "status": "partially_filled",
         "sensorEnabled": true,
         "ward": "Suncity-Hingne Khurd",
         "zone": "NaN",
@@ -486,7 +486,7 @@
             "longitude": 73.998538
         },
         "category": "plastic",
-        "status": "partially filled",
+        "status": "partially_filled",
         "sensorEnabled": true,
         "ward": "Wanawadi",
         "zone": "NaN",
@@ -588,7 +588,7 @@
             "longitude": 73.929456
         },
         "category": "wet",
-        "status": "partially filled",
+        "status": "partially_filled",
         "sensorEnabled": true,
         "ward": "Navi Peth-Parvati",
         "zone": "NaN",
@@ -622,7 +622,7 @@
             "longitude": 73.822745
         },
         "category": "dry",
-        "status": "partially filled",
+        "status": "partially_filled",
         "sensorEnabled": true,
         "ward": "khadakmal Ali-Mahatma Phule Peth",
         "zone": "NaN",
@@ -639,7 +639,7 @@
             "longitude": 73.876838
         },
         "category": "plastic",
-        "status": "partially filled",
+        "status": "partially_filled",
         "sensorEnabled": true,
         "ward": "Lohiya Nagar-Kashewadi",
         "zone": "NaN",
@@ -690,7 +690,7 @@
             "longitude": 73.937326
         },
         "category": "wet",
-        "status": "partially filled",
+        "status": "partially_filled",
         "sensorEnabled": true,
         "ward": "Upper Indra Nagar",
         "zone": "NaN",
