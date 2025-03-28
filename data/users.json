@@ -1,0 +1,205 @@
+[
+  {
+    "name": "Aditya Kulkarni",
+    "email": "aditya.k@example.com",
+    "password": "pass123",
+    "phoneNo": 9876543210,
+    "isAdmin": false,
+    "location": { "type": "Point", "coordinates": [73.920807, 18.671817] },
+    "ward": "Viman Nagar",
+    "zone": "Nagar Road-Wadgaon Sheri"
+  },
+  {
+    "name": "Sneha Patil",
+    "email": "sneha.p@example.com",
+    "password": "pass123",
+    "phoneNo": 9123456789,
+    "isAdmin": false,
+    "location": { "type": "Point", "coordinates": [73.778457, 18.445343] },
+    "ward": "Kharadi-Chandan Nagar",
+    "zone": "Nagar Road-Wadgaon Sheri"
+  },
+  {
+    "name": "Amit Shah",
+    "email": "amit.shah@example.com",
+    "password": "pass123",
+    "phoneNo": 9988776655,
+    "isAdmin": false,
+    "location": { "type": "Point", "coordinates": [73.928211, 18.619066] },
+    "ward": "Wadgaon-Sheri-Kalyani nagar",
+    "zone": "Nagar Road-Wadgaon Sheri"
+  },
+  {
+    "name": "Pooja Verma",
+    "email": "pooja.verma@example.com",
+    "password": "pass123",
+    "phoneNo": 8877665544,
+    "isAdmin": false,
+    "location": { "type": "Point", "coordinates": [73.891836, 18.524301] },
+    "ward": "Kalas-Dhanori",
+    "zone": "Yerwada kalas Dhanori"
+  },
+  {
+    "name": "Rohan Deshmukh",
+    "email": "rohan.deshmukh@example.com",
+    "password": "pass123",
+    "phoneNo": 7766554433,
+    "isAdmin": false,
+    "location": { "type": "Point", "coordinates": [73.803013, 18.52286] },
+    "ward": "Phule Nagar-Nagpur Chwal",
+    "zone": "Nagar Road-Wadgaon Sheri"
+  },
+
+  {
+    "name": "Priyanka Gupta",
+    "email": "priyanka.g@example.com",
+    "password": "pass123",
+    "phoneNo": 8889990001,
+    "isAdmin": false,
+    "location": { "type": "Point", "coordinates": [73.91, 18.67] },
+    "ward": "Viman Nagar",
+    "zone": "Nagar Road-Wadgaon Sheri"
+  },
+  {
+    "name": "Rajesh Nair",
+    "email": "rajesh.nair@example.com",
+    "password": "pass123",
+    "phoneNo": 8112233445,
+    "isAdmin": false,
+    "location": { "type": "Point", "coordinates": [73.778457, 18.445343] },
+    "ward": "Kharadi-Chandan Nagar",
+    "zone": "Nagar Road-Wadgaon Sheri"
+  },
+  {
+    "name": "Simran Kaur",
+    "email": "simran.kaur@example.com",
+    "password": "pass123",
+    "phoneNo": 9098765432,
+    "isAdmin": false,
+    "location": { "type": "Point", "coordinates": [73.928211, 18.619066] },
+    "ward": "Wadgaon-Sheri-Kalyani nagar",
+    "zone": "Nagar Road-Wadgaon Sheri"
+  },
+  {
+    "name": "Vikram Singh",
+    "email": "vikram.singh@example.com",
+    "password": "pass123",
+    "phoneNo": 9192939495,
+    "isAdmin": false,
+    "location": { "type": "Point", "coordinates": [73.891836, 18.524301] },
+    "ward": "Kalas-Dhanori",
+    "zone": "Yerwada kalas Dhanori"
+  },
+  {
+    "name": "Anaya Rao",
+    "email": "anaya.rao@example.com",
+    "password": "pass123",
+    "phoneNo": 9798990001,
+    "isAdmin": false,
+    "location": { "type": "Point", "coordinates": [73.803013, 18.52286] },
+    "ward": "Phule Nagar-Nagpur Chwal",
+    "zone": "Nagar Road-Wadgaon Sheri"
+  },
+
+  {
+    "name": "Kunal Joshi",
+    "email": "kunal.joshi@example.com",
+    "password": "pass123",
+    "phoneNo": 7000011122,
+    "isAdmin": false,
+    "location": { "type": "Point", "coordinates": [73.920807, 18.671817] },
+    "ward": "Viman Nagar",
+    "zone": "Nagar Road-Wadgaon Sheri"
+  },
+  {
+    "name": "Aisha Khan",
+    "email": "aisha.khan@example.com",
+    "password": "pass123",
+    "phoneNo": 7999988881,
+    "isAdmin": false,
+    "location": { "type": "Point", "coordinates": [73.778457, 18.445343] },
+    "ward": "Kharadi-Chandan Nagar",
+    "zone": "Nagar Road-Wadgaon Sheri"
+  },
+  {
+    "name": "Kabir Mehta",
+    "email": "kabir.mehta@example.com",
+    "password": "pass123",
+    "phoneNo": 7222333444,
+    "isAdmin": false,
+    "location": { "type": "Point", "coordinates": [73.928211, 18.619066] },
+    "ward": "Wadgaon-Sheri-Kalyani nagar",
+    "zone": "Nagar Road-Wadgaon Sheri"
+  },
+  {
+    "name": "Meera Iyer",
+    "email": "meera.iyer@example.com",
+    "password": "pass123",
+    "phoneNo": 7445566777,
+    "isAdmin": false,
+    "location": { "type": "Point", "coordinates": [73.891836, 18.524301] },
+    "ward": "Kalas-Dhanori",
+    "zone": "Yerwada kalas Dhanori"
+  },
+  {
+    "name": "Aryan Desai",
+    "email": "aryan.desai@example.com",
+    "password": "pass123",
+    "phoneNo": 7667788999,
+    "isAdmin": false,
+    "location": { "type": "Point", "coordinates": [73.803013, 18.52286] },
+    "ward": "Phule Nagar-Nagpur Chwal",
+    "zone": "Nagar Road-Wadgaon Sheri"
+  },
+
+  {
+    "name": "Nidhi Rao",
+    "email": "nidhi.rao@example.com",
+    "password": "pass123",
+    "phoneNo": 7556677889,
+    "isAdmin": false,
+    "location": { "type": "Point", "coordinates": [73.920807, 18.671817] },
+    "ward": "Viman Nagar",
+    "zone": "Nagar Road-Wadgaon Sheri"
+  },
+  {
+    "name": "Rahul Verma",
+    "email": "rahul.verma@example.com",
+    "password": "pass123",
+    "phoneNo": 8112244555,
+    "isAdmin": false,
+    "location": { "type": "Point", "coordinates": [73.778457, 18.445343] },
+    "ward": "Kharadi-Chandan Nagar",
+    "zone": "Nagar Road-Wadgaon Sheri"
+  },
+  {
+    "name": "Neha Jain",
+    "email": "neha.jain@example.com",
+    "password": "pass123",
+    "phoneNo": 9223344556,
+    "isAdmin": false,
+    "location": { "type": "Point", "coordinates": [73.928211, 18.619066] },
+    "ward": "Wadgaon-Sheri-Kalyani nagar",
+    "zone": "Nagar Road-Wadgaon Sheri"
+  },
+  {
+    "name": "Arjun Patil",
+    "email": "arjun.patil@example.com",
+    "password": "pass123",
+    "phoneNo": 8334455667,
+    "isAdmin": false,
+    "location": { "type": "Point", "coordinates": [73.891836, 18.524301] },
+    "ward": "Kalas-Dhanori",
+    "zone": "Yerwada kalas Dhanori"
+  },
+  {
+    "name": "Sanya Roy",
+    "email": "sanya.roy@example.com",
+    "password": "pass123",
+    "phoneNo": 8999988877,
+    "isAdmin": false,
+    "location": { "type": "Point", "coordinates": [73.803013, 18.52286] },
+    "ward": "Phule Nagar-Nagpur Chwal",
+    "zone": "Nagar Road-Wadgaon Sheri"
+  }
+]
