@@ -1,11 +1,17 @@
-import './App.css'
+import './App.css';
+import 'leaflet/dist/leaflet.css';
+import React from 'react';
+import { Route, BrowserRouter as Router, Routes } from "react-router"
+import Main from './pages/Main';
 
 function App() {
 
   return (
-    <>
-      <div>Home</div>
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Main />}></Route>
+      </Routes>
+    </Router>
   )
 }
 
