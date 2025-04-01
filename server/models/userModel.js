@@ -8,20 +8,39 @@ const userSchema = new Schema({
 	},
 	email: {
 		type: String,
-		required: true,
+		required: false,
 	},
 	password: {
 		type: String,
 		required: true,
 	},
-	role: {
-		type: String,
-		default: "user",
+	phoneNo:{
+		type:Number,
+		required: true
 	},
     isAdmin: {
         type:Boolean,
         default: false
-    }
+    },
+	location: {
+        type: {
+            type: String,    // "Point" for GeoJSON
+            enum: ['Point'], 
+            required: true
+        },
+        coordinates: {
+            type: [Number],   // [longitude, latitude]
+            required: true
+        }
+    },
+	ward: {
+		type:String,
+		require:true
+	},
+	zone:{
+		type:String,
+		require:true
+	}
 });
 
 

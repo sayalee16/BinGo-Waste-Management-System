@@ -1,16 +1,19 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import './App.css';
+import 'leaflet/dist/leaflet.css';
+import React from 'react';
+import { Route, BrowserRouter as Router, Routes } from "react-router"
+import Main from './pages/Main';
 import Login from "./components/login";
-import Register from "./components/Register";
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Login />} />
-        {/* <Route path="/registration" element={<Register />} /> */}
+        <Route path="/" element={<Main />}></Route>
+        <Route path="/login" element={<Login />} />
       </Routes>
     </Router>
-  );
+  )
 }
 
 export default App;

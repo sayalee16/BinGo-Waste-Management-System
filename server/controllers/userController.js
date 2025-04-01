@@ -18,11 +18,11 @@ export const register = async (req,res) => {
     
 }
 export const login = async (req, res) => {
-    const { email, password } = req.body;
+    const { phoneNo, password } = req.body;
 
     try {
         // Check if user exists in the DB
-        const user = await User.findOne({ email });
+        const user = await User.findOne({ phoneNo: Number(phoneNo) });
         if (!user) {
             return res.status(400).json({ msg: "User not found" });
         }
