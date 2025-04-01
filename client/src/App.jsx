@@ -2,7 +2,7 @@ import './App.css';
 import 'leaflet/dist/leaflet.css';
 import React from 'react';
 import { Route, BrowserRouter as Router, Routes } from "react-router"
-import Main from './pages/Main';
+import Main from './pages/UserMain';
 
 function App() {
 
