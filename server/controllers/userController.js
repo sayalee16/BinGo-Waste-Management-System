@@ -3,13 +3,13 @@ import User from "../models/userModel.js";
 import jwt from "jsonwebtoken"
 
 export const register = async (req,res) => {
-    const {name, email, password, isAdmin} = req.body;
+    const {name, email, password, isAdmin, location, ward, zone} = req.body;
     // hash password
     const hashPassword = await bcrypt.hash(password, 10);
     // console.log(hashPassword);
     //create new user n save to db
       try {
-        var user = await User.create({ name, email, password: hashPassword ,isAdmin});
+        var user = await User.create({ name, email, password: hashPassword ,isAdmin, location, ward, zone});
 
         res.status(201).json({ user });
       } catch (error) {
