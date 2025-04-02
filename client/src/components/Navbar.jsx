@@ -3,7 +3,7 @@ import React from 'react';
 const Navbar = () => {
     return (
         <>   
-            <div>
+            <div className='item-center flex justify-center'>
                     <img src="BinGo.webp" alt="bingo-logo" width="150vw" height="50vh"/>
             </div>
         </>

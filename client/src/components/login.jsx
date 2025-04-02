@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import UserMainNavigation from './userMainNavigation';
+import AdminMainNavigation from './AdminMainNavigation';
+
+const PORT = 5000; // Set the port for the backend server
 const Login = () => {
   const navigate = useNavigate(); // React Router hook for navigation
 
@@ -75,7 +79,7 @@ const Login = () => {
       const { phone, password } = oldUser; 
   
       try {
-          const res = await fetch("http://localhost:5000/api/users/login", {
+          const res = await fetch(`http://localhost:${PORT}/api/users/login`, {
               method: "POST",
               headers: {
                   "Content-Type": "application/json",

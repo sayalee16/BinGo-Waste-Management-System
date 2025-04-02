@@ -6,10 +6,10 @@ import Main from './pages/UserMain';
 import Schedule from './pages/Schedule';
 import Login from "./components/login"
 import AdminDashboard from './pages/adminDashboard';
-import UserDashboard from './pages/userDashboard';
+// import UserDashboard from './pages/userDashboard';
 import UserMainNavigation from './components/userMainNavigation';
-import AdminMainNavigation from './components/adminMainNavigation';
-import UserReport from './pages/userReport';
+import AdminMainNavigation from './components/AdminMainNavigation';
+import UserReportForm from './pages/userReportForm';
 // const App = () => {
 //   return (
 //     <Router>
@@ -39,7 +39,7 @@ const router = createBrowserRouter([
       },
       {
         path : "userReport", 
-        element: <UserReport/>,
+        element: <UserReportForm/>,
         
       }
     ]
