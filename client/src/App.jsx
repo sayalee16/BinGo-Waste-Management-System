@@ -17,7 +17,7 @@ import AdminMainNavigation from './components/adminMainNavigation';
 //       <Route path="/" element={<Login />} />
 //       <Route path="/adminDashboard" element={<AdminDashboard />} />
 //         <Route path="/userDashboard" element={<UserDashboard />} />
-//         <Route path="/" element={<Main />}></Route
+//         <Route path="/" element={<Main />}></Route>
 //          <Route path="/schedule" element={<Schedule />}></Route>
 //       </Routes>
 //     </Router>
@@ -33,6 +33,10 @@ const router = createBrowserRouter([
     path : "/userMainNavigation", 
     element: <UserMainNavigation/>,
     children:[
+      {
+        path:"/userMainNavigation",
+         element:<Main/>
+      },
       {
         path : "userDashboard", 
         element: <UserDashboard/>,
