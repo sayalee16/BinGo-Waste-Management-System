@@ -6,7 +6,7 @@ export const register = async (req, res) => {
     const { name, email, password, phoneNo, isAdmin, location, ward, zone } = req.body;
 
     // Validate required fields
-    if (!name || !password || !phoneNo || !location || !ward || !zone) {
+    if (!name || !password || !phoneNo) {
         return res.status(400).json({ msg: "All required fields must be provided" });
     }
 

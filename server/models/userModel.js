@@ -8,7 +8,7 @@ const userSchema = new Schema({
 	},
 	email: {
 		type: String,
-		required: false,
+		required: true,
 	},
 	phoneNo:{
 		type:String,
@@ -27,20 +27,19 @@ const userSchema = new Schema({
         type: {
             type: String,    // "Point" for GeoJSON
             enum: ['Point'], 
-            required: true
-        },
+            required: false        },
         coordinates: {
             type: [Number],   // [longitude, latitude]
-            required: true
+            required: false
         }
     },
 	ward: {
 		type:String,
-		require:true
+		require:false
 	},
 	zone:{
 		type:String,
-		require:true
+		require:false
 	}
 });
 
