@@ -20,9 +20,9 @@ router.post("/create-report", authenticateUser, createReport);
 
 
 //update report
-router.put("/:id", authenticateUser, updateReport); 
+router.put("update-report/:id", authenticateUser, updateReport); 
 
 //delete report
-router.delete("/:id", authenticateUser, deleteReport); 
+router.delete("delete-report/:id", authenticateUser, deleteReport); 
 
 export default router;
