@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import Navbar from "../components/Navbar";
+import WCNavbar from "../components/WasteCollectorNavbar";
 
 const Schedule = () => {
   const [predictions, setPredictions] = useState([]);
@@ -51,56 +53,60 @@ const Schedule = () => {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Waste Bin Schedule Predictions</h1>
-
-      {/* Display all predictions */}
-      <h2>All Predictions</h2>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <table border="1" style={{ width: "100%", textAlign: "left" }}>
-        <thead>
-          <tr>
-            <th>Bin ID</th>
-            <th>Predicted Approximate Time (hrs)</th>
-            <th>Predicted Emptying DateTime</th>
-          </tr>
-        </thead>
-        <tbody>
-          {predictions.map((item) => (
-            <tr key={item._id}>
-              <td>{item._id}</td>
-              <td>{item.predictedApproxTime}</td>
-              <td>{item.predictedEmptyingDateTime}</td>
+    <>
+    <WCNavbar/>
+    <div className="p-6 mt-3 max-w-4xl mx-auto bg-white shadow-lg rounded-2xl">
+      
+      <h1 className="text-2xl font-bold text-center mb-6">Waste Bin Schedule Predictions</h1>
+      
+      {error && <p className="text-red-500 text-center">{error}</p>}
+      
+      <div className="overflow-x-auto">
+        <table className="w-full border-collapse border border-gray-300">
+          <thead>
+            <tr className="bg-gray-200">
+              <th className="border border-gray-300 px-4 py-2">Bin ID</th>
+              <th className="border border-gray-300 px-4 py-2">Ward</th>
+              <th className="border border-gray-300 px-4 py-2">Predicted Approx. Time (hrs)</th>
+              <th className="border border-gray-300 px-4 py-2">Predicted Emptying DateTime</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-
-      {/* Form to fetch a single prediction */}
-      <h2>Get Prediction for a Specific Bin</h2>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Query Index:
-          <input
-            type="number"
-            value={queryIndex}
-            onChange={(e) => setQueryIndex(e.target.value)}
-            required
-          />
-        </label>
-        <button type="submit">Get Prediction</button>
-      </form>
-
-      {/* Display single prediction */}
-      {singlePrediction && (
-        <div style={{ marginTop: "20px" }}>
-          <h3>Single Prediction</h3>
+          </thead>
+          <tbody>
+            {predictions.map((item) => (
+              <tr key={item._id} className="even:bg-gray-100">
+                <td className="border border-gray-300 px-4 py-2">{item._id}</td>
+                <td className="border border-gray-300 px-4 py-2">{item.ward}</td>
+                <td className="border border-gray-300 px-4 py-2">{item.predictedApproxTime}</td>
+                <td className="border border-gray-300 px-4 py-2">{item.predictedEmptyingDateTime}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      
+      {/* <h2 className="text-xl font-semibold mt-6 mb-4">Get Prediction for a Specific Bin</h2>
+      <form onSubmit={handleSubmit} className="flex flex-col md:flex-row items-center gap-4">
+        <label className="font-medium">Query Index:</label>
+        <input
+          type="number"
+          value={queryIndex}
+          onChange={(e) => setQueryIndex(e.target.value)}
+          required
+          className="p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+        />
+        <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Get Prediction</button>
+      </form> */}
+      
+      {/* {singlePrediction && (
+        <div className="mt-6 p-4 bg-gray-100 rounded-lg shadow">
+          <h3 className="text-lg font-semibold">Single Prediction</h3>
           <p><strong>Bin ID:</strong> {singlePrediction["Bin ID"]}</p>
           <p><strong>Predicted Approximate Time:</strong> {singlePrediction["Predicted Approximate Time"]}</p>
           <p><strong>Predicted Emptying DateTime:</strong> {singlePrediction["Predicted Emptying DateTime"]}</p>
         </div>
-      )}
+      )} */}
     </div>
+    </>
   );
 };
 

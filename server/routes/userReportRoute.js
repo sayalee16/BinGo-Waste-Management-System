@@ -1,5 +1,5 @@
 import express from "express";
-
+import { authenticateUser } from "../middleware/auth.js"; 
 const router = express.Router();
 import { 
   getAllReports, 
@@ -9,19 +9,20 @@ import {
   deleteReport 
 } from "../controllers/userReportController.js";
 //get all report
-router.get("/reports", getAllReports); 
+
+router.get("/reports", authenticateUser, getAllReports); 
 
 //get report by id
-router.get("/get-report/:id", getReportById); 
+router.get("/get-report/:id", authenticateUser, getReportById); 
 
 //create report
-router.post("/create-report", createReport); 
+router.post("/create-report", authenticateUser, createReport); 
 
 
 //update report
-router.put("/:id", updateReport); 
+router.put("/:id", authenticateUser, updateReport); 
 
 //delete report
-router.delete("/:id", deleteReport); 
+router.delete("/:id", authenticateUser, deleteReport); 
 
 export default router;
