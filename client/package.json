@@ -12,7 +12,6 @@
   "dependencies": {
     "@tailwindcss/vite": "^4.0.17",
     "leaflet": "^1.9.4",
-    "leaflet": "^1.9.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-geocode": "^2.0.1",

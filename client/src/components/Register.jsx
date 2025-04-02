@@ -11,26 +11,7 @@ const Register = () => {
     const [error, setError] = useState("");
     const [loggedIn, setLoggedIn] = useState(false);
     useEffect(() => {
-        if (!navigator.geolocation) {
-            setError("Geolocation is not supported by your browser.");
-            return;
-        }
-
-        const watchId = navigator.geolocation.watchPosition(
-            (position) => {
-                setLocation({
-                    latitude: position.coords.latitude,
-                    longitude: position.coords.longitude,
-                });
-                setError(""); // Clear any previous errors
-            },
-            (err) => {
-                setError("Permission denied or error getting location.");
-                console.error("Error getting location:", err);
-            }
-        );
-
-        return () => navigator.geolocation.clearWatch(watchId);
+        
     }, []);
     const handleLogin = () => {
         if (!/^[0-9]{10}$/.test(phone)) {

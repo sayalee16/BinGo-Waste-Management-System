@@ -14,9 +14,14 @@ app.get("/", (req, res) => {
 	res.send("Hello World");
 });
 
-app.use("/api/user", userRoutes);
+app.use("/api/users", userRoutes);
 
 connectDB();
+app._router.stack.forEach((r) => {
+    if (r.route && r.route.path) {
+        console.log(r.route.path);
+    }
+});
 
 app.listen(port, () => {
 	console.log(`Server is running on port ${port}`);

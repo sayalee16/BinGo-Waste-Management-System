@@ -10,14 +10,15 @@ const userSchema = new Schema({
 		type: String,
 		required: false,
 	},
+	phoneNo:{
+		type:String,
+		required: true
+	},
 	password: {
 		type: String,
 		required: true,
 	},
-	phoneNo:{
-		type:Number,
-		required: true
-	},
+	
     isAdmin: {
         type:Boolean,
         default: false

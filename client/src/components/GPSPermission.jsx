@@ -25,7 +25,7 @@ const GetUserLocation = () => {
 
     return (
         <div className="p-4">
-            {/* <button className="bg-blue-500 text-white px-4 py-2 rounded-lg" onClick={getLocation}>
+            <button className="bg-blue-500 text-white px-4 py-2 rounded-lg" onClick={getLocation}>
                 Get My Location 📍
             </button>
 
@@ -33,7 +33,7 @@ const GetUserLocation = () => {
                 <p className="mt-3 text-gray-700">
                     📍 Latitude: {location.latitude}, Longitude: {location.longitude}
                 </p>
-            )} */}
+            )}
 
             {error && <p className="text-red-500">{error}</p>}
         </div>

@@ -1,22 +1,27 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import GetUserLocation from "./GPSPermission";
 
 const Login = () => {
   //for toggle animation
   const [isSignIn, setIsSignIn] = useState(true);
 
   //login fields
-  const [loginPhone, setLoginPhone] = useState("");
-  const [loginPassword, setLoginPassword] = useState("");
+  const [oldUser, setOldUser] = useState({
+    phone : "",
+    password : "",
+  });
+
   const [loggedIn, setLoggedIn] = useState(false);
-  
-  //registration fields
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
   const [location, setLocation] = useState(null);
-  const [password, setPassword] = useState("");
+
+  //registration fields
+  const [newUser, setNewUser] = useState({
+    name : "",
+    phone : "",
+    password : "",
+    email : "",
+  });
+
   const [error, setError] = useState("");
   const [registerdIn, setRegisteredIn] = useState(false);
 
@@ -41,46 +46,127 @@ const Login = () => {
                   // console.error("Error getting location:", err);
               }
           );
-  
+          
           return () => navigator.geolocation.clearWatch(watchId);
       }, []);
 
-  const handleLogin = () => {
-    if (!/^[0-9]{10}$/.test(loginPhone)) {
+      useEffect(() => {
+        if (location) {
+            console.log("Updated location:", location);
+        }
+    }, [location]); 
+
+  const onHandleLogin = async(e) => {
+    e.preventDefault(); // Prevents form from reloading the page
+    if (!/^[0-9]{10}$/.test(oldUser.phone)) {
       setError("Enter a valid 10-digit phone number");
       return;
     }
     
-    if (loginPassword.trim() === "") {
+    if (oldUser.password.trim() === "") {
       setError("Password cannot be empty");
       return;
     }
-    if (loginPassword.length < 8) {
+    if (oldUser.password.length < 8) {
       setError("Password must be at least 8 characters");
       return;
     }
+    //destucturing
+    const {phone, password} = oldUser;
+    if(phone && password){
+        let endpoint = "login";
+        // try {
+        //     const res = await fetch(`http://localhost:5000/${endpoint}`, {phone, password})
+        // localStorage.setItem("token", res.data.token);
+        // localStorage.setItem("user", JSON.stringify(res.data.user));
+        // } catch (error) { setError(error.response?.data?.error);
+        // }
+        const res = await fetch(`http://localhost:5000/api/users/login`, 
+          {phone, password},
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              phone,
+              password,
+          })
+          }
+  
+        );
+        if (res) {
+          setOldUser({
+            phone: "",
+            password: ""
+            
+        })
+        console.log(res);
+        alert("DATA STORED");
+    }
+  }
+    
+
     setError("");
     setLoggedIn(true);
   };
 
-  const handleSubmit = () => {
-    if (!/^[0-9]{10}$/.test(phone)) {
+  const onHandleSignIn = async() => {
+    if (!/^[0-9]{10}$/.test(newUser.phone)) {
       setError("Enter a valid 10-digit phone number");
       return;
     }
     
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(newUser.email)) {
       setError("Enter a valid email address");
       return;
     }
-    if (password.trim() === "") {
+    if (newUser.password.trim() === "") {
       setError("Password cannot be empty");
       return;
     }
-    if (password.length < 8) {
+    if (newUser.password.length < 8) {
       setError("Password must be at least 8 characters");
       return;
     }
+
+    const {name, phone, email, password} = newUser;
+    if(name && phone && email && password){
+        // try {
+        //     const res = await fetch(`http://localhost:5000/${endpoint}`, {phone, password})
+        // localStorage.setItem("token", res.data.token);
+        // localStorage.setItem("user", JSON.stringify(res.data.user));
+        // } catch (error) { setError(error.response?.data?.error);
+        // }
+        const res = await fetch(`http://localhost:5000/api/users/register`, 
+          {name, phone, email, password},
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              name,
+              phone,
+              email,
+              password,
+          })
+          }
+  
+        );
+        if (res) {
+          setNewUser({
+            name:"",
+            phone: "",
+            email:"",
+            password: ""
+            
+        })
+        console.log(res);
+        alert("DATA STORED");
+    }
+  }
+    
     setError("");
     setRegisteredIn(true);
   };
@@ -110,22 +196,22 @@ const Login = () => {
               <input 
                 type="tel" 
                 placeholder="Enter Phone Number" 
-                value={loginPhone} 
-                onChange={(e) => setLoginPhone(e.target.value)} 
+                value={oldUser.phone} 
+                onChange={(e) => setOldUser({ ...oldUser, phone: e.target.value })} 
                 className="w-full p-3 mb-3 border rounded-lg"
                 required  
               />
               <input 
                 type="password" 
                 placeholder="Enter Password" 
-                value={loginPassword} 
-                onChange={(e) => setLoginPassword(e.target.value)} 
+                value={oldUser.password} 
+                onChange={(e) => setOldUser({ ...oldUser, password: e.target.value })} 
                 className="w-full p-3 mb-3 border rounded-lg"
                 required
                 />
             
               {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
-              <button onClick={handleLogin} className="w-full p-3 bg-[#4EA685] text-white rounded-lg">Login</button>
+              <button onClick={onHandleLogin} className="w-full p-3 bg-[#4EA685] text-white rounded-lg">Login</button>
               <p className="text-center mt-3">Don't have an account? <span onClick={toggleForm} className="text-blue-500 cursor-pointer">Sign up</span></p>
             </div>
           </div>
@@ -140,32 +226,32 @@ const Login = () => {
               <input 
                 type="text" 
                 placeholder="Enter Name" 
-                value={name} 
-                onChange={(e) => setName(e.target.value)} 
+                value={newUser.name} 
+                onChange={(e) => setNewUser({ ...newUser, name: e.target.value })} 
                 className="w-full p-3 mb-3 border rounded-lg" 
                 required />
               <input 
                 type="tel" 
                 placeholder="Enter Phone Number" 
-                value={phone} 
-                onChange={(e) => setPhone(e.target.value)} 
+                value={newUser.phone} 
+                onChange={(e) => setNewUser({ ...newUser, phone: e.target.value })} 
                 className="w-full p-3 mb-3 border rounded-lg" 
                 required />
               <input 
                 type="email" 
                 placeholder="Enter Email" 
-                value={email} 
-                onChange={(e) => setEmail(e.target.value)} 
+                value={newUser.email} 
+                onChange={(e) => setNewUser({ ...newUser, email: e.target.value })} 
                 className="w-full p-3 mb-3 border rounded-lg" />
               <input 
                 type="password" 
                 placeholder="Enter Password" 
-                value={password} 
-                onChange={(e) => setPassword(e.target.value)} 
+                value={newUser.password} 
+                onChange={(e) => setNewUser({ ...newUser, password: e.target.value })} 
                 className="w-full p-3 mb-3 border rounded-lg" 
                 required />
               {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
-              <button onClick={handleSubmit} className="w-full p-3 bg-[#4EA685] text-white rounded-lg">Register</button>
+              <button onClick={onHandleSignIn} className="w-full p-3 bg-[#4EA685] text-white rounded-lg">Register</button>
 
               <p className="text-center mt-3">Already have an account? <span onClick={toggleForm} className="text-blue-500 cursor-pointer">Sign in</span></p>
           </div>
