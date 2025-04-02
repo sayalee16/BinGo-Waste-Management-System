@@ -3,10 +3,11 @@ import User from "../models/userModel.js";
 import jwt from "jsonwebtoken";
 
 export const register = async (req, res) => {
-    const { name, email, password, phoneNo, isAdmin, location, ward, zone } = req.body;
+    const { name, email, password, phoneNo, isAdmin = false, location, ward, zone } = req.body;
+
 
     // Validate required fields
-    if (!name || !password || !phoneNo ) {
+    if (!name || !password || !phoneNo) {
         return res.status(400).json({ msg: "All required fields must be provided" });
     }
 
@@ -42,7 +43,7 @@ export const login = async (req, res) => {
 
     try {
         // Check if user exists in the database
-        const user = await User.findOne({ phoneNo: phoneNo });
+        const user = await User.findOne({ phoneNo: Number(phoneNo) });
         if (!user) {
             return res.status(400).json({ msg: "User not found" });
         }
