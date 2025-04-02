@@ -82,7 +82,7 @@ const Login = () => {
               },
               body: JSON.stringify({ 
                 phoneNo: phone,  // Change "phone" to "phoneNo" to match backend
-                password,
+                password: password
               }),
           });
   
@@ -102,7 +102,7 @@ const Login = () => {
           setOldUser({ phone: "", password: "" });
           setError("");
           setLoggedIn(true);
-          // alert("Login successful!");
+          alert("Login successful!");
 
           if (data.user.isAdmin) {
             navigate("/adminMainNavigation"); // Redirect to admin Main page

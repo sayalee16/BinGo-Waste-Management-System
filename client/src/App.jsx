@@ -9,7 +9,7 @@ import AdminDashboard from './pages/adminDashboard';
 import UserDashboard from './pages/userDashboard';
 import UserMainNavigation from './components/userMainNavigation';
 import AdminMainNavigation from './components/adminMainNavigation';
-
+import UserReport from './pages/userReport';
 // const App = () => {
 //   return (
 //     <Router>
@@ -38,13 +38,8 @@ const router = createBrowserRouter([
          element:<Main/>
       },
       {
-        path : "userDashboard", 
-        element: <UserDashboard/>,
-        // loader:getAllRecipes
-      },
-      {
-        path : "report", 
-        element: <userReport/>,
+        path : "userReport", 
+        element: <UserReport/>,
         
       }
     ]
