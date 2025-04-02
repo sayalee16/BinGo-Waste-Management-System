@@ -12,11 +12,6 @@ const userReportSchema = new Schema({
         ref: "User",  
         required: true
     },
-
-
-
-
-    
     status: {
         type: String,
         enum: ["full", "damaged", "needs maintenance", "partially filled"],
@@ -26,9 +21,6 @@ const userReportSchema = new Schema({
         type: String,  
         required: true
     },
-
-
-
     description: {
         type: String,  
         required: false  

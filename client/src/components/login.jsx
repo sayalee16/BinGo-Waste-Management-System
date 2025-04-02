@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
 const Login = () => {
+  const navigate = useNavigate(); // React Router hook for navigation
+
   //for toggle animation
   const [isSignIn, setIsSignIn] = useState(true);
 
@@ -56,120 +58,127 @@ const Login = () => {
         }
     }, [location]); 
 
-  const onHandleLogin = async(e) => {
-    e.preventDefault(); // Prevents form from reloading the page
-    if (!/^[0-9]{10}$/.test(oldUser.phone)) {
-      setError("Enter a valid 10-digit phone number");
-      return;
-    }
-    
-    if (oldUser.password.trim() === "") {
-      setError("Password cannot be empty");
-      return;
-    }
-    if (oldUser.password.length < 8) {
-      setError("Password must be at least 8 characters");
-      return;
-    }
-    //destucturing
-    const {phone, password} = oldUser;
-    if(phone && password){
-        let endpoint = "login";
-        // try {
-        //     const res = await fetch(`http://localhost:5000/${endpoint}`, {phone, password})
-        // localStorage.setItem("token", res.data.token);
-        // localStorage.setItem("user", JSON.stringify(res.data.user));
-        // } catch (error) { setError(error.response?.data?.error);
-        // }
-        const res = await fetch(`http://localhost:5000/api/users/login`, 
-          {phone, password},
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              phone,
-              password,
-          })
+    const onHandleLogin = async (e) => {
+      e.preventDefault();
+      // Validate phone
+      if (!/^[0-9]{10}$/.test(oldUser.phone)) {
+        setError("Enter a valid 10-digit phone number");
+        return;
+      }
+      
+      // Validate password
+      if (oldUser.password.length < 8) {
+        setError("Password must be at least 8 characters");
+        return;
+      }
+  
+      const { phone, password } = oldUser; 
+  
+      try {
+          const res = await fetch("http://localhost:5000/api/users/login", {
+              method: "POST",
+              headers: {
+                  "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ 
+                phoneNo: phone,  // Change "phone" to "phoneNo" to match backend
+                password,
+              }),
+          });
+  
+          const data = await res.json(); // Convert response to JSON
+          console.log("Server Response:", data); // Debugging
+  
+          if (!res.ok) {
+              setError(data.msg || "Invalid credentials"); // Show error from backend
+              return;
           }
   
-        );
-        if (res) {
-          setOldUser({
-            phone: "",
-            password: ""
-            
-        })
-        console.log(res);
-        alert("DATA STORED");
-    }
-  }
-    
+          // Store token and user data
+          localStorage.setItem("token", data.token);
+          localStorage.setItem("user", JSON.stringify(data.user));
+  
+          // Clear state and show success message
+          setOldUser({ phone: "", password: "" });
+          setError("");
+          setLoggedIn(true);
+          // alert("Login successful!");
 
-    setError("");
-    setLoggedIn(true);
+          if (data.user.isAdmin) {
+            navigate("/adminMainNavigation"); // Redirect to admin Main page
+          } else {
+            navigate("/userMainNavigation"); // Redirect to user Main page
+          }
+      } catch (error) {
+          console.error("Login error:", error);
+          setError("Something went wrong. Please try again.");
+      }
   };
+  
 
-  const onHandleSignIn = async() => {
+  const onHandleSignIn = async () => {
     if (!/^[0-9]{10}$/.test(newUser.phone)) {
-      setError("Enter a valid 10-digit phone number");
-      return;
+        setError("Enter a valid 10-digit phone number");
+        return;
     }
     
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(newUser.email)) {
-      setError("Enter a valid email address");
-      return;
+        setError("Enter a valid email address");
+        return;
     }
-    if (newUser.password.trim() === "") {
-      setError("Password cannot be empty");
-      return;
-    }
+    
     if (newUser.password.length < 8) {
-      setError("Password must be at least 8 characters");
-      return;
+        setError("Password must be at least 8 characters");
+        return;
+    }
+    
+    if (!location) {
+        setError("Location not available. Please enable location services.");
+        return;
     }
 
-    const {name, phone, email, password} = newUser;
-    if(name && phone && email && password){
-        // try {
-        //     const res = await fetch(`http://localhost:5000/${endpoint}`, {phone, password})
-        // localStorage.setItem("token", res.data.token);
-        // localStorage.setItem("user", JSON.stringify(res.data.user));
-        // } catch (error) { setError(error.response?.data?.error);
-        // }
-        const res = await fetch(`http://localhost:5000/api/users/register`, 
-          {name, phone, email, password},
-          {
+    const { name, phone, email, password } = newUser;
+    const userLocation = {
+        type: "Point",
+        coordinates: [location.longitude, location.latitude], // Ensure location exists
+    };
+
+    try {
+        const res = await fetch("http://localhost:5000/api/users/register", {
             method: "POST",
             headers: {
-              "Content-Type": "application/json",
+                "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              name,
-              phone,
-              email,
-              password,
-          })
-          }
-  
-        );
-        if (res) {
-          setNewUser({
-            name:"",
-            phone: "",
-            email:"",
-            password: ""
-            
-        })
-        console.log(res);
-        alert("DATA STORED");
+              name: newUser.name.trim(),
+              phoneNo: newUser.phone.trim(),  // Ensure this matches the backend field
+              email: newUser.email.trim(),
+              password: newUser.password,
+                isAdmin: false,
+                location: userLocation,
+                ward: "xyz ward",
+                zone: "xyz zone",
+            }),
+        });
+
+        const data = await res.json();
+        console.log("Register Response:", data); // Debugging
+
+        if (!res.ok) {
+            setError(data.msg || "Failed to register user");
+            return;
+        }
+
+        // Clear form & show success
+        setNewUser({ name: "", phone: "", email: "", password: "" });
+        setError("");
+        setRegisteredIn(true);
+        alert("Registration successful!");
+    } catch (error) {
+        console.error("Registration error:", error);
+        setError("Something went wrong. Please try again.");
     }
-  }
-    
-    setError("");
-    setRegisteredIn(true);
-  };
+};
 
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gray-100">

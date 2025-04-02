@@ -35,7 +35,7 @@ const wasteBinSchema = new Schema({
     binType: {
         type: String,
         enum: ["public", "residential", "industrial"],
-        required: true
+        required: false
     },
     category: {
         type: String,

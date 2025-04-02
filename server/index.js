@@ -3,6 +3,9 @@ import dotenv from "dotenv";
 import cors from "cors";
 import connectDB from "./config/connectDB.js";
 import userRoutes from "./routes/userRoute.js"
+import wasteBinRoutes from "./routes/wasteBinRoute.js";
+import userReportRoutes from "./routes/userReportRoute.js"
+
 
 dotenv.config();
 const app = express();
@@ -14,7 +17,9 @@ app.get("/", (req, res) => {
 	res.send("Hello World");
 });
 
-app.use("/api/users", userRoutes);
+app.use("/api/user", userRoutes);
+app.use("/api/wastebin",wasteBinRoutes);
+app.use("/api/userreport",userReportRoutes);
 
 connectDB();
 app._router.stack.forEach((r) => {
