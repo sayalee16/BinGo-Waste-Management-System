@@ -61,7 +61,7 @@ def schedule():
             })
 
         # For GET requests, return all predictions
-        rec = data[['_id', 'predictedApproxTime', 'predictedEmptyingDateTime']].to_dict(orient='records')
+        rec = data[['_id', 'predictedApproxTime', 'predictedEmptyingDateTime','ward']].to_dict(orient='records')
         return jsonify({"rec": rec}), 200
 
     except Exception as e:

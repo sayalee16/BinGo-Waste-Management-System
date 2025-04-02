@@ -75,7 +75,7 @@ const Login = () => {
       const { phone, password } = oldUser; 
   
       try {
-          const res = await fetch("http://localhost:5000/api/users/login", {
+          const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/users/login`, {
               method: "POST",
               headers: {
                   "Content-Type": "application/json",
@@ -144,7 +144,7 @@ const Login = () => {
     };
 
     try {
-        const res = await fetch("http://localhost:5000/api/users/register", {
+        const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/users/register`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

@@ -45,6 +45,21 @@ const router = createBrowserRouter([
     ]
   },
   {
+    path : "/schedule", 
+    element: <Schedule/>,
+    children:[
+      {
+        path:"/schedule",
+         element:<Main/>
+      },
+      {
+        path : "userReport", 
+        element: <Schedule/>,
+        
+      }
+    ]
+  },
+  {
     path: "/adminMainNavigation",
     element: <AdminMainNavigation/>,
     children:[

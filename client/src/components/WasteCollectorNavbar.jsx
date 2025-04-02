@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Navbar = () => {
+const WCNavbar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
 
     return (
@@ -9,14 +9,14 @@ const Navbar = () => {
                 {/* Logo */}
                 <div className="flex items-center">
                     <img src="BinGo.webp" alt="bingo-logo" className="h-6 mr-3" />
-                    <h1 className="text-white text-2xl font-semibold">User Dashboard</h1>
+                    <h1 className="text-white text-2xl font-semibold">Waste Collector Dashboard</h1>
                 </div>
 
                 {/* Navigation Links */}
                 <div className="hidden md:flex space-x-6">
-                    <a href="/" className="text-white text-lg hover:text-green-200 transition duration-300">Home</a>
-                    <a href="/report" className="text-white text-lg hover:text-green-200 transition duration-300">Report</a>
-                    <a href="/user-profile" className="text-white text-lg hover:text-green-200 transition duration-300">Profile</a>
+                    <a href="/reports-wc" className="text-white text-lg hover:text-green-200 transition duration-300">Reports</a>
+                    <a href="/schedule" className="text-white text-lg hover:text-green-200 transition duration-300">Schedule</a>
+                    <a href="/wc-profile" className="text-white text-lg hover:text-green-200 transition duration-300">Profile</a>
                 </div>
 
                 {/* Mobile Menu Button */}
@@ -32,13 +32,13 @@ const Navbar = () => {
             {/* Mobile Menu */}
             {menuOpen && (
                 <div className="md:hidden bg-green-400 py-2 space-y-2">
-                    <a href="/" className="block text-white text-center py-2 hover:bg-green-300">Home</a>
+                    <a href="/reports-wc" className="block text-white text-center py-2 hover:bg-green-300">Reports</a>
                     <a href="/schedule" className="block text-white text-center py-2 hover:bg-green-300">Schedule</a>
-                    <a href="/user-profile" className="block text-white text-center py-2 hover:bg-green-300">Profile</a>
+                    <a href="/wc-profile" className="block text-white text-center py-2 hover:bg-green-300">Profile</a>
                 </div>
             )}
         </nav>
     );
 };
 
-export default Navbar;
+export default WCNavbar;
