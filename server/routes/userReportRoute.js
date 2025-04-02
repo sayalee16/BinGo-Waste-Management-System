@@ -8,20 +8,21 @@ import {
   updateReport, 
   deleteReport 
 } from "../controllers/userReportController.js";
+const authenticateUser = require('../middlewares/auth');
 //get all report
-router.get("/reports", getAllReports); 
+router.get("/reports",  authenticateUser,getAllReports); 
 
 //get report by id
-router.get("/get-report/:id", getReportById); 
+router.get("/get-report/:id", authenticateUser,getReportById); 
 
 //create report
-router.post("/create-report", createReport); 
+router.post("/create-report", authenticateUser,createReport); 
 
 
 //update report
-router.put("/:id", updateReport); 
+router.put("/:id", authenticateUser,updateReport); 
 
 //delete report
-router.delete("/:id", deleteReport); 
+router.delete("/:id", authenticateUser,deleteReport); 
 
 export default router;

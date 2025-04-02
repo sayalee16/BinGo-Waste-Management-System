@@ -10,6 +10,7 @@ import UserDashboard from './pages/userDashboard';
 import UserMainNavigation from './components/userMainNavigation';
 import AdminMainNavigation from './components/adminMainNavigation';
 import UserReport from './pages/userReport';
+import WCReports from './pages/WCReports';
 // const App = () => {
 //   return (
 //     <Router>
@@ -27,51 +28,61 @@ import UserReport from './pages/userReport';
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Login/>,
+    element: <Login />,
   },
   {
-    path : "/userMainNavigation", 
-    element: <UserMainNavigation/>,
-    children:[
+    path: "/wc-dashboard",
+    
+    children: [
       {
-        path:"/userMainNavigation",
-         element:<Main/>
+        path: "wc-reports", // Relative path for reports
+        element: <WCReports />,
       },
       {
-        path : "userReport", 
-        element: <UserReport/>,
-        
-      }
-    ]
+        path: "schedule", // Relative path for schedule
+        element: <Schedule />,
+      },
+    ],
   },
   {
-    path : "/schedule", 
-    element: <Schedule/>,
-    children:[
+    path: "/userMainNavigation",
+    element: <UserMainNavigation />,
+    children: [
       {
-        path:"/schedule",
-         element:<Main/>
+        path: "", // Default child route (relative path)
+        element: <Main />,
       },
       {
-        path : "userReport", 
-        element: <Schedule/>,
-        
-      }
-    ]
+        path: "userReport", // Relative path
+        element: <UserReport />,
+      },
+    ],
+  },
+  {
+    path: "/wc-dashboard",
+    element: <Schedule />,
+    children: [
+      {
+        path: "", // Default child route (relative path)
+        element: <Main />,
+      },
+      {
+        path: "userReport", // Relative path
+        element: <Schedule />,
+      },
+    ],
   },
   {
     path: "/adminMainNavigation",
-    element: <AdminMainNavigation/>,
-    children:[
+    element: <AdminMainNavigation />,
+    children: [
       {
-        path : "adminDashboard",  
-        element: <AdminDashboard/>,
-      }
-    ]
-
-  }
-  
-])
+        path: "adminDashboard", // Relative path
+        element: <AdminDashboard />,
+      },
+    ],
+  },
+]);
 
 
 const App = () => {
