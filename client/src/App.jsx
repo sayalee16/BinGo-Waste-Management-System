@@ -1,86 +1,77 @@
 import './App.css';
 import 'leaflet/dist/leaflet.css';
 import React from 'react';
-import {createBrowserRouter, RouterProvider } from "react-router-dom"
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import Main from './pages/UserMain';
 import Schedule from './pages/Schedule';
-import Login from "./components/login"
+import Login from "./components/login";
 import AdminDashboard from './pages/adminDashboard';
-import UserDashboard from './pages/userDashboard';
 import UserMainNavigation from './components/userMainNavigation';
-import AdminMainNavigation from './components/adminMainNavigation';
-import UserReport from './pages/userReport';
-// const App = () => {
-//   return (
-//     <Router>
-//       <Routes>
-//       <Route path="/" element={<Login />} />
-//       <Route path="/adminDashboard" element={<AdminDashboard />} />
-//         <Route path="/userDashboard" element={<UserDashboard />} />
-//         <Route path="/" element={<Main />}></Route>
-//          <Route path="/schedule" element={<Schedule />}></Route>
-//       </Routes>
-//     </Router>
-//   )
-// }
+import WCReports from './pages/WCReports';
+import AdminMainNavigation from './components/AdminMainNavigation';
+import UserReportForm from './pages/userReportForm';
+
+// Layout component for Waste Collector Dashboard
+const WasteCollectorLayout = () => {
+  return (
+    <div>
+      <h1 className="text-center text-2xl font-bold py-4">Waste Collector Dashboard</h1>
+      <Outlet /> {/* Renders child routes */}
+    </div>
+  );
+};
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Login/>,
+    element: <Login />,
   },
   {
-    path : "/userMainNavigation", 
-    element: <UserMainNavigation/>,
-    children:[
+    path: "/wc-dashboard",
+    element: <WasteCollectorLayout />, // Parent component for Waste Collector Dashboard
+    children: [
       {
-        path:"/userMainNavigation",
-         element:<Main/>
+        path: "wc-reports", // Relative path for reports
+        element: <WCReports />,
       },
       {
-        path : "userReport", 
-        element: <UserReport/>,
-        
-      }
-    ]
+        path: "schedule", // Relative path for schedule
+        element: <Schedule />,
+      },
+    ],
   },
   {
-    path : "/schedule", 
-    element: <Schedule/>,
-    children:[
+    path: "/userMainNavigation",
+    element: <UserMainNavigation />,
+    children: [
       {
-        path:"/schedule",
-         element:<Main/>
+        path: "", // Default child route (relative path)
+        element: <Main />,
       },
       {
-        path : "userReport", 
-        element: <Schedule/>,
-        
-      }
-    ]
+        path: "userReportForm", // Relative path for UserReportForm
+        element: <UserReportForm />,
+      },
+    ],
   },
   {
     path: "/adminMainNavigation",
-    element: <AdminMainNavigation/>,
-    children:[
+    element: <AdminMainNavigation />,
+    children: [
       {
-        path : "adminDashboard",  
-        element: <AdminDashboard/>,
-      }
-    ]
-
-  }
-  
-])
-
+        path: "adminDashboard", // Relative path
+        element: <AdminDashboard />,
+      },
+    ],
+  },
+]);
 
 const App = () => {
-  return(
+  return (
     <>
-    <RouterProvider router = {router}></RouterProvider>
+      <RouterProvider router={router}></RouterProvider>
     </>
   );
-}
+};
 
 export default App;
-
