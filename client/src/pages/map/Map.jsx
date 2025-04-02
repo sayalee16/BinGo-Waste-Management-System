@@ -1,7 +1,7 @@
 import {MapContainer, TileLayer, Marker, Popup, useMap} from "react-leaflet";
 import L from "leaflet";
 import { useState , useRef, useEffect} from "react";
-import dusbinData from "./../../../../data/dusbin_information_areas.json"
+import dusbinData from "./../../../../data/waste_bin_data.json"
 
 //dustbin icons
 const icons = {

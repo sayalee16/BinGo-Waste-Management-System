@@ -9,13 +9,13 @@ import {
   deleteReport 
 } from "../controllers/userReportController.js";
 //get all report
-router.get("/", getAllReports); 
+router.get("/reports", getAllReports); 
 
 //get report by id
-router.get("/:id", getReportById); 
+router.get("/get-report/:id", getReportById); 
 
 //create report
-router.post("/", createReport); 
+router.post("/create-report", createReport); 
 
 
 //update report
