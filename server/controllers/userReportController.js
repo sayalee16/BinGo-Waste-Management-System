@@ -1,10 +1,40 @@
 import UserReport from "../models/userReportModel.js";
+import mongoose from "mongoose";
 
 export const createReport = async (req, res) => {
     try {
-        const userReport = new UserReport(req.body);
+        const { bin, user_id, status, attachment, description } = req.body;
+
+        
+        if (!bin || !user_id || !status || !attachment) {
+            return res.status(400).json({ msg: "Missing required fields" });
+        }
+
+       
+
+        const validStatuses = ["full", "damaged", "needs maintenance", "partially filled"];
+        if (!validStatuses.includes(status)) {
+            return res.status(400).json({ 
+                msg: "Invalid status", 
+                validStatuses: validStatuses 
+            });
+        }
+
+        const userReport = new UserReport({
+            bin,
+            user_id,
+            status,
+            attachment,
+            description: description || undefined
+        });
+
         await userReport.save();
-        res.status(201).json({ msg: "User Report created", userReport });
+        res.status(201).json({ 
+            success: true,
+            msg: "Report created successfully",
+            data: userReport 
+        });
+
     } catch (err) {
         res.status(500).json({ msg: "Failed to create user report", err: err.message });
     }
@@ -35,7 +65,14 @@ export const getReportById = async (req, res) => {
 export const updateReport = async (req, res) => {
     try {
         const { id } = req.params;
-        const userReport = await UserReport.findByIdAndUpdate(id, req.body, { new: true });
+        const updateFields = req.body;
+
+        if (updateFields.admin_status) {
+            updateFields.admin_status = updateFields.admin_status; // Ensure correct field is updated
+            delete updateFields.admin_status;
+        }
+
+        const userReport = await UserReport.findByIdAndUpdate(id, updateFields, { new: true });
 
         if (!userReport) {
             return res.status(404).json({ msg: "User report not found" });
@@ -45,6 +82,7 @@ export const updateReport = async (req, res) => {
         res.status(500).json({ msg: "Failed to update user report", err: err.message });
     }
 };
+
 
 export const deleteReport = async (req, res) => {
     try {

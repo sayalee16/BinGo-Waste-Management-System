@@ -24,6 +24,11 @@ const userReportSchema = new Schema({
     description: {
         type: String,  
         required: false  
+    },
+    admin_status: {
+        type: String,
+        enum: ["pending", "approved", "rejected"],
+        default: "pending"
     }
 });  
 
