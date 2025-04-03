@@ -1,5 +1,4 @@
 import UserReport from "../models/userReportModel.js";
-
 export const createReport = async (req, res) => {
     try {
         const userReport = new UserReport(req.body);
@@ -13,18 +12,10 @@ export const createReport = async (req, res) => {
 export const getAllReports = async (req, res) => {
     try {
         const userReports = await UserReport.find()
-        .populate({
-            path: 'user_id',  
-            select: 'name',
-            model: 'User'
-        })
-        .populate({
-            path: 'bin',      
-            select: 'location', 
-            model: 'WasteBin'  
-          });
-    
-        
+    .populate('user_id', 'name email')
+    .populate('bin', 'ward binType');
+console.log(userReports);
+
         res.status(200).json(userReports);
     } catch (err) {
         res.status(500).json({ msg: "Failed to fetch user reports", err: err.message });

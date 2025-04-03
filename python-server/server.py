@@ -12,7 +12,7 @@ CORS(app)
 
 client = MongoClient("mongodb://localhost:27017/waste-management")  
 db = client["waste-management"] 
-collection = db["wasteBinData"]  
+collection = db["wastebins"]  
 
 
 @app.route('/schedule', methods=['POST', 'GET'])
@@ -23,24 +23,17 @@ def schedule():
         data = pd.DataFrame(list(data_cursor))
 
         # Preprocess data
-        data['approxTime'] = data['approxTime'].str.replace(' hrs', '').astype(float)
         data['wasteQuantityPerDay'] = data['wasteQuantityPerDay'].str.replace(' tonnes', '').astype(float)
+        data['lastEmptiedAt'] = pd.to_datetime(data['lastEmptiedAt'])  # Convert to datetime
 
-        # Select relevant features and target variable
-        features = ['realTimeCapacity', 'totalCapacity', 'wasteQuantityPerDay']
-        X = data[features]
-        y = data['approxTime']
+        # Calculate predictedApproxTime dynamically
+        # Formula: (totalCapacity - realTimeCapacity) / (wasteQuantityPerDay / 24)
+        data['predictedApproxTime'] = (data['totalCapacity'] - data['realTimeCapacity']) / (data['wasteQuantityPerDay'] / 24)
 
-        # Train a Random Forest Regressor
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-        model = RandomForestRegressor(n_estimators=100, random_state=42)
-        model.fit(X_train, y_train)
-
-        # Make predictions for the entire dataset
-        data['predictedApproxTime'] = model.predict(X)
-        current_time = datetime.now()
-        data['predictedEmptyingDateTime'] = data['predictedApproxTime'].apply(
-            lambda hours: (current_time + timedelta(hours=hours)).strftime('%Y-%m-%d %H:%M:%S')
+        # Calculate the predicted emptying datetime based on lastEmptiedAt
+        data['predictedEmptyingDateTime'] = data.apply(
+            lambda row: (row['lastEmptiedAt'] + timedelta(hours=row['predictedApproxTime'])).strftime('%Y-%m-%d %H:%M:%S'),
+            axis=1
         )
 
         # Convert ObjectId to string for JSON serialization
@@ -61,7 +54,7 @@ def schedule():
             })
 
         # For GET requests, return all predictions
-        rec = data[['_id', 'predictedApproxTime', 'predictedEmptyingDateTime','ward']].to_dict(orient='records')
+        rec = data[['_id', 'predictedApproxTime', 'predictedEmptyingDateTime', 'ward', 'lastEmptiedAt']].to_dict(orient='records')
         return jsonify({"rec": rec}), 200
 
     except Exception as e:

@@ -11,6 +11,7 @@ const WCReports = () => {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
+                        "Authorization": `Bearer ${localStorage.getItem("token")}`,
                     },
                 });
                 const data = await res.json();
@@ -26,35 +27,37 @@ const WCReports = () => {
         <div>
             <WCNavbar />
             <div className="mx-auto px-9 py-6">
-    <h1 className="text-2xl font-bold text-center mb-6 text-green-700">Waste Collector Reports</h1>
-    <div className="flex flex-wrap gap-6 justify-center">
-        {reports.map((report) => (
-            <div
-                key={report._id}
-                className="flex w-full md:w-2/3 lg:w-1/2 bg-green-100 shadow-lg rounded-xl overflow-hidden"
-            >
-                <img
-                    src={report.attachment}
-                    alt="Report Attachment"
-                    className="w-1/3 h-auto object-cover"
-                />
-                <div className="p-4 w-2/3">
-                    <h2 className="text-lg font-semibold text-green-800 mb-2">Status: {report.status}</h2>
-                    <p className="text-gray-700 mb-2">
-                        <strong>Description:</strong> {report.description || "No description provided."}
-                    </p>
-                    <p className="text-gray-700 mb-2">
-                        <strong>Bin ID:</strong> {report.bin}
-                    </p>
-                    <p className="text-gray-700">
-                        <strong>Reported By:</strong> {report.user_id}
-                    </p>
+                <h1 className="text-2xl font-bold text-center mb-6 text-green-700">Waste Collector Reports</h1>
+                <div className="flex flex-wrap gap-6 justify-center">
+                    {reports.map((report) => (
+                        <div
+                            key={report._id}
+                            className="flex w-full md:w-2/3 lg:w-1/2 bg-green-100 shadow-lg rounded-xl overflow-hidden"
+                        >
+                            <img
+                                src={report.attachment}
+                                alt="Report Attachment"
+                                className="w-1/3 h-auto object-cover"
+                            />
+                            <div className="p-4 w-2/3">
+                                <h2 className="text-lg font-semibold text-green-800 mb-2">Status: {report.status}</h2>
+                                <p className="text-gray-700 mb-2">
+                                    <strong>Description:</strong> {report.description || "No description provided."}
+                                </p>
+                                <p className="text-gray-700 mb-2">
+                                    <strong>Bin ID Location:</strong> {report.bin?.binType || "Unknown Bin"}
+                                </p>
+                                <p className="text-gray-700 mb-2">
+                                    <strong>Bin Name:</strong> {report.bin_id?.name || "No Name Provided"}
+                                </p>
+                                <p className="text-gray-700">
+                                    <strong>Reported By:</strong> {report.user_id?.name || report.user_id?._id || "Unknown User"}
+                                </p>
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </div>
-        ))}
-    </div>
-</div>
-
         </div>
     );
 };

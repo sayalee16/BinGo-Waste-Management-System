@@ -33,6 +33,7 @@ const Schedule = () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem("token")}`,
       },
       body: JSON.stringify({ query_index: queryIndex }),
     })
@@ -67,6 +68,7 @@ const Schedule = () => {
             <tr className="bg-gray-200">
               <th className="border border-gray-300 px-4 py-2">Bin ID</th>
               <th className="border border-gray-300 px-4 py-2">Ward</th>
+              <th className="border border-gray-300 px-4 py-2">Last Emptied</th>
               <th className="border border-gray-300 px-4 py-2">Predicted Approx. Time (hrs)</th>
               <th className="border border-gray-300 px-4 py-2">Predicted Emptying DateTime</th>
             </tr>
@@ -76,7 +78,8 @@ const Schedule = () => {
               <tr key={item._id} className="even:bg-gray-100">
                 <td className="border border-gray-300 px-4 py-2">{item._id}</td>
                 <td className="border border-gray-300 px-4 py-2">{item.ward}</td>
-                <td className="border border-gray-300 px-4 py-2">{item.predictedApproxTime}</td>
+                <td className="border border-gray-300 px-4 py-2">{item.lastEmptiedAt}</td>
+                <td className="border border-gray-300 px-4 py-2">{item.predictedApproxTime.toFixed(2)}</td>
                 <td className="border border-gray-300 px-4 py-2">{item.predictedEmptyingDateTime}</td>
               </tr>
             ))}
