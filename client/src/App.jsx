@@ -16,7 +16,7 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        {/* Login Route */}
+
         <Route path="/" element={<Login />} />
 
         {/* Waste Collector Dashboard */}
@@ -24,13 +24,11 @@ const App = () => {
         <Route path="/wc-reports" element={<WCReports />} />
         <Route path="/schedule" element={<Schedule />} /> */}
 
-        {/* User Main Navigation */}
         <Route path="/userMainNavigation" element={<UserMainNavigation />} />
         <Route path="/main" element={<Main />} />
         <Route path="/userReportForm" element={<UserReportForm />} />
         <Route path="/complaints" element={<Complaints />} />  
 
-        {/* Admin Main Navigation */}
         <Route path="/adminMainNavigation" element={<AdminMainNavigation />} />
         <Route path="/adminDashboard" element={<AdminDashboard />} />
       </Routes>

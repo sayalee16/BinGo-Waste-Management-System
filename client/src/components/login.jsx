@@ -91,6 +91,7 @@ const Login = () => {
   
 
   const onHandleSignIn = async () => {
+
     if (!/^[0-9]{10}$/.test(newUser.phone)) {
         setError("Enter a valid 10-digit phone number");
         return;

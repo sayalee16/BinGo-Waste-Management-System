@@ -34,6 +34,7 @@ const AdminMainNavigation = () => {
 
     // Function to update the status of a report
     const updateReportStatus = (reportId, status) => {
+<<<<<<< HEAD
         const token = localStorage.getItem("token"); // Get the token from local storage
 
         if (!token) {
@@ -42,6 +43,9 @@ const AdminMainNavigation = () => {
         }
 
         fetch(`${import.meta.env.PORT}/api/userreport/reports/${reportId}`, {
+=======
+        fetch(`http://localhost:8800/api/userreport/reports`, {
+>>>>>>> 4797297a2f2c45a0e70c2f9b78d20c53f9af03c4
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
