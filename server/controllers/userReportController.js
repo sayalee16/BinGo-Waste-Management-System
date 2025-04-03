@@ -12,7 +12,19 @@ export const createReport = async (req, res) => {
 
 export const getAllReports = async (req, res) => {
     try {
-        const userReports = await UserReport.find();
+        const userReports = await UserReport.find()
+        .populate({
+            path: 'user_id',  
+            select: 'name',
+            model: 'User'
+        })
+        .populate({
+            path: 'bin',      
+            select: 'location', 
+            model: 'WasteBin'  
+          });
+    
+        
         res.status(200).json(userReports);
     } catch (err) {
         res.status(500).json({ msg: "Failed to fetch user reports", err: err.message });
@@ -22,7 +34,9 @@ export const getAllReports = async (req, res) => {
 export const getReportById = async (req, res) => {
     try {
         const { id } = req.params;
-        const userReport = await UserReport.findById(id);
+        const userReport = await UserReport.findById(id)
+        .populate('user_id', 'name')  
+        .populate('bin', 'location'); 
         if (!userReport) {
             return res.status(404).json({ msg: "User report not found" });
         }

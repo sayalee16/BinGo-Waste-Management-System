@@ -1,24 +1,59 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from "react";
 
 const AdminMainNavigation = () => {
+    const [reports, setReports] = useState([]);
+
+    useEffect(() => {
+        fetch("http://localhost:5000/api/userreport/reports")  // Fetch reports from your backend
+            .then(res => res.json())
+            .then(data => setReports(data))
+            .catch(err => console.error(err));
+    }, []);
+
+    const updateReportStatus = (reportId, status) => {
+        fetch(`http://localhost:5000/api/userreport/reports`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ admin_status: status })
+        })
+        .then(res => res.json())
+        .then(updatedReport => {
+            setReports(reports.map(report => 
+                report._id === reportId ? updatedReport : report
+            ));
+        })
+        .catch(err => console.error(err));
+    };
+
     return (
-        <nav>
-            <ul>
-                <li>
-                    <Link to="/adminDashboard">Dashboard</Link>
-                </li>
-                <li>
-                    <Link to="/users">Manage Users</Link>
-                </li>
-                <li>
-                    <Link to="/reports">Reports</Link>
-                </li>
-                <li>
-                    <Link to="/settings">Settings</Link>
-                </li>
-            </ul>
-        </nav>
+        <div className="p-6 border rounded-lg shadow-lg bg-white mt-10">
+            <h2 className="text-2xl font-bold mb-4 text-center">Admin Panel - Approve Reports</h2>
+            {reports.length === 0 ? <p>No reports found.</p> : (
+
+                reports.map(report => (
+                    
+                    <div key={report._id} className="border p-4 mb-2 rounded">
+                        <p><strong>Status:</strong> {report.status}</p>
+                        <p><strong>Description:</strong> {report.description || "No description"}</p>
+                        <img src={report.attachment} alt="Report Image" className="w-32 h-32" />
+                        <div className="mt-2">
+                            <button 
+                                className="bg-green-500 text-white px-4 py-1 rounded mr-2"
+                                onClick={() => updateReportStatus(report._id, "approved")}
+                            >
+                                Approve
+                            </button>
+                            <button 
+                                className="bg-red-500 text-white px-4 py-1 rounded"
+                                onClick={() => updateReportStatus(report._id, "rejected")}
+                            >
+                                Reject
+                            </button>
+                        </div>
+                    </div>
+                ))
+            )}
+        </div>
     );
 };
 
