@@ -1,5 +1,5 @@
 import express from "express";
-import { authenticateUser } from "../middleware/auth.js"; 
+import { authenticateAdmin, authenticateUser } from "../middleware/auth.js"; 
 
 const router = express.Router();
 import { 
@@ -21,7 +21,9 @@ const authorizeAdmin = (req, res, next) => {
 };
 
 //get for all valid users
-router.get("/wastebins", authenticateUser, getAllWasteBins);  
+router.get("/wastebins", authenticateAdmin, getAllWasteBins); 
+
+ 
 router.get("/wastebin/:id", authenticateUser, getWasteBinById);  
 
 //create,update and delete only for admin

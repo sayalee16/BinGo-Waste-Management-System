@@ -146,7 +146,9 @@ export const createWasteBin = async (req, res) => {
 // Get all waste bins
 export const getAllWasteBins = async (req, res) => {
     try {
-        const bins = await WasteBin.find();
+        const bins = await WasteBin.find({
+            status: { $in: ["filled"] }
+        });
         res.status(200).json(bins);
     } catch (err) {
         res.status(500).json({ msg: "Failed to fetch waste bins", error: err.message });

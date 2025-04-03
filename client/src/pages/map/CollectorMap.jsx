@@ -93,7 +93,7 @@ function CollectorLocation({ onPositionChange }) {
 
 
 
-function WastePointsLayer({ points, collectorPosition , onMarkComplete }) {
+function WastePointsLayer({ points, collectorPosition }) {
   const map = useMap();
   
   return (
@@ -111,9 +111,7 @@ function WastePointsLayer({ points, collectorPosition , onMarkComplete }) {
             <Popup>
               <strong>{point.isBin ? "Waste Bin" : "Open Area Waste"}</strong><br />
               ID: {point.id}<br />
-              {point.description && <div>Description: {point.description}<br /></div>}
               {point.lastUpdated && <div>Updated: {new Date(point.lastUpdated).toLocaleString()}<br /></div>}
-               
             </Popup>
           </Marker>
         );
@@ -140,6 +138,7 @@ function CollectorMap() {
         // Replace with your actual API endpoint
         const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/userreport/reports`);
         setWastePoints(response.data);
+        console.log(response.data);
         setLoading(false);
       } catch (err) {
         console.error("Error fetching waste points:", err);
@@ -208,7 +207,7 @@ function CollectorMap() {
     };
 
     createOptimizedRoute();
-  }, [collectorPosition, kothrudWastePoints]);
+  }, [collectorPosition, activeWastePoints]);
 
   //Handle marking a waste point as completed
   const handleMarkComplete = async (id) => {
@@ -275,7 +274,7 @@ function CollectorMap() {
         />
         <CollectorLocation onPositionChange={setCollectorPosition} />
         <WastePointsLayer 
-          points={kothrudWastePoints} 
+          points={activeWastePoints} 
           collectorPosition={collectorPosition}
            onMarkComplete={handleMarkComplete}
         />
