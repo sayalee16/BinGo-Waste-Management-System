@@ -140,7 +140,7 @@ export const createWasteBin = async (req, res) => {
 };
 
 // Get all waste bins
-export const getAllWast = async (req, res) => {
+export const getAllWasteBins = async (req, res) => {
     try {
         const bins = await WasteBin.find();
         res.status(200).json(bins);
