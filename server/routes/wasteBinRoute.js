@@ -1,6 +1,6 @@
 import express from "express";
 import { authenticateUser } from "../middleware/auth.js"; 
-import { authenticateUser } from "../middleware/auth.js"; 
+
 const router = express.Router();
 import { 
     getAllWasteBins, 

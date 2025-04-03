@@ -19,10 +19,10 @@ const userSchema = new Schema({
 		required: true,
 	},
 	
-    isAdmin: {
-        type:Boolean,
-        default: false
-    },
+    // isAdmin: {
+    //     type:Boolean,
+    //     default: false
+    // },
 	location: {
         type: {
             type: String,    // "Point" for GeoJSON
@@ -40,7 +40,14 @@ const userSchema = new Schema({
 	zone:{
 		type:String,
 		require:false
+	},
+	//adding the role
+	role:{
+		type: String,
+		enum: ["user", "admin", "wastecollector"],
+		required: true
 	}
+	
 });
 
 
