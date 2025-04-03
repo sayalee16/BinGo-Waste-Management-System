@@ -10,6 +10,7 @@ import UserMainNavigation from './components/userMainNavigation';
 import WCReports from './pages/WCReports';
 import AdminMainNavigation from './components/AdminMainNavigation';
 import UserReportForm from './pages/userReportForm';
+import CollectorMap from './pages/map/CollectorMap';
 
 const App = () => {
   return (
@@ -28,6 +29,8 @@ const App = () => {
 
         <Route path="/adminMainNavigation" element={<AdminMainNavigation />} />
         <Route path="/adminDashboard" element={<AdminDashboard />} />
+
+        <Route path="/wcRoute" element={<CollectorMap/>}/>
       </Routes>
     </Router>
   );
