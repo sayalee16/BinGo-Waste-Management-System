@@ -1,14 +1,14 @@
 import express from "express";
-import { authenticateUser } from "../middleware/auth.js"; 
+import { authenticateUser,authenticateAdmin ,authenticateWC} from "../middleware/auth.js"; 
 const router = express.Router();
 import { 
   getAllReports, 
   getReportById, 
   createReport, 
-  updateReport, 
+  updateReportAdmin, 
+  updateReportWC, 
   deleteReport 
 } from "../controllers/userReportController.js";
-
 //get all report
 router.get("/reports",  authenticateUser,getAllReports); 
 
@@ -18,29 +18,14 @@ router.get("/get-report/:id", authenticateUser,getReportById);
 //create report
 router.post("/create-report", authenticateUser,createReport); 
 
-//check if admin
-const authorizeAdmin = (req, res, next) => {
-  if (!req.isAdmin ) {
-      return res.status(403).json({ msg: "Access denied. Admins only." });
-  }
-  next();
-};
-//update report
-router.put("/update-report/:id", authenticateUser,authorizeAdmin, updateReport); 
+//update report 
+router.put("/admin-update-report/:id",authenticateAdmin, updateReportAdmin); 
 
-//check if waste collector
-const authorizeWasteCollector = (req, res, next) => {
-  if (!req.isWasteCollector) {
-
-    return res.status(403).json({ msg: "Access denied. WasteCollectors only." });
-  }
-  next();
-};
 //update report
-router.put("/wc-update-report/:id", authenticateUser,authorizeWasteCollector, updateReport); 
+router.put("/wc-update-report/:id", authenticateWC, updateReportWC); 
 
 
 //delete report
-router.delete("/delete-report/:id", authenticateUser, deleteReport); 
+router.delete("/:id", authenticateUser,deleteReport); 
 
 export default router;

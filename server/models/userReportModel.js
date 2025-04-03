@@ -5,7 +5,7 @@ const userReportSchema = new Schema({
     bin: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "WasteBin",
-        required: true
+        required: false
     },
     user_id: {
         type: mongoose.Schema.Types.ObjectId,
