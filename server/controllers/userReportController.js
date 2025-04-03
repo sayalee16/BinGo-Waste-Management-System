@@ -12,8 +12,8 @@ export const createReport = async (req, res) => {
 export const getAllReports = async (req, res) => {
     try {
         const userReports = await UserReport.find()
-               .populate('user_id', 'name email')
-        .populate('bin', 'ward binType');
+               .populate('user_id', 'name email location')
+        .populate('bin', 'ward binType locn');
     console.log(userReports);
 
         res.status(200).json(userReports);
