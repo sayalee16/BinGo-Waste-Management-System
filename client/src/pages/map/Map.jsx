@@ -165,7 +165,7 @@ function Map() {
     const [route, setRoute] = useState([]);
    
     return (
-        <div>
+        <div className="z--1">
             <MapContainer center={defaultPosition} zoom={13} style={{ height: '100vh', width: '100%' }}>
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

@@ -11,10 +11,12 @@ export const createReport = async (req, res) => {
 
 export const getAllReports = async (req, res) => {
     try {
-        const userReports = await UserReport.find()
-    .populate('user_id', 'name email')
-    .populate('bin', 'ward binType');
-console.log(userReports);
+        const userReports = await UserReport.find({
+            status: { $in: ["full", "partially filled", "damaged", "needs maintenance"] },
+        })
+        .populate('user_id', 'name email')
+        .populate('bin', 'ward binType');
+    console.log(userReports);
 
         res.status(200).json(userReports);
     } catch (err) {
