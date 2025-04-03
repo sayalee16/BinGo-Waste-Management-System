@@ -8,7 +8,7 @@ import {
   updateReport, 
   deleteReport 
 } from "../controllers/userReportController.js";
-
+const authenticateUser = require('../middlewares/auth');
 //get all report
 router.get("/reports",  authenticateUser,getAllReports); 
 
@@ -20,9 +20,9 @@ router.post("/create-report", authenticateUser,createReport);
 
 
 //update report
-router.put("/update-report/:id", authenticateUser, updateReport); 
+router.put("/:id", authenticateUser,updateReport); 
 
 //delete report
-router.delete("/delete-report/:id", authenticateUser, deleteReport); 
+router.delete("/:id", authenticateUser,deleteReport); 
 
 export default router;

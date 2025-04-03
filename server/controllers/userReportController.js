@@ -37,9 +37,13 @@ export const getReportById = async (req, res) => {
     }
 };
 
-export const updateReport = async (req, res) => {
+export const updateReportAdmin = async (req, res) => {
     try {
         const { id } = req.params;
+
+        if (req.body.admin_status && !["pending", "approved", "rejected"].includes(req.body.admin_status)) {
+            return res.status(400).json({ msg: "Invalid admin_status value" });
+        }
         const userReport = await UserReport.findByIdAndUpdate(id, req.body, { new: true });
 
         if (!userReport) {
