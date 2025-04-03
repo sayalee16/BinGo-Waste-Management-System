@@ -150,6 +150,18 @@ export const getAllWasteBins = async (req, res) => {
     }
 };
 
+export const getAllWasteBinsFiltered = async (req, res) => {
+  try {
+      const bins = await WasteBin.find({
+          status: { $in: ["filled"] }
+      });
+      res.status(200).json(bins);
+  } catch (err) {
+      res.status(500).json({ msg: "Failed to fetch waste bins", error: err.message });
+      res.status(500).json({ msg: "Failed to fetch waste bins", error: err.message });
+  }
+};
+
 // Get waste bin by ID
 export const getWasteBinById = async (req, res) => {
     try {
