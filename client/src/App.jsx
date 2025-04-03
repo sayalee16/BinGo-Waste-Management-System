@@ -30,6 +30,8 @@ const App = () => {
         <Route path="/complaints" element={<Complaints />} />  
 
         <Route path="/adminMainNavigation" element={<AdminMainNavigation />} />
+
+        <Route path="/admin" element={<AdminMainNavigation />} />
         <Route path="/adminDashboard" element={<AdminDashboard />} />
       </Routes>
     </Router>
