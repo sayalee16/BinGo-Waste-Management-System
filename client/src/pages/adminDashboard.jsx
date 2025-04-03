@@ -64,10 +64,11 @@ const AdminDashboard = () => {
     sound.play().catch(err => console.error('Error playing sound:', err));
   };
   
+  const API_BASE_URL = "http://localhost:8800/api/wastebin";
   // For testing - simulate bin capacity change
   const simulateBinUpdate = async (binId, capacity) => {
     try {
-      const response = await fetch('/api/wastebin/simulate-update', {
+      const response = await fetch(`${API_BASE_URL}/simulate-update`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -133,10 +134,10 @@ const AdminDashboard = () => {
       {/* Test controls - remove in production */}
       <div className="test-controls">
         <h3>Test Bin Updates</h3>
-        <button onClick={() => simulateBinUpdate('bin-id-1', 55)}>
+        <button onClick={() => simulateBinUpdate('67ede138cd0a038db4d9b8a8', 55)}>
           Simulate 55% Capacity
         </button>
-        <button onClick={() => simulateBinUpdate('bin-id-1', 90)}>
+        <button onClick={() => simulateBinUpdate('67ede138cd0a038db4d9b8ae', 90)}>
           Simulate 90% Capacity
         </button>
       </div>

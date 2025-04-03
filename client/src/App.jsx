@@ -10,7 +10,7 @@ import UserMainNavigation from './components/userMainNavigation';
 import WCReports from './pages/WCReports';
 import AdminMainNavigation from './components/AdminMainNavigation';
 import UserReportForm from './pages/userReportForm';
-import WasteCollectorLayout from './components/WasteCollectorLayout'; // Assuming this is a separate file
+//import WasteCollectorLayout from './components/WasteCollectorLayout'; // Assuming this is a separate file
 
 const App = () => {
   return (
@@ -20,7 +20,7 @@ const App = () => {
         <Route path="/" element={<Login />} />
 
         {/* Waste Collector Dashboard */}
-        <Route path="/wc-dashboard" element={<WasteCollectorLayout />} />
+        {/* <Route path="/wc-dashboard" element={<WasteCollectorLayout />} /> */}
         <Route path="/wc-reports" element={<WCReports />} />
         <Route path="/schedule" element={<Schedule />} />
 
