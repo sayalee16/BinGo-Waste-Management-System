@@ -91,7 +91,9 @@ function CollectorLocation({ onPositionChange }) {
   );
 }
 
-function WastePointsLayer({ points, collectorPosition, onMarkComplete }) {
+
+
+function WastePointsLayer({ points, collectorPosition , onMarkComplete }) {
   const map = useMap();
   
   return (
@@ -111,20 +113,7 @@ function WastePointsLayer({ points, collectorPosition, onMarkComplete }) {
               ID: {point.id}<br />
               {point.description && <div>Description: {point.description}<br /></div>}
               {point.lastUpdated && <div>Updated: {new Date(point.lastUpdated).toLocaleString()}<br /></div>}
-              <button 
-                onClick={() => onMarkComplete(point.id)}
-                style={{
-                  marginTop: "8px",
-                  padding: "4px 8px",
-                  backgroundColor: "#4CAF50",
-                  color: "white",
-                  border: "none",
-                  borderRadius: "4px",
-                  cursor: "pointer"
-                }}
-              >
-                Mark as Collected
-              </button>
+               
             </Popup>
           </Marker>
         );
@@ -134,6 +123,7 @@ function WastePointsLayer({ points, collectorPosition, onMarkComplete }) {
 }
 
 function CollectorMap() {
+      
   const defaultPosition = [18.5532, 73.8426]; // default position
   const [collectorPosition, setCollectorPosition] = useState(null);
   const [wastePoints, setWastePoints] = useState([]);
@@ -192,7 +182,7 @@ function CollectorMap() {
   // Create optimized route when collector position or waste points change
   useEffect(() => {
     const createOptimizedRoute = async () => {
-      if (!collectorPosition || activeWastePoints.length === 0) return;
+      if (!collectorPosition || kothrudWastePoints.length === 0) return;
       
       try {
         // Start with collector position
@@ -218,30 +208,30 @@ function CollectorMap() {
     };
 
     createOptimizedRoute();
-  }, [collectorPosition, activeWastePoints]);
+  }, [collectorPosition, kothrudWastePoints]);
 
-  // Handle marking a waste point as completed
-//   const handleMarkComplete = async (id) => {
-//     try {
-//       // Send completion status to backend
-//       await axios.post(`/api/waste-points/${id}/complete`, {
-//         collectorId: "current-collector-id", // Replace with actual collector ID
-//         completedAt: new Date().toISOString()
-//       });
+  //Handle marking a waste point as completed
+  const handleMarkComplete = async (id) => {
+    try {
+      // Send completion status to backend
+      await axios.post(`/api/waste-points/${id}/complete`, {
+        collectorId: "current-collector-id", // Replace with actual collector ID
+        completedAt: new Date().toISOString()
+      });
       
-//       // Update local state
-//       setCompletedIds(prev => [...prev, id]);
+      // Update local state
+      setCompletedIds(prev => [...prev, id]);
       
-//       // Show success message
-//       alert(`Waste point #${id} marked as collected`);
-//     } catch (err) {
-//       console.error("Error marking waste point as completed:", err);
-//       alert("Failed to update status. Please try again.");
+      // Show success message
+      alert(`Waste point #${id} marked as collected`);
+    } catch (err) {
+      console.error("Error marking waste point as completed:", err);
+      alert("Failed to update status. Please try again.");
       
-//       // For testing - still update UI
-//       setCompletedIds(prev => [...prev, id]);
-//     }
-//   };
+      // For testing - still update UI
+      setCompletedIds(prev => [...prev, id]);
+    }
+  };
 
   return (
     <div className="collector-map-container">
@@ -285,9 +275,9 @@ function CollectorMap() {
         />
         <CollectorLocation onPositionChange={setCollectorPosition} />
         <WastePointsLayer 
-          points={activeWastePoints} 
+          points={kothrudWastePoints} 
           collectorPosition={collectorPosition}
-        //   onMarkComplete={handleMarkComplete}
+           onMarkComplete={handleMarkComplete}
         />
         
         {/* Display optimized route as a blue polyline when available */}

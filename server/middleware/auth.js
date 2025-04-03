@@ -30,7 +30,7 @@ export const authenticateUser = async (req, res, next) => {
         res.status(401).json({  
             status: "error",  
             message: "Token is not valid",  
-        });  
+        });
     }  
 };
 

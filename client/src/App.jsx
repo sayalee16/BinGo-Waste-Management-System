@@ -8,7 +8,7 @@ import Login from "./components/login";
 import AdminDashboard from './pages/adminDashboard';
 import UserMainNavigation from './components/userMainNavigation';
 import WCReports from './pages/WCReports';
-import AdminMainNavigation from './components/adminMainNavigation';
+import AdminMainNavigation from './components/AdminMainNavigation';
 import UserReportForm from './pages/userReportForm';
 import CollectorMap from './pages/map/CollectorMap';
 
