@@ -6,7 +6,7 @@ const AdminMainNavigation = () => {
         <nav>
             <ul>
                 <li>
-                    <Link to="/dashboard">Dashboard</Link>
+                    <Link to="/adminDashboard">Dashboard</Link>
                 </li>
                 <li>
                     <Link to="/users">Manage Users</Link>

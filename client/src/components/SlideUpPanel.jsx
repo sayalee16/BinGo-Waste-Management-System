@@ -6,7 +6,7 @@ const SlideUpPanel = () => {
 
   return (
     <motion.div
-      className="fixed bottom-0 left-0 w-full bg-white shadow-lg rounded-t-2xl p-4 z-10"
+      className="fixed bottom-0 left-0 w-full bg-white shadow-lg rounded-t-2xl p-4 z-20"
       initial={{ y: "100%" }}
       animate={{ y: isExpanded ? "0%" : "70%" }}
       transition={{ type: "spring", stiffness: 120 }}

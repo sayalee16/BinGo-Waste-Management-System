@@ -75,7 +75,7 @@ const Login = () => {
       const { phone, password } = oldUser; 
   
       try {
-          const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/users/login`, {
+          const res = await fetch(`http://localhost:8800/api/users/login`, {
               method: "POST",
               headers: {
                   "Content-Type": "application/json",
@@ -117,6 +117,7 @@ const Login = () => {
   
 
   const onHandleSignIn = async () => {
+
     if (!/^[0-9]{10}$/.test(newUser.phone)) {
         setError("Enter a valid 10-digit phone number");
         return;
@@ -132,16 +133,16 @@ const Login = () => {
         return;
     }
     
-    if (!location) {
-        setError("Location not available. Please enable location services.");
-        return;
-    }
+    // if (!location) {
+    //     setError("Location not available. Please enable location services.");
+    //     return;
+    // }
 
     const { name, phone, email, password } = newUser;
-    const userLocation = {
-        type: "Point",
-        coordinates: [location.longitude, location.latitude], // Ensure location exists
-    };
+    // const userLocation = {
+    //     type: "Point",
+    //     coordinates: [location.longitude, location.latitude], // Ensure location exists
+    // };
 
     try {
         const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/users/register`, {

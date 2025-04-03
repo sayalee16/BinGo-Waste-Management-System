@@ -1,20 +1,20 @@
-import io from "socket.io-client";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { io } from "socket.io-client";
 
-const socket = io("http://localhost:5000");
+const socket = io("http://localhost:8800"); // Adjust URL for deployment
 
-function Notifications() {
-  const [dustbins, setDustbins] = useState([]);
+const useSocket = () => {
+  const [alerts, setAlerts] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/dustbins").then(res => setDustbins(res.data));
-    socket.on("dustbinUpdate", updatedBins => setDustbins(updatedBins));
-    
-    return () => socket.off("dustbinUpdate");
+    socket.on("binAlert", (alert) => {
+      setAlerts((prevAlerts) => [...prevAlerts, alert]);
+    });
+
+    return () => socket.off("binAlert");
   }, []);
 
-  return dustbins;
-}
+  return alerts;
+};
 
-export default Notifications;
+export default useSocket;
