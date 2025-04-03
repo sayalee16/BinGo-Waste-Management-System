@@ -4,10 +4,10 @@ const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
 
     return (
-        <nav className="bg-green-400 shadow-md">
+        <nav className="shadow-md">
             {/* Logo Section */}
-            <div className="flex items-center justify-center py-4">
-                <img src="BinGo.webp" alt="bingo-logo" width="150" height="50" />
+            <div className="flex items-center justify-center py-2">
+                <img src="BinGo.webp" alt="bingo-logo" width="170" height="50" />
             </div>
 
             {/* Mobile Menu Button */}
@@ -47,7 +47,7 @@ const Navbar = () => {
                     </a>
                 </div>
             )}
-        </nav>
+     </nav>
     );
 };
 
