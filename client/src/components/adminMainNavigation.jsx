@@ -4,14 +4,14 @@ const AdminMainNavigation = () => {
     const [reports, setReports] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:5000/api/userreport/reports")  // Fetch reports from your backend
+        fetch("http://localhost:8800/api/userreport/reports")  // Fetch reports from your backend
             .then(res => res.json())
             .then(data => setReports(data))
             .catch(err => console.error(err));
     }, []);
 
     const updateReportStatus = (reportId, status) => {
-        fetch(`http://localhost:5000/api/userreport/reports`, {
+        fetch(`http://localhost:8800/api/userreport/reports`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ admin_status: status })

@@ -32,7 +32,7 @@ const WCReports = () => {
                     {reports.map((report) => (
                         <div
                             key={report._id}
-                            className="flex w-full md:w-2/3 lg:w-1/2 bg-green-100 shadow-lg rounded-xl overflow-hidden"
+                            className="flex w-full md:w-2/3 lg:w-1/2 bg-green-200 shadow-lg rounded-xl overflow-hidden"
                         >
                             <img
                                 src={report.attachment}
@@ -45,10 +45,10 @@ const WCReports = () => {
                                     <strong>Description:</strong> {report.description || "No description provided."}
                                 </p>
                                 <p className="text-gray-700 mb-2">
-                                    <strong>Bin ID Location:</strong> {report.bin?.binType || "Unknown Bin"}
+                                    <strong>Bin Name:</strong> {report.bin?._id || "No Name Provided"}
                                 </p>
                                 <p className="text-gray-700 mb-2">
-                                    <strong>Bin Name:</strong> {report.bin_id?.name || "No Name Provided"}
+                                    <strong>Bin ward:</strong> {report.bin?.ward || "No Name Provided"}
                                 </p>
                                 <p className="text-gray-700">
                                     <strong>Reported By:</strong> {report.user_id?.name || report.user_id?._id || "Unknown User"}
