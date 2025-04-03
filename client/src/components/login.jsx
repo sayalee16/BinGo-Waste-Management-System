@@ -79,7 +79,7 @@ const Login = () => {
       const { phone, password } = oldUser; 
   
       try {
-          const res = await fetch(`http://localhost:${PORT}/api/users/login`,
+          const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/users/login`,
            {
               method: "POST",
               headers: {

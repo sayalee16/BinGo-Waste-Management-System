@@ -10,26 +10,22 @@ import UserMainNavigation from './components/userMainNavigation';
 import WCReports from './pages/WCReports';
 import AdminMainNavigation from './components/AdminMainNavigation';
 import UserReportForm from './pages/userReportForm';
-//import WasteCollectorLayout from './components/WasteCollectorLayout'; // Assuming this is a separate file
 
 const App = () => {
   return (
     <Router>
       <Routes>
-        {/* Login Route */}
+
         <Route path="/" element={<Login />} />
 
-        {/* Waste Collector Dashboard */}
-        {/* <Route path="/wc-dashboard" element={<WasteCollectorLayout />} /> */}
+        <Route path="/wc-dashboard" element={<Schedule />} />
         <Route path="/wc-reports" element={<WCReports />} />
         <Route path="/schedule" element={<Schedule />} />
 
-        {/* User Main Navigation */}
         <Route path="/userMainNavigation" element={<UserMainNavigation />} />
         <Route path="/main" element={<Main />} />
         <Route path="/userReportForm" element={<UserReportForm />} />
 
-        {/* Admin Main Navigation */}
         <Route path="/adminMainNavigation" element={<AdminMainNavigation />} />
         <Route path="/adminDashboard" element={<AdminDashboard />} />
       </Routes>
