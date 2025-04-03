@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import UserMainNavigation from './userMainNavigation';
 import AdminMainNavigation from './AdminMainNavigation';
 
-const PORT = 5000; // Set the port for the backend server
+const PORT = 8800; // Set the port for the backend server
 const Login = () => {
   const navigate = useNavigate(); // React Router hook for navigation
 
@@ -122,6 +122,7 @@ const Login = () => {
   
 
   const onHandleSignIn = async () => {
+
     if (!/^[0-9]{10}$/.test(newUser.phone)) {
         setError("Enter a valid 10-digit phone number");
         return;
@@ -137,16 +138,16 @@ const Login = () => {
         return;
     }
     
-    if (!location) {
-        setError("Location not available. Please enable location services.");
-        return;
-    }
+    // if (!location) {
+    //     setError("Location not available. Please enable location services.");
+    //     return;
+    // }
 
     const { name, phone, email, password } = newUser;
-    const userLocation = {
-        type: "Point",
-        coordinates: [location.longitude, location.latitude], // Ensure location exists
-    };
+    // const userLocation = {
+    //     type: "Point",
+    //     coordinates: [location.longitude, location.latitude], // Ensure location exists
+    // };
 
     try {
         const res = await fetch(`http://localhost:${PORT}/api/users/register`, {
