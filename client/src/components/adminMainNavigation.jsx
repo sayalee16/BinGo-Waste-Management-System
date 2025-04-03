@@ -75,47 +75,41 @@ const AdminMainNavigation = () => {
         <>
         <Navbar/>
         <div className="p-6 border rounded-lg shadow-lg bg-white mt-10">
-            <h2 className="text-2xl font-bold mb-4 text-center">Admin Panel - Approve Reports</h2>
+            <h2 className="text-2xl font-bold mb-4 text-center">BIN REPORTS</h2>
 
             {/* Display error message if any */}
             {error && <p className="text-red-500 text-center">{error}</p>}
 
             {/* Display reports or a message if no reports are found */}
-            {reports.length === 0 && !error ? (
-                <p>No reports found.</p>
-            ) : (
-                reports.map((report) => (
-                    <div key={report._id} className="border p-4 mb-2 rounded">
-                        <p>
-                            <strong>Status:</strong> {report.status}
-                        </p>
-                        <p>
-                            <strong>Description:</strong> {report.description || "No description"}
-                        </p>
-                        {report.attachment && (
+            <div className="flex flex-wrap gap-6 justify-center">
+                {reports.map((report) => (
+                        <div
+                            key={report._id}
+                            className="flex w-full md:w-2/3 lg:w-1/2 bg-green-200 shadow-lg rounded-xl overflow-hidden"
+                        >
                             <img
                                 src={report.attachment}
-                                alt="Report Image"
-                                className="w-32 h-32"
+                                alt="Report Attachment"
+                                className="w-1/3 h-auto object-cover"
                             />
-                        )}
-                        <div className="mt-2">
-                            <button
-                                className="bg-green-500 text-white px-4 py-1 rounded mr-2"
-                                onClick={() => updateReportStatus(report._id, "approved")}
-                            >
-                                Approve
-                            </button>
-                            <button
-                                className="bg-red-500 text-white px-4 py-1 rounded"
-                                onClick={() => updateReportStatus(report._id, "rejected")}
-                            >
-                                Reject
-                            </button>
+                            <div className="p-4 w-2/3">
+                                <h2 className="text-lg font-semibold text-green-800 mb-2">Status: {report.status}</h2>
+                                <p className="text-gray-700 mb-2">
+                                    <strong>Description:</strong> {report.description || "No description provided."}
+                                </p>
+                                <p className="text-gray-700 mb-2">
+                                    <strong>Bin Name:</strong> {report.bin?._id || "No Name Provided"}
+                                </p>
+                                <p className="text-gray-700 mb-2">
+                                    <strong>Bin ward:</strong> {report.bin?.ward || "No Name Provided"}
+                                </p>
+                                <p className="text-gray-700">
+                                    <strong>Reported By:</strong> {report.user_id?.name || report.user_id?._id || "Unknown User"}
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                ))
-            )}
+                    ))}
+                </div>
         </div>
         </>
     );
