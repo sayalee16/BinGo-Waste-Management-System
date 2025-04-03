@@ -1,0 +1,85 @@
+import React from 'react';
+import { useEffect, useState } from "react";
+import Navbar from "../components/Navbar";
+
+const Complaints = () => {
+    const [reports, setReports] = useState([]);
+        const [error, setError] = useState(""); // State to handle errors
+        const token = localStorage.getItem("token"); // Get the token from local storage
+    
+        if (!token) {
+            setError("Unauthorized: Please log in to perform this action.");
+            return;
+        }
+        // Fetch reports from the backend when the component mounts
+        useEffect(() => {
+            fetch(`${import.meta.env.PORT}/api/userreport/reports`, {
+                method: "GET",
+                headers: {
+                    // "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`, // Include the token in the Authorization header
+                }
+            })
+                .then((res) => {
+                    if (!res.ok) {
+                        throw new Error("Failed to fetch reports");
+                    }
+                    return res.json();
+                })
+                .then((data) => setReports(data))
+                .catch((err) => {
+                    console.error("Error fetching reports:", err);
+                    setError("Failed to load reports. Please try again later.");
+                });
+        }, []);
+        return (
+            <>
+            <Navbar/>
+            <div className="p-6 border rounded-lg shadow-lg bg-white mt-10">
+                <h2 className="text-2xl font-bold mb-4 text-center">Admin Panel - Approve Reports</h2>
+    
+                {/* Display error message if any */}
+                {error && <p className="text-red-500 text-center">{error}</p>}
+    
+                {/* Display reports or a message if no reports are found */}
+                {reports.length === 0 && !error ? (
+                    <p>No reports found.</p>
+                ) : (
+                    reports.map((report) => (
+                        <div key={report._id} className="border p-4 mb-2 rounded">
+                            <p>
+                                <strong>Status:</strong> {report.status}
+                            </p>
+                            <p>
+                                <strong>Description:</strong> {report.description || "No description"}
+                            </p>
+                            {report.attachment && (
+                                <img
+                                    src={report.attachment}
+                                    alt="Report Image"
+                                    className="w-32 h-32"
+                                />
+                            )}
+                            <div className="mt-2">
+                                <button
+                                    className="bg-green-500 text-white px-4 py-1 rounded mr-2"
+                                    onClick={() => updateReportStatus(report._id, "approved")}
+                                >
+                                    Approve
+                                </button>
+                                <button
+                                    className="bg-red-500 text-white px-4 py-1 rounded"
+                                    onClick={() => updateReportStatus(report._id, "rejected")}
+                                >
+                                    Reject
+                                </button>
+                            </div>
+                        </div>
+                    ))
+                )}
+            </div>
+            </>
+        );
+};
+
+export default Complaints;

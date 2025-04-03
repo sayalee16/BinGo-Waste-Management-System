@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import UserMainNavigation from './userMainNavigation';
 import AdminMainNavigation from './AdminMainNavigation';
 
-const PORT = 5000; // Set the port for the backend server
 const Login = () => {
   const navigate = useNavigate(); // React Router hook for navigation
 
@@ -18,7 +17,6 @@ const Login = () => {
   });
 
   const [loggedIn, setLoggedIn] = useState(false);
-  const [location, setLocation] = useState(null);
 
   //registration fields
   const [newUser, setNewUser] = useState({
@@ -32,35 +30,6 @@ const Login = () => {
   const [registerdIn, setRegisteredIn] = useState(false);
 
   const toggleForm = () => setIsSignIn(!isSignIn);
-
-    useEffect(() => {
-          if (!navigator.geolocation) {
-              setError("Geolocation is not supported by your browser.");
-              return;
-          }
-  
-          const watchId = navigator.geolocation.watchPosition(
-              (position) => {
-                  setLocation({
-                      latitude: position.coords.latitude,
-                      longitude: position.coords.longitude,
-                  });
-                  setError(""); // Clear any previous errors
-              },
-              (err) => {
-                  // setError("Permission denied or error getting location.");
-                  // console.error("Error getting location:", err);
-              }
-          );
-          
-          return () => navigator.geolocation.clearWatch(watchId);
-      }, []);
-
-      useEffect(() => {
-        if (location) {
-            console.log("Updated location:", location);
-        }
-    }, [location]); 
 
     const onHandleLogin = async (e) => {
       e.preventDefault();
@@ -79,7 +48,7 @@ const Login = () => {
       const { phone, password } = oldUser; 
   
       try {
-          const res = await fetch(`http://localhost:${PORT}/api/users/login`,
+          const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/users/login`,
            {
               method: "POST",
               headers: {
@@ -136,20 +105,15 @@ const Login = () => {
         setError("Password must be at least 8 characters");
         return;
     }
-    
-    if (!location) {
-        setError("Location not available. Please enable location services.");
-        return;
-    }
-
+  
     const { name, phone, email, password } = newUser;
+
     const userLocation = {
         type: "Point",
-        coordinates: [location.longitude, location.latitude], // Ensure location exists
+        coordinates: [18.0594, 173.065], // Default coordinates (0, 0) if not provided
     };
-
     try {
-        const res = await fetch(`http://localhost:${PORT}/api/users/register`, {
+        const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/users/register`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
