@@ -55,6 +55,24 @@ export const updateReportAdmin = async (req, res) => {
     }
 };
 
+export const updateReportWC = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        if (req.body.wc_status && !["pending", "done"].includes(req.body.wc_status)) {
+            return res.status(400).json({ msg: "Invalid wc_status value" });
+        }
+        const userReport = await UserReport.findByIdAndUpdate(id, req.body, { new: true });
+
+        if (!userReport) {
+            return res.status(404).json({ msg: "User report not found" });
+        }
+        res.status(200).json({ msg: "User report updated", userReport });
+    } catch (err) {
+        res.status(500).json({ msg: "Failed to update user report", err: err.message });
+    }
+};
+
 export const deleteReport = async (req, res) => {
     try {
         const { id } = req.params;
