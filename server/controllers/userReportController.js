@@ -15,7 +15,7 @@ export const getAllReports = async (req, res) => {
             status: { $in: ["full", "partially filled", "damaged", "needs maintenance"] },
         })
         .populate('user_id', 'name email')
-        .populate('bin', 'ward binType');
+        .populate('bin', 'ward binType wc_status');
     console.log(userReports);
 
         res.status(200).json(userReports);
@@ -76,14 +76,19 @@ export const updateReportWC = async (req, res) => {
 };
 
 export const deleteReport = async (req, res) => {
+    console.log("Received DELETE request"); // Debug log
     try {
-        const { id } = req.params;
-        const userReport = await UserReport.findByIdAndDelete(id);
-        if (!userReport) {
-            return res.status(404).json({ msg: "User report not found" });
+        const deletedReports = await UserReport.deleteMany({ wc_status: "done" });
+
+        if (deletedReports.deletedCount === 0) {
+            console.log("No reports found to delete"); // Debug log
+            return res.status(200).json({ msg: "No reports found to delete" });
         }
-        res.status(200).json({ msg: "User report deleted successfully" });
+
+        res.status(200).json({ msg: "Reports deleted successfully", deletedCount: deletedReports.deletedCount });
     } catch (err) {
-        res.status(500).json({ msg: "Failed to delete user report", err: err.message });
+        console.error("Error deleting reports:", err);
+        res.status(500).json({ msg: "Failed to delete reports", err: err.message });
     }
 };
+

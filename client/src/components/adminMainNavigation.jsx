@@ -35,13 +35,14 @@ const AdminMainNavigation = () => {
     // Function to update the status of a report
     const updateReportStatus = (reportId, status) => {
         const token = localStorage.getItem("token"); // Get the token from local storage
-
+        console.log(status, reportId);
+        
         if (!token) {
             setError("Unauthorized: Please log in to perform this action.");
             return;
         }
 
-        fetch(`${import.meta.env.PORT}/api/userreport/reports/${reportId}`, {
+        fetch(`${import.meta.env.VITE_BACKEND_URL}/api/userreport/admin-update-report/${reportId}`, {
         
             method: "PUT",
             headers: {
@@ -60,8 +61,10 @@ const AdminMainNavigation = () => {
                 // Update the specific report in the state
                 setReports((prevReports) =>
                     prevReports.map((report) =>
-                        report._id === reportId ? updatedReport : report
-                    )
+                    report._id === reportId
+                        ? { ...report, ...updatedReport } // Merge updated fields with existing report
+                        : report
+                )
                 );
                 setError(""); // Clear any previous errors
             })
@@ -76,6 +79,36 @@ const AdminMainNavigation = () => {
         <Navbar/>
         <div className="p-6 border rounded-lg shadow-lg bg-white mt-10">
             <h2 className="text-2xl font-bold mb-4 text-center">BIN REPORTS</h2>
+            <button
+    className="bg-red-500 text-white font-bold px-4 py-2 rounded"
+    onClick={() => {
+        if (window.confirm("Are you sure you want to delete all completed reports?")) {
+            fetch(`${import.meta.env.VITE_BACKEND_URL}/api/userreport/delete-reports`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`,
+                }
+            })
+            .then((res) => {
+                if (!res.ok) {
+                    throw new Error("Failed to delete reports");
+                }
+                return res.json();
+            })
+            .then((data) => {
+                alert(data.msg); // Show success message
+                setReports((prevReports) => prevReports.filter(report => report.wc_status !== "done"));
+            })
+            .catch((err) => {
+                console.error("Error deleting reports:", err);
+                setError("Failed to delete completed reports.");
+            });
+        }
+    }}
+>
+    Clear Completed Reports
+</button>
 
             {/* Display error message if any */}
             {error && <p className="text-red-500 text-center">{error}</p>}
@@ -106,6 +139,12 @@ const AdminMainNavigation = () => {
                                 <p className="text-gray-700">
                                     <strong>Reported By:</strong> {report.user_id?.name || report.user_id?._id || "Unknown User"}
                                 </p>
+                                <p className="text-gray-700">
+                                    <strong>Waste Collector Status:</strong> {report.wc_status}
+                                </p>
+                                <button className="bg-green-500 font-bold text-white px-4 py-2 rounded mr-2" onClick={() => updateReportStatus(report._id, "approved")}>Approve</button>
+   
+                                <button className="bg-red-500 font-bold text-white px-4 py-2 rounded" onClick={() => updateReportStatus(report._id, "rejected")}>Reject</button>
                             </div>
                         </div>
                     ))}
