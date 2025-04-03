@@ -1,14 +1,14 @@
 import express from "express";
-import { authenticateUser } from "../middleware/auth.js"; 
+import { authenticateUser,authenticateAdmin ,authenticateWC} from "../middleware/auth.js"; 
 const router = express.Router();
 import { 
   getAllReports, 
   getReportById, 
   createReport, 
-  updateReport, 
+  updateReportAdmin, 
+  updateReportWC, 
   deleteReport 
 } from "../controllers/userReportController.js";
-
 //get all report
 router.get("/reports",  authenticateUser,getAllReports); 
 
@@ -18,11 +18,14 @@ router.get("/get-report/:id", authenticateUser,getReportById);
 //create report
 router.post("/create-report", authenticateUser,createReport); 
 
+//update report 
+router.put("/admin-update-report/:id",authenticateAdmin, updateReportAdmin); 
 
 //update report
-router.put("/update-report/:id", authenticateUser, updateReport); 
+router.put("/wc-update-report/:id", authenticateWC, updateReportWC); 
+
 
 //delete report
-router.delete("/delete-report/:id", authenticateUser, deleteReport); 
+router.delete("/:id", authenticateUser,deleteReport); 
 
 export default router;

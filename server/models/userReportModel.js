@@ -5,7 +5,7 @@ const userReportSchema = new Schema({
     bin: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "WasteBin",
-        required: true
+        required: false
     },
     user_id: {
         type: mongoose.Schema.Types.ObjectId,
@@ -29,7 +29,13 @@ const userReportSchema = new Schema({
         type: String,
         enum: ["pending", "approved", "rejected"],
         default: "pending"
-    }
+    },
+    wc_status: {
+        type: String,
+        enum: ["pending", "done"],
+        default: "pending"
+    },
+    
 });  
 
 export default mongoose.model("UserReport", userReportSchema);
