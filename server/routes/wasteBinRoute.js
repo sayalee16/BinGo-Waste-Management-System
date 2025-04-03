@@ -26,7 +26,6 @@ router.get("/wastebins", authenticateUser, getAllWasteBins);
 
 router.get("/wastebins-filtered", authenticateAdmin, getAllWasteBinsFiltered); 
 
- 
 router.get("/wastebin/:id", authenticateUser, getWasteBinById);  
 
 //create,update and delete only for admin

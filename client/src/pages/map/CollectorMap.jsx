@@ -3,6 +3,8 @@ import L from "leaflet";
 import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 
+
+const LOCATION = [18.497536, 73.793536]
 // Icons for different types of waste points
 const icons = {
   // Bin status icons
@@ -133,42 +135,42 @@ function CollectorMap() {
   // Fetch waste points from backend
   useEffect(() => {
     const fetchWastePoints = async () => {
+      // Fetch reports data
       try {
-        setLoading(true);
-        // Replace with your actual API endpoint
-        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/userreport/reports`);
-        setWastePoints(response.data);
-        console.log(response.data);
-        setLoading(false);
+      //const reportsResponse = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/userreport/reports`);
+      //const reportsData = reportsResponse.data;
+
+      // Fetch wastebins data
+      const wastebinsResponse = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/wastebins/wastebins`);
+      const wastebinsData = wastebinsResponse.data;
+
+      // Filter wastebins that are "partially_filled" or "filled"
+      const filteredWastebins = wastebinsData.filter(bin => bin.status === "partially_filled" || bin.status === "filled");
+
+      // Convert wastebin data to match report format
+      const formattedWastebins = filteredWastebins.map(bin => ({
+        id: bin.id,
+        location: {
+          latitude: bin.locn.latitude,
+          longitude: bin.locn.longitude,
+        },
+        status: bin.status,
+        isBin: true, // Mark it as a bin
+        lastUpdated: bin.lastEmptiedAt, // Use last emptied time as last updated
+      }));
+
+      // Combine reports and filtered wastebins
+      //const combinedData = [...reportsData, ...formattedWastebins];
+      const combinedData = [formattedWastebins];
+      console.log(formattedWastebins);
+
+      setWastePoints(combinedData);
+      setLoading(false);
+
       } catch (err) {
         console.error("Error fetching waste points:", err);
         setError("Failed to load waste collection points");
         setLoading(false);
-        
-        // For testing - mock data
-        setWastePoints([
-          {
-            id: "bin1",
-            isBin: true,
-            status: "filled",
-            location: { latitude: 18.553, longitude: 73.844 },
-            lastUpdated: new Date().toISOString()
-          },
-          {
-            id: "bin2",
-            isBin: true,
-            status: "partially_filled",
-            location: { latitude: 18.556, longitude: 73.840 },
-            lastUpdated: new Date().toISOString()
-          },
-          {
-            id: "area1",
-            isBin: false,
-            location: { latitude: 18.550, longitude: 73.838 },
-            description: "Trash pile near park entrance",
-            lastUpdated: new Date().toISOString()
-          }
-        ]);
       }
     };
 
@@ -181,7 +183,7 @@ function CollectorMap() {
   // Create optimized route when collector position or waste points change
   useEffect(() => {
     const createOptimizedRoute = async () => {
-      if (!collectorPosition || kothrudWastePoints.length === 0) return;
+      if (!collectorPosition || activeWastePoints.length === 0) return;
       
       try {
         // Start with collector position
