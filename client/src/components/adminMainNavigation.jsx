@@ -11,41 +11,31 @@ const AdminMainNavigation = () => {
     }, []);
 
     const updateReportStatus = (reportId, status) => {
-        fetch(`http://localhost:5000/api/userreport/reports/${reportId}`, {
+        fetch(`http://localhost:5000/api/userreport/reports`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ admin_status: status })
         })
-        .then(res => {
-            if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
-            return res.json();
-        })
-        .then(() => {
+        .then(res => res.json())
+        .then(updatedReport => {
             setReports(reports.map(report => 
-                report._id === reportId ? { ...report, admin_status: status } : report
+                report._id === reportId ? updatedReport : report
             ));
         })
-        .catch(err => console.error("Error updating report:", err));
-        
+        .catch(err => console.error(err));
     };
 
     return (
-        <div className="p-6 border rounded-lg shadow-lg bg-white m-10">
+        <div className="p-6 border rounded-lg shadow-lg bg-white mt-10">
             <h2 className="text-2xl font-bold mb-4 text-center">Admin Panel - Approve Reports</h2>
             {reports.length === 0 ? <p>No reports found.</p> : (
 
                 reports.map(report => (
                     
                     <div key={report._id} className="border p-4 mb-2 rounded">
-
                         <p><strong>Status:</strong> {report.status}</p>
                         <p><strong>Description:</strong> {report.description || "No description"}</p>
-                        <p><strong>Bin ID:</strong> {report.bin}</p>
-                        
-                        {report.attachment && (
-                            <img src={report.attachment} alt="Report Image" className="w-32 h-32" />
-                        )}
-
+                        <img src={report.attachment} alt="Report Image" className="w-32 h-32" />
                         <div className="mt-2">
                             <button 
                                 className="bg-green-500 text-white px-4 py-1 rounded mr-2"

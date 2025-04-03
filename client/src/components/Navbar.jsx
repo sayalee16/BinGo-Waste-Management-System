@@ -17,7 +17,7 @@ const Navbar = () => {
                     <a href="/user-profile" className="block text-white text-center py-2 hover:bg-green-300">Profile</a>
                 </div>
             )}
-        </nav>
+     </>
     );
 };
 
