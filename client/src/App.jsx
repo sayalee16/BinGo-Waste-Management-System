@@ -7,6 +7,7 @@ import Schedule from './pages/Schedule';
 import Login from "./components/login";
 import AdminDashboard from './pages/adminDashboard';
 import UserMainNavigation from './components/userMainNavigation';
+import CollectorMap from './pages/map/CollectorMap';
 //import WCReports from './pages/WCReports';
 import AdminMainNavigation from './components/AdminMainNavigation';
 import UserReportForm from './pages/userReportForm';
@@ -33,6 +34,8 @@ const App = () => {
 
         <Route path="/admin" element={<AdminMainNavigation />} />
         <Route path="/adminDashboard" element={<AdminDashboard />} />
+
+        <Route path="/wcRoute" element={<CollectorMap/>}/>
       </Routes>
     </Router>
   );

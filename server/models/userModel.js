@@ -44,7 +44,17 @@ const userSchema = new Schema({
 	isWasteCollector: {
 		type:Boolean,
 	 default: false
- },
+ 	},
+ 	points: {
+		type: Number,
+		default: 2,
+		min: 0 
+	},
+	blacklisted: {
+			type: Boolean,
+			default: false
+	}
+
 	
 });
 

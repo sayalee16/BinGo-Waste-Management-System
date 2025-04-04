@@ -24,9 +24,8 @@ const authorizeAdmin = (req, res, next) => {
 //get for all valid users
 router.get("/wastebins", authenticateUser, getAllWasteBins); 
 
-router.get("/wastebins-filtered", authenticateAdmin, getAllWasteBinsFiltered); 
+router.get("/wastebins-filtered", getAllWasteBinsFiltered); 
 
- 
 router.get("/wastebin/:id", authenticateUser, getWasteBinById);  
 
 //create,update and delete only for admin
