@@ -10,7 +10,7 @@ import {
   deleteReport 
 } from "../controllers/userReportController.js";
 //get all report
-router.get("/reports",  authenticateAdmin,getAllReports); 
+router.get("/reports", getAllReports); 
 
 //get report by id
 router.get("/get-report/:id", authenticateUser,getReportById); 
