@@ -1,5 +1,5 @@
 import UserReport from "../models/userReportModel.js";
-
+import User from "../models/userModel.js";
 export const createReport = async (req, res) => {
     try {
       const { bin, user_id, status, description } = req.body;
@@ -91,7 +91,7 @@ export const updateReportAdmin = async (req, res) => {
             user.blacklisted = false; 
         }
         await user.save();
-        res.status(200).json({ msg: "User report updated", userReport });
+        res.status(200).json({ msg: "User report updated", userReport, user });
     } catch (err) {
         res.status(500).json({ msg: "Failed to update user report", err: err.message });
     }

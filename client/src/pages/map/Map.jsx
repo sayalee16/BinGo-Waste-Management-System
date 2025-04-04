@@ -47,41 +47,32 @@ const environmentalMessages = [
 // App intro popup component
 function IntroPopup({ setShowIntro }) {
   return (
-    <div style={{
-      position: 'absolute',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
-      backgroundColor: 'white',
-      padding: '20px',
-      borderRadius: '10px',
-      boxShadow: '0 0 10px rgba(0,0,0,0.2)',
-      zIndex: 1001,
-      maxWidth: '80%',
-      textAlign: 'center'
-    }}>
-      <h2 style={{ color: '#4CAF50' }}>Welcome to WasteWise!</h2>
-      <div style={{ display: 'flex', justifyContent: 'center', margin: '20px 0' }}>
-        <span style={{ fontSize: '40px', marginRight: '10px' }}>♻️</span>
-        <span style={{ fontSize: '40px', marginRight: '10px' }}>🗑️</span>
-        <span style={{ fontSize: '40px' }}>🌍</span>
+    <div className="fixed inset-0 flex items-center justify-center z-[1001] bg-black bg-opacity-15 backdrop-blur-sm">
+      <div className="bg-white rounded-2xl shadow-xl p-8 max-w-lg text-center animate-fade-in">
+      <h2 className="text-3xl font-bold text-green-600 mb-6 tracking-wide">
+  Welcome to <span className="text-green-700 italic">BinGO!</span>
+</h2>
+        <div className="flex justify-center space-x-4 text-4xl mb-4">
+          <span>♻️</span>
+          <span>🗑️</span>
+          <span>🌍</span>
+        </div>
+
+        <p className="text-gray-600 text-base mb-2">
+  Ready to explore? Find bins nearby — fast and easy!
+</p>
+<p className="text-gray-600 text-base  mb-6">
+Small steps, big change.
+</p>
+        <button
+  onClick={() => setShowIntro(false)}
+  className="relative px-8 py-3 bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:from-green-500 hover:to-green-700 text-white font-bold text-lg rounded-full shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out overflow-hidden group"
+>
+  <span className="absolute inset-0 bg-white opacity-10 blur-md group-hover:opacity-20 transition-all duration-300"></span>
+  <span className="relative z-10">🌟 Get Started 🌿</span>
+</button>
+
       </div>
-      <p>Find and navigate to the nearest waste bins around you</p>
-      <p>Every small action helps our environment!</p>
-      <button
-        onClick={() => setShowIntro(false)}
-        style={{
-          padding: '8px 16px',
-          backgroundColor: '#4CAF50',
-          color: 'white',
-          border: 'none',
-          borderRadius: '4px',
-          cursor: 'pointer',
-          marginTop: '10px'
-        }}
-      >
-        Get Started
-      </button>
     </div>
   );
 }
@@ -126,7 +117,7 @@ function UserLocation({ onPositionChange }) {
             setTracking(false);
           }
         },
-        { enableHighAccuracy: true, maximumAge: 10000, timeout: 5000 }
+        { enableHighAccuracy: true, maximumAge: 10000, timeout: 10000 }
       );
     }
   };
@@ -171,107 +162,84 @@ function UserLocation({ onPositionChange }) {
   );
 }
 
-function NearbyBinsPanel({ userPosition, nearbyBins, getRoute }) {
-  if (!userPosition || nearbyBins.length === 0) return null;
+const NearbyBinsPanel = ({ nearbyBins, getRoute }) => {
+  // Array of catchy phrases
+  const distancePhrases = [
+    "Just a hop, skip, and jump away!",
+    "Not too far, just a little more to go!",
+    "It's almost within your reach!",
+    "You're so close, keep going!",
+    "The bin is calling your name!",
+    "Bin’s waiting for you, just a few steps away!",
+    "Only a few meters stand between you and the bin!"
+  ];
 
   return (
-    <div
-      style={{
-        position: 'absolute',
-        top: '70px',
-        right: '10px',
-        backgroundColor: 'white',
-        padding: '10px',
-        borderRadius: '4px',
-        boxShadow: '0 0 10px rgba(0,0,0,0.2)',
-        zIndex: 1000,
-        maxWidth: '250px',
-        maxHeight: '300px',
-        overflowY: 'auto'
-      }}
-    >
-      <h3 style={{ margin: '0 0 10px 0', color: '#4CAF50' }}>
-        <span style={{ marginRight: '5px' }}>🗑️</span>
-        Nearby Bins ({nearbyBins.length})
+    <div className="fixed top-16 left-0 h-full w-[300px] bg-white shadow-lg z-[1000] p-4 overflow-y-auto border-r border-green-100">
+      <h3 className="text-xl font-bold text-green-600 mb-5 flex items-center">
+        <span className="mr-2 text-2xl">♻️</span> Nearby Bins
+        <span className="ml-2 text-sm bg-green-100 text-green-700 px-2 py-0.5 rounded-full">
+          {nearbyBins.length}
+        </span>
       </h3>
-      {nearbyBins.filter(bin => ['recycled', 'empty', 'partially_filled'].includes(bin.status))
+
+      {nearbyBins
+        .filter(bin => ['recycled', 'empty', 'partially_filled'].includes(bin.status))
         .map(bin => (
           <div
             key={bin.id}
-            style={{
-              padding: '8px',
-              marginBottom: '8px',
-              backgroundColor: '#f1f1f1',
-              borderRadius: '4px',
-              cursor: 'pointer'
-            }}
             onClick={() => getRoute(bin)}
+            className="bg-green-50 p-5 rounded-lg mb-5 shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:scale-105"
           >
-            <div><b>Bin #{bin.id}</b> ({Math.round(bin.distance)} meters)</div>
-            <div style={{ fontSize: '0.9em' }}>
-              Status: <span style={{
-                color: bin.status === 'recycled' ? 'green' : bin.status === 'partially_filled' ? 'orange' : 'red'
-              }}>
+            <div className="font-semibold text-gray-800">
+              <span className="text-lg">
+                {distancePhrases[Math.floor(Math.random() * distancePhrases.length)]} 
+                <span className="text-sm text-gray-500 ml-2">
+                {Math.round(bin.distance / 1000)} km
+                </span>
+              </span>
+            </div>
+            <div className="text-sm text-gray-600 mt-2">
+              Status:{' '}
+              <span
+                className={`font-semibold ${
+                  bin.status === 'recycled'
+                    ? 'text-green-600'
+                    : bin.status === 'partially_filled'
+                    ? 'text-yellow-600'
+                    : 'text-red-600'
+                }`}
+              >
                 {bin.status.replace('_', ' ')}
               </span>
             </div>
-            <button
-              style={{
-                padding: '4px 8px',
-                backgroundColor: '#007BFF',
-                color: 'white',
-                border: 'none',
-                borderRadius: '4px',
-                cursor: 'pointer',
-                marginTop: '5px',
-                fontSize: '0.9em'
-              }}
-            >
+            <button className="mt-4 px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm rounded-md transition ease-in-out transform hover:scale-105">
               Show Route
             </button>
           </div>
         ))}
     </div>
   );
-}
-
+};
 function EnvironmentalImpactPopup({ message, onClose }) {
   return (
-    <div style={{
-      position: 'absolute',
-      bottom: '20px',
-      left: '50%',
-      transform: 'translateX(-50%)',
-      backgroundColor: 'white',
-      padding: '15px',
-      borderRadius: '8px',
-      boxShadow: '0 0 10px rgba(0,0,0,0.2)',
-      zIndex: 1000,
-      maxWidth: '80%',
-      textAlign: 'center',
-      display: 'flex',
-      alignItems: 'center'
-    }}>
-      <span style={{ fontSize: '24px', marginRight: '10px' }}>🌱</span>
-      <div>
-        <p style={{ margin: '0 0 5px 0', fontWeight: 'bold' }}>Environmental Impact</p>
-        <p style={{ margin: '0' }}>{message}</p>
+    <div className="fixed top-20 right-8 bg-white bg-opacity-90 px-6 py-4 rounded-lg shadow-lg z-[1050] flex items-start space-x-4 text-sm max-w-sm">
+      <span className="text-2xl mt-1">🌱</span>
+      <div className="flex-1">
+        <p className="font-semibold text-green-700 text-base mb-1">Environmental Impact</p>
+        <p className="text-gray-700 leading-snug">{message}</p>
       </div>
       <button
         onClick={onClose}
-        style={{
-          marginLeft: '10px',
-          backgroundColor: 'transparent',
-          border: 'none',
-          cursor: 'pointer',
-          fontSize: '16px'
-        }}
+        className="text-gray-500 hover:text-gray-700 text-lg mt-1"
       >
         ✖️
       </button>
     </div>
   );
 }
+
+
 
 function DustbinMarkers({ userPosition, onRouteChange, setNearbyBins, highlightBin }) {
   const [dustbins, setDustbins] = useState([]);

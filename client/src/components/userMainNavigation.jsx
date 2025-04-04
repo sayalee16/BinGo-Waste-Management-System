@@ -11,7 +11,7 @@ const UserMainNavigation = () => {
         <>
         <Navbar/>
         <Map/>
-        <SlideUpPanel/>
+        {/* <SlideUpPanel/> */}
         {/* <Footer/> */}
         </>
     );
