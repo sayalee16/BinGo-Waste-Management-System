@@ -3,9 +3,6 @@ import L from "leaflet";
 import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 
-
-
-
 // Icons for different types of waste points
 const icons = {
   // Bin status icons
@@ -14,7 +11,7 @@ const icons = {
     iconSize: [25, 41],
   }),
   partially_filled: L.icon({
-    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-orange.png',
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
     iconSize: [25, 41],
   }),
   filled: L.icon({
@@ -23,7 +20,7 @@ const icons = {
   }),
   // Open area waste icon
   open_area: L.icon({
-    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-violet.png',
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
     iconSize: [25, 41],
   }),
 };
@@ -68,21 +65,25 @@ function CollectorLocation({ onPositionChange }) {
     <>
       {!tracking && (
         <button 
-          onClick={startTracking} 
-          style={{ 
-            position: "absolute", 
-            top: "10px", 
-            left: "10px", 
-            zIndex: 1000,
-            padding: "8px 16px",
-            backgroundColor: "#4CAF50",
-            color: "white",
-            border: "none",
-            borderRadius: "4px",
-            cursor: "pointer"
-          }}
-        >
-          Start Collection Route
+        onClick={startTracking} 
+        style={{ 
+          position: "absolute", 
+          bottom: "80px", 
+          left: "50%", 
+          transform: "translateX(-50%)",
+          zIndex: 1000,
+          padding: "12px 24px",
+          backgroundColor: "#4CAF50",
+          color: "white",
+          fontSize: "16px",
+          fontWeight: "bold",
+          border: "white 1px",
+          borderRadius: "8px",
+          cursor: "pointer",
+          boxShadow: "0 4px 8px rgba(0,0,0,0.2)"
+        }}
+      >
+        Begin  Collection
         </button>
       )}
       {position && (
@@ -125,7 +126,7 @@ function WastePointsLayer({ points, collectorPosition }) {
 
 function CollectorMap() {
   const LOCATION = [18.497536, 73.793536];
-  const RADIUS = 10000;
+  const RADIUS = 5000;
 
   const defaultPosition = [18.5532, 73.8426]; // default position
   const [collectorPosition, setCollectorPosition] = useState(null);
@@ -273,7 +274,12 @@ function CollectorMap() {
   };
 
   return (
-    <div className="collector-map-container">
+    <div className="collector-map-container max-h-full">
+      <h1 className="text-xl md:text-2xl font-semibold text-green-700 text-center p-8 mx-auto max-w-3xl" style={{zIndex : "2000"}}>
+        Hey, <br/>
+        One route, one mission — a cleaner world in every bin! 🌍🍃
+      </h1>
+
       {loading && (
         <div style={{ 
           position: "absolute", 
@@ -329,10 +335,35 @@ function CollectorMap() {
             opacity={0.7} 
           />
         )}
+        <div style={{
+  position: "absolute",
+  bottom: "20px",
+  width: "100%",
+  display: "flex",
+  justifyContent: "center",
+  zIndex: 1000
+}}>
+  <button onClick={handleMarkComplete}
+    style={{
+      padding: "14px 28px",
+      backgroundColor: "#FF5722",
+      color: "white",
+      fontSize: "16px",
+      fontWeight: "bold",
+      border: "none", // cleaner without white border
+      borderRadius: "10px",
+      cursor: "pointer",
+      boxShadow: "0 6px 12px rgba(0,0,0,0.3)",
+      transition: "transform 0.2s",
+    }}
+    onMouseOver={e => e.currentTarget.style.transform = "scale(1.05)"}
+    onMouseOut={e => e.currentTarget.style.transform = "scale(1)"}
+  >
+    Done with the collections! 🌟
+  </button>
+</div>
       </MapContainer>
-      <button onClick={handleMarkComplete}>
-        Done with the task!
-      </button>
+      
       {/* Progress indicator */}
     </div>
   );
