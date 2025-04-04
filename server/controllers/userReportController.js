@@ -1,5 +1,5 @@
 import UserReport from "../models/userReportModel.js";
-
+import User from "../models/userModel.js";
 export const createReport = async (req, res) => {
     try {
       const { bin, user_id, status, description } = req.body;
