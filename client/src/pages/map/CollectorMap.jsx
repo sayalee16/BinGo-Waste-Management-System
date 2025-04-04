@@ -107,7 +107,7 @@ function WastePointsLayer({ points, collectorPosition }) {
         
         return (
           <Marker
-            key={point.id || `waste-${index}`} 
+            key={point.id || waste-`${index}`} 
             position={location}
             icon={icons[iconType]}
           >
@@ -115,20 +115,6 @@ function WastePointsLayer({ points, collectorPosition }) {
               <strong>{point.isBin ? "Waste Bin" : "Open Area Waste"}</strong><br />
               ID: {point.id}<br />
               {point.lastUpdated && <div>Updated: {new Date(point.lastUpdated).toLocaleString()}<br /></div>}
-              <button 
-                onClick={() => onMarkComplete(point.id)}
-                style={{
-                  marginTop: "10px",
-                  padding: "5px 10px",
-                  backgroundColor: "#4CAF50",
-                  color: "white",
-                  border: "none",
-                  borderRadius: "4px",
-                  cursor: "pointer"
-                }}
-              >
-                Mark as Completed
-              </button>
             </Popup>
           </Marker>
         );
@@ -300,7 +286,7 @@ function CollectorMap() {
           borderRadius: "8px",
           boxShadow: "0 2px 10px rgba(0,0,0,0.2)"
         }}>
-          A clean city is a happy city. Every bin you empty makes the world a little better!
+          Loading waste collection points...
         </div>
       )}
       
@@ -322,6 +308,7 @@ function CollectorMap() {
       )}
       
       <MapContainer center={defaultPosition} zoom={13} style={{ height: '100vh', width: '100%' }}>
+
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -344,8 +331,8 @@ function CollectorMap() {
         )}
       </MapContainer>
       <button onClick={handleMarkComplete}>
-  Done with the task!
-</button>
+        Done with the task!
+      </button>
       {/* Progress indicator */}
     </div>
   );
