@@ -27,13 +27,13 @@ const Navbar = () => {
   }, []);
   
   const navLinks = [
-    { name: 'Home', path: '/', icon: <Home size={18} /> },
+    { name: 'Home', path: '/userMainNavigation', icon: <Home size={18} /> },
     { name: 'Schedule', path: '/schedule', icon: <Calendar size={18} /> },
     { name: 'Report', path: '/userReportForm', icon: <Flag size={18} /> },
   ];
   
   return (
-    <nav className={`bg-gradient-to-r from-[#3EAD4B] to-[#3EAD4B] w-full sticky top-0 z-50 ${scrolled ? 'shadow-lg' : ''}`}>
+    <nav className={`bg-gradient-to-r from-green-700 via-green-600 to-green-500 w-full sticky top-0 z-50 ${scrolled ? 'shadow-lg' : ''}`}>
       <div className="max-w-screen-xl mx-auto px-4">
         {/* Container for all nav content */}
         <div className="flex items-center justify-between h-16">

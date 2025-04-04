@@ -157,7 +157,7 @@ const Login = () => {
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gray-100">
       {/* Expanding Background */}
       
-      <div className={`absolute top-0 right-0 h-screen w-[200vw] md:w-[300vw] overflow-hidden bg-gradient-to-br from-[#4EA685] to-[#57B894] shadow-xl transition-all duration-500 ease-in-out rounded-br-[max(60vw,60vh)] rounded-tl-[max(60vw,60vh)] flex items-center justify-center text-white
+      <div className={`absolute top-0 right-0 h-screen w-[200vw] md:w-[300vw] overflow-hidden bg-gradient-to-br from-[#3EAD4B] to-[#3EAD4B] shadow-xl transition-all duration-500 ease-in-out rounded-br-[max(60vw,60vh)] rounded-tl-[max(60vw,60vh)] flex items-center justify-center text-white
   ${isSignIn ? 'translate-x-0 right-1/2 ' : 'translate-x-full right-1/2'}` }/>
     
       <div className='flex flex-column absolute top-0 left-0 w-full h-full items-center pr-20 pb-70 justify-center'>  
@@ -193,7 +193,7 @@ const Login = () => {
                 />
             
               {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
-              <button onClick={onHandleLogin} className="w-full p-3 bg-[#4EA685] text-white rounded-lg">Login</button>
+              <button onClick={onHandleLogin} className="w-full p-3 bg-gradient-to-br from-[#3EAD4B] to-[#3EAD4B] text-white rounded-lg">Login</button>
               <p className="text-center mt-3">Don't have an account? <span onClick={toggleForm} className="text-blue-500 cursor-pointer">Sign up</span></p>
             </div>
           </div>
@@ -233,7 +233,7 @@ const Login = () => {
                 className="w-full p-3 mb-3 border rounded-lg" 
                 required />
               {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
-              <button onClick={onHandleSignIn} className="w-full p-3 bg-[#4EA685] text-white rounded-lg">Register</button>
+              <button onClick={onHandleSignIn} className="w-full p-3 bg-gradient-to-br from-[#3EAD4B] to-[#3EAD4B] text-white rounded-lg">Register</button>
 
               <p className="text-center mt-3">Already have an account? <span onClick={toggleForm} className="text-blue-500 cursor-pointer">Sign in</span></p>
           </div>
