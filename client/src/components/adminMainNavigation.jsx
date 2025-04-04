@@ -1,10 +1,15 @@
 import { useState, useEffect } from "react";
 import Navbar from "./Navbar";
+import { AuthContext } from "../context/authContext";
+import { useContext } from "react";
 
 const AdminMainNavigation = () => {
   const [reports, setReports] = useState([]);
   const [error, setError] = useState("");
   const token = localStorage.getItem("token");
+  const {currUser, updateUser} = useContext(AuthContext);
+
+  console.log("Current User:", currUser);
 
   useEffect(() => {
     if (!token) {
