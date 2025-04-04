@@ -3,8 +3,32 @@ import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const navigate = useNavigate();
-
+  const [scrolled, setScrolled] = useState(false);
+  const [activePage, setActivePage] = useState('/');
+    const { currUser } = useContext(AuthContext); // Accessing current user from AuthContext
+  
+  
+  // Track scroll position for shadow effect
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10);
+    };
+   
+    window.addEventListener('scroll', handleScroll);
+   
+    // Set active page based on current path
+    setActivePage(window.location.pathname);
+   
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+  
+  const navLinks = [
+    { name: 'Home', path: '/', icon: <Home size={18} /> },
+    { name: 'Report', path: '/userReportForm', icon: <Flag size={18} /> },
+  ];
+  
   return (
     <nav className={`bg-gradient-to-r from-[#3EAD4B] to-[#3EAD4B] w-full sticky top-0 z-50 ${scrolled ? 'shadow-lg' : ''}`}>
       <div className="max-w-screen-xl mx-auto px-4">
@@ -14,6 +38,8 @@ const Navbar = () => {
           <div className="flex-shrink-0 flex items-center">
             <div className="flex items-center">
               <span className="text-white text-2xl font-bold">Bin<span className="text-green-200">GO</span></span>
+
+              <span className="text-white text-2xl font-bold ml-10">User Dashboard</span>
             </div>
           </div>
           
@@ -39,7 +65,7 @@ const Navbar = () => {
           <div className="hidden md:flex items-center space-x-3 text-white">
   <User size={30} />
   <div className="flex flex-col">
-    <span className="font-semibold text-lg"> Hey {currUser?.username || 'Guest'}</span>
+    <span className="font-semibold text-lg"> Hey {currUser?.username || 'Admin'}</span>
     <div className="text-s text-gray-200 mt-1">
       {currUser?.username ? 
         "Your waste-saving journey begins!" :
@@ -48,9 +74,6 @@ const Navbar = () => {
   </div>
 </div>
 
-
-
-          
           {/* Mobile Menu Button (Right) */}
           <div className="md:hidden flex items-center">
             <div className="flex items-center mr-4">

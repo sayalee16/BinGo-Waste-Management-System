@@ -1,4 +1,4 @@
-import WCNavbar from "../components/WasteCollectorNavbar";
+import WCNavbar from "../components/AdminNavbar";
 import { useEffect, useState } from "react";
 
 const WCReports = () => {
