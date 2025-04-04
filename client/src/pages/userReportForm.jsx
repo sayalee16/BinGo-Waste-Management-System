@@ -18,9 +18,43 @@ const UserReportForm = () => {
     setFormData({ ...formData, attachment: e.target.files[0] });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+    const token = localStorage.getItem("token");
     e.preventDefault();
-    console.log("Form Submitted", formData);
+    
+    if (!token) {
+      setError("Unauthorized: Please log in to perform this action.");
+      return;
+    }
+    // Create a FormData object
+    const formDataToSend = new FormData();
+    formDataToSend.append("bin", formData.bin);
+    formDataToSend.append("user_id", formData.user_id);
+    formDataToSend.append("status", formData.status);
+    formDataToSend.append("attachment", formData.attachment); // Add the file
+    formDataToSend.append("description", formData.description);
+  
+    try {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/userreport/create-report`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          // Do NOT set "Content-Type" when using FormData — browser sets it correctly
+        },
+        body: formDataToSend, // Send FormData
+      });
+  
+      if (!response.ok) {
+        throw new Error("Failed to submit the report");
+      }
+  
+      const data = await response.json();
+      console.log("Report submitted successfully:", data);
+      alert("Report submitted successfully!");
+    } catch (err) {
+      console.error("Error submitting the report:", err);
+      alert("Failed to submit the report. Please try again.");
+    }
   };
 
   return (
