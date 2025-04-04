@@ -1,14 +1,19 @@
 import { useState } from "react";
 import Navbar from "../components/Navbar";
+import { AuthContext } from '../context/authContext'; // Importing AuthContext for user authentication
+import { useContext } from 'react'; // Importing useContext to access context values
 
 const UserReportForm = () => {
+  const { currUser } = useContext(AuthContext); // Accessing current user from AuthContext
+  console.log("Current User:", currUser); // Logging current user for debugging
   const [formData, setFormData] = useState({
     bin: "",
-    user_id: "",
+    user_id: currUser.userId,
     status: "full",
     attachment: null,
     description: "",
   });
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -31,7 +36,7 @@ const UserReportForm = () => {
     // Create a FormData object for file uploads
     const formDataToSend = new FormData();
     formDataToSend.append("bin", formData.bin);
-    formDataToSend.append("user_id", formData.user_id);
+    formDataToSend.append("user_id", currUser.userId); // Use currUser.userId instead of currUser
     formDataToSend.append("status", formData.status);
     formDataToSend.append("description", formData.description);
     formDataToSend.append("attachment", formData.attachment); // Attach file
@@ -60,7 +65,7 @@ const UserReportForm = () => {
       // Clear form after successful submission
       setFormData({
         bin: "",
-        user_id: "",
+        user_id: currUser.userId,
         status: "full",
         attachment: "",
         description: "",
@@ -95,7 +100,7 @@ const UserReportForm = () => {
             className="w-full p-1 border rounded-md focus:ring-2 focus:ring-green-400 mb-3 text-sm"
           />
 
-          <label className="block text-green-700 font-medium mb-1 text-sm">
+          {/* <label className="block text-green-700 font-medium mb-1 text-sm">
             User ID:
           </label>
           <input
@@ -105,7 +110,7 @@ const UserReportForm = () => {
             onChange={handleChange}
             required
             className="w-full p-1 border rounded-md focus:ring-2 focus:ring-green-400 mb-3 text-sm"
-          />
+          /> */}
 
           <label className="block text-green-700 font-medium mb-1 text-sm">
             Status:
