@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Navbar from "./Navbar";
+import AdminNavbar from "./adminNav";
 import { AuthContext } from "../context/authContext";
 import { useContext } from "react";
 import { FaTruck, FaCheckCircle, FaRecycle } from "react-icons/fa";
@@ -8,6 +8,7 @@ const AdminMainNavigation = () => {
   const [reports, setReports] = useState([]);
   const [error, setError] = useState("");
   const token = localStorage.getItem("token");
+  const [disabledButtons, setDisabledButtons] = useState({});
   const { currUser, updateUser } = useContext(AuthContext);
 
   console.log("Current User:", currUser);
@@ -46,6 +47,10 @@ const AdminMainNavigation = () => {
       return;
     }
 
+    setDisabledButtons((prev) => ({
+      ...prev,
+      [reportId]: status,
+    }));
     fetch(
       `${
         import.meta.env.VITE_BACKEND_URL
@@ -113,7 +118,14 @@ const AdminMainNavigation = () => {
 
   return (
     <>
-      <Navbar />
+      <AdminNavbar />
+      {/* Admin Dashboard Banner */}
+      <div className="bg-gradient-to-r from-green-700 via-green-600 to-green-500 text-white py-1 shadow-lg text-center rounded-b-2xl">
+  <p className="text-base mt-2 text-green-100 italic">
+    Command center for cleaner cities and smarter waste solutions
+  </p>
+</div>
+
       <div className="p-4 border-gray-600 rounded-xl shadow-2xl bg-white mt-2 mx-auto max-w-6xl">
         <h2 className="text-4xl font-bold mb-4 text-center">BIN REPORTS</h2>
         {error && <p className="text-red-500 text-center">{error}</p>}
@@ -202,7 +214,7 @@ const AdminMainNavigation = () => {
                             {/* Connecting Line */}
                             {index < 2 && (
                               <div
-                                className={`absolute top-5 left-1/2 transform -translate-x-1/2 w-full h-1 ${
+                                className={`absolute top-5 left-full transform -translate-x-1/2 w-full h-1 ${
                                   currentIndex > index
                                     ? "bg-green-600"
                                     : "bg-gray-300"
@@ -238,29 +250,37 @@ const AdminMainNavigation = () => {
                   </div>
                   {/* Action Buttons */}
                   <div className="mt-4">
-                    <button
+                  <button
                       className={`font-bold px-4 py-2 rounded mr-2 ${
-                        report.admin_status === "approved"
+                        report.admin_status === "approved" ||
+                        disabledButtons[report._id] === "approved"
                           ? "bg-green-300 cursor-not-allowed"
                           : "bg-green-500 text-white hover:bg-green-600"
                       }`}
                       onClick={() =>
                         updateReportStatus(report._id, "approved")
                       }
-                      disabled={report.admin_status === "approved"}
+                      disabled={
+                        report.admin_status === "approved" ||
+                        disabledButtons[report._id] === "approved"
+                      }
                     >
                       Approve
                     </button>
                     <button
                       className={`font-bold px-4 py-2 rounded ${
-                        report.admin_status === "rejected"
+                        report.admin_status === "rejected" ||
+                        disabledButtons[report._id] === "rejected"
                           ? "bg-red-300 cursor-not-allowed"
                           : "bg-red-500 text-white hover:bg-red-600"
                       }`}
                       onClick={() =>
                         updateReportStatus(report._id, "rejected")
                       }
-                      disabled={report.admin_status === "rejected"}
+                      disabled={
+                        report.admin_status === "rejected" ||
+                        disabledButtons[report._id] === "rejected"
+                      }
                     >
                       Reject
                     </button>
