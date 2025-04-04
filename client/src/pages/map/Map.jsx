@@ -2,6 +2,9 @@ import { MapContainer, TileLayer, Marker, Popup, useMap, Polyline, Circle } from
 import L from "leaflet";
 import { useState, useRef, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import UserReportForm from "../userReportForm";
+
 const LOCATION = []
 // Dustbin icons
 const icons = {
@@ -398,6 +401,8 @@ function Map() {
   const [nearbyBins, setNearbyBins] = useState([]);
   const [highlightBin, setHighlightBin] = useState(null);
   const [showIntro, setShowIntro] = useState(true);
+  const [showReportForm, setShowReportForm] = useState(false);
+  const navigate = useNavigate();
 
   const handleRouteChange = (routeCoordinates, envMessage) => {
     setRoute(routeCoordinates);
@@ -455,6 +460,22 @@ function Map() {
         nearbyBins={nearbyBins}
         getRoute={(bin) => handleShowBin(bin)}
       />
+        {/**REPORT button */}
+        <div
+        style={{
+          position: "fixed",
+          bottom: "20px",
+          right: "20px",
+          zIndex: 1000,
+        }}
+      >
+        <button
+          className="bg-green-500 text-white p-3 rounded shadow-lg"
+          onClick={() => navigate("/userReportForm")}
+        >
+          Report
+        </button>
+      </div>
 
       {environmentalMessage && (
         <EnvironmentalImpactPopup

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import UserMainNavigation from './userMainNavigation';
-import AdminMainNavigation from './AdminMainNavigation';
+
 import { useContext } from 'react';
 import { AuthContext } from '../context/authContext'; // Importing AuthContext for user authentication
 
@@ -82,7 +82,7 @@ const Login = () => {
           alert("Login successful!");
           updateUser(data.token);
           if (data.user.isAdmin) {
-            navigate("/AdminMainNavigation"); // Redirect to admin Main page
+            navigate("/adminMainNavigation"); // Redirect to admin Main page
           } else {
             navigate("/userMainNavigation"); // Redirect to user Main page
           }

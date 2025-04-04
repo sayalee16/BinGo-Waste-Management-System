@@ -197,7 +197,7 @@ export const getAllWasteBins = async (req, res) => {
 export const getAllWasteBinsFiltered = async (req, res) => {
   try {
     const bins = await WasteBin.find({
-      status: { $in: ["filled"] },
+      status: { $in: ["filled", "partially_filled"] },
     });
     res.status(200).json(bins);
   } catch (err) {

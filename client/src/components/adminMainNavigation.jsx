@@ -8,7 +8,7 @@ const AdminMainNavigation = () => {
   const [reports, setReports] = useState([]);
   const [error, setError] = useState("");
   const token = localStorage.getItem("token");
-  const {currUser, updateUser} = useContext(AuthContext);
+  const { currUser, updateUser } = useContext(AuthContext);
 
   console.log("Current User:", currUser);
   const statusIcons = {
@@ -51,14 +51,19 @@ const AdminMainNavigation = () => {
       return;
     }
 
-    fetch(`${import.meta.env.VITE_BACKEND_URL}/api/userreport/admin-update-report/${reportId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ admin_status: status }),
-    })
+    fetch(
+      `${
+        import.meta.env.VITE_BACKEND_URL
+      }/api/userreport/admin-update-report/${reportId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ admin_status: status }),
+      }
+    )
       .then((res) => {
         if (!res.ok) {
           throw new Error("Failed to update report status");
@@ -71,6 +76,7 @@ const AdminMainNavigation = () => {
             report._id === reportId ? { ...report, ...updatedReport } : report
           )
         );
+        alert(status === "approved" ? "Report approved!" : "Report rejected!");
         setError("");
       })
       .catch((err) => {
@@ -80,7 +86,10 @@ const AdminMainNavigation = () => {
   };
 
   const clearCompletedReports = () => {
-    if (!window.confirm("Are you sure you want to delete all completed reports?")) return;
+    if (
+      !window.confirm("Are you sure you want to delete all completed reports?")
+    )
+      return;
 
     fetch(`${import.meta.env.VITE_BACKEND_URL}/api/userreport/delete-reports`, {
       method: "DELETE",
@@ -97,7 +106,9 @@ const AdminMainNavigation = () => {
       })
       .then((data) => {
         alert(data.msg);
-        setReports((prevReports) => prevReports.filter((report) => report.wc_status !== "done"));
+        setReports((prevReports) =>
+          prevReports.filter((report) => report.wc_status !== "done")
+        );
       })
       .catch((err) => {
         console.error("Error deleting reports:", err);
@@ -108,33 +119,43 @@ const AdminMainNavigation = () => {
   return (
     <>
       <Navbar />
-      <div className="p-6 border rounded-lg shadow-lg bg-white mt-10">
-        <h2 className="text-2xl font-bold mb-4 text-center">BIN REPORTS</h2>
+      <div className="p-4 border-gray-600 rounded-xl shadow-2xl bg-white mt-2 mx-auto max-w-6xl">
+        <h2 className="text-4xl font-bold mb-4 text-center">BIN REPORTS</h2>
         {error && <p className="text-red-500 text-center">{error}</p>}
-        <button
-          className="bg-red-500 text-white font-bold px-4 py-2 rounded"
-          onClick={clearCompletedReports}
-        >
-          Clear Completed Reports
-        </button>
-        <div className="flex flex-wrap flex-col gap-6 justify-center mt-4">
+
+        <div className="flex flex-wrap flex-col gap-6 items-center max-w-6xl justify-center">
+          <button
+            className="bg-red-500 text-white font-bold px-4 py-2 rounded"
+            onClick={clearCompletedReports}
+          >
+            Clear Completed Reports
+          </button>
           {reports.length > 0 ? (
             reports.map((report) => (
-              <div key={report._id} className="flex w-full md:w-2/3 lg:w-1/2 bg-green-200 shadow-lg rounded-xl overflow-hidden">
+              <div
+                key={report._id}
+                className="flex w-full md:w-3/4 lg:w-4/5 bg-green-100 shadow-md rounded-lg overflow-hidden"
+              >
                 <img
-  src={
-    report.attachment?.data?.data
-      ? `data:image/jpeg;base64,${btoa(
-          report.attachment.data.data.map((byte) => String.fromCharCode(byte)).join("")
-        )}`
-      : "/placeholder.jpg" // fallback if no image
-  }
-  alt="Report Attachment"
-  className="w-1/3 h-auto object-cover"
-/>
+                  src={
+                    report.attachment?.data?.data
+                      ? `data:image/jpeg;base64,${btoa(
+                          report.attachment.data.data
+                            .map((byte) => String.fromCharCode(byte))
+                            .join("")
+                        )}`
+                      : "/placeholder.jpg" // fallback if no image
+                  }
+                  alt="Report Attachment"
+                  className="w-1/3 h-auto object-cover"
+                />
 
                 <div className="p-4 w-2/3">
-                  <h2 className={`text-lg font-semibold mb-2 ${report.bin ? "text-green-800" : "text-red-800"}`}>
+                  <h2
+                    className={`text-lg font-semibold mb-2 ${
+                      report.bin ? "text-green-800" : "text-red-800"
+                    }`}
+                  >
                     {report.bin ? `Status: ${report.status}` : "Complaint"}
                   </h2>
                   <p className="text-gray-700 mb-2">
@@ -144,16 +165,20 @@ const AdminMainNavigation = () => {
                   {report.bin && (
                     <>
                       <p className="text-gray-700 mb-2">
-                        <strong>Bin Name:</strong> {report.bin._id || "No Name Provided"}
+                        <strong>Bin Name:</strong>{" "}
+                        {report.bin._id || "No Name Provided"}
                       </p>
                       <p className="text-gray-700 mb-2">
-                        <strong>Bin Ward:</strong> {report.bin.ward || "No Ward Provided"}
+                        <strong>Bin Ward:</strong>{" "}
+                        {report.bin.ward || "No Ward Provided"}
                       </p>
                     </>
                   )}
                   <p className="text-gray-700">
                     <strong>Reported By:</strong>{" "}
-                    {report.user_id?.name || report.user_id?._id || "Unknown User"}
+                    {report.user_id?.name ||
+                      report.user_id?._id ||
+                      "Unknown User"}
                   </p>
             
                  {/* Timeline UI */}
@@ -187,25 +212,43 @@ const AdminMainNavigation = () => {
             }`}
           ></div>
 
-          {/* Status Label */}
-          <span className="text-xs mt-2 text-gray-700 capitalize">{status}</span>
-        </div>
-      );
-    })}
-  </div>
-</div>
+                            {/* Status Label */}
+                            <span
+                              className={`text-sm mt-2 ${
+                                isActive
+                                  ? "text-green-800 font-semibold"
+                                  : "text-gray-500"
+                              } capitalize`}
+                            >
+                              {status}
+                            </span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
 
                   {/* Action Buttons */}
                   <div className="mt-4">
                     <button
-                      className="bg-green-500 font-bold text-white px-4 py-2 rounded mr-2"
+                      className={`font-bold px-4 py-2 rounded mr-2 ${
+                        report.admin_status === "approved"
+                          ? "bg-green-300 cursor-not-allowed"
+                          : "bg-green-500 text-white hover:bg-green-600"
+                      }`}
                       onClick={() => updateReportStatus(report._id, "approved")}
+                      disabled={report.admin_status === "approved"}
                     >
                       Approve
                     </button>
                     <button
-                      className="bg-red-500 font-bold text-white px-4 py-2 rounded"
+                      className={`font-bold px-4 py-2 rounded ${
+                        report.admin_status === "rejected"
+                          ? "bg-red-300 cursor-not-allowed"
+                          : "bg-red-500 text-white hover:bg-red-600"
+                      }`}
                       onClick={() => updateReportStatus(report._id, "rejected")}
+                      disabled={report.admin_status === "rejected"}
                     >
                       Reject
                     </button>
