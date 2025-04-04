@@ -1,5 +1,5 @@
 import express from "express";
-import { authenticateAdmin, authenticateUser } from "../middleware/auth.js"; 
+import { authenticateAdmin, authenticateUser, authenticateWC } from "../middleware/auth.js"; 
 
 const router = express.Router();
 import { 
@@ -23,7 +23,7 @@ const authorizeAdmin = (req, res, next) => {
 };
 
 //get for all valid users
-router.get("/wastebins", authenticateUser, getAllWasteBins); 
+router.get("/wastebins", getAllWasteBins); 
 
 router.get("/wastebins-filtered", getAllWasteBinsFiltered); 
 
@@ -32,8 +32,8 @@ router.get("/wastebins-nosensor", getAllWasteBinsSensor);
 router.get("/wastebin/:id", authenticateUser, getWasteBinById);  
 
 //create,update and delete only for admin
-router.post("/create-wastebin", authenticateUser, authorizeAdmin, createWasteBin); 
-router.put("/update-wastebin/:id", authenticateUser, authorizeAdmin, updateWasteBin);
+router.post("/create-wastebin", authenticateUser, authorizeAdmin, createWasteBin); //remove authenticate user
+router.put("/update-wastebin/:id", updateWasteBin);
 router.delete("/delete-wastebin/:id", authenticateUser, authorizeAdmin, deleteWasteBin);  
 
 // Routes for bin status updates and simulations
