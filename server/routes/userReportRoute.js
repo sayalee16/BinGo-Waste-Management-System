@@ -25,7 +25,7 @@ router.put("/admin-update-report/:id",authenticateAdmin, updateReportAdmin);
 router.put("/wc-update-report/:id", authenticateWC, updateReportWC); 
 
 
-//delete report       
-router.delete("/:id", authenticateUser,deleteReport); 
+//delete report
+router.delete("/delete-reports", authenticateAdmin, deleteReport); 
 
 export default router;
