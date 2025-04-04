@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import { AuthContext } from "../context/authContext";
 import { useContext } from "react";
+import { CheckCircle, Clock, RefreshCcw } from "lucide-react";
 
 const AdminMainNavigation = () => {
   const [reports, setReports] = useState([]);
@@ -10,6 +11,13 @@ const AdminMainNavigation = () => {
   const {currUser, updateUser} = useContext(AuthContext);
 
   console.log("Current User:", currUser);
+  const statusIcons = {
+    pending: <Clock size={16} />,
+    done: <CheckCircle size={16} />,
+    recycled: <RefreshCcw size={16} />,
+  };
+  
+  const statuses = ["pending", "done", "recycled"];
 
   useEffect(() => {
     if (!token) {
@@ -114,7 +122,7 @@ const AdminMainNavigation = () => {
             reports.map((report) => (
               <div
                 key={report._id}
-                className="flex flex-col md:flex-row w-full md:w-2/3 lg:w-1/2 bg-green-200 shadow-lg rounded-xl overflow-hidden mb-6"
+                className="flex md:flex-row w-full bg-green-200 shadow-lg rounded-xl overflow-hidden mb-6"
               >
                 <img
                   src={report.attachment}
@@ -149,9 +157,9 @@ const AdminMainNavigation = () => {
                   </p>
             
                  {/* Timeline UI */}
-<div className="mt-4  overflow-visible">
+                 <div className="mt-4 overflow-visible">
   <p className="font-semibold mb-2 text-gray-800">Waste Collector Status:</p>
-  <div className="relative flex items-center justify-between w-full px-2">
+  <div className="relative flex items-center justify-between w-full px-4">
     {["pending", "done", "recycled"].map((status, index) => {
       const currentIndex = ["pending", "done", "recycled"].indexOf(report.wc_status);
       const isActive = index <= currentIndex;
@@ -160,19 +168,22 @@ const AdminMainNavigation = () => {
         <div key={status} className="flex-1 flex flex-col items-center relative">
           {/* Connecting Line */}
           {index < 2 && (
-            <div className="absolute top-2 left-1/2 w-full h-1 -z-10">
-              <div
-                className={`h-1 ${
-                  currentIndex > index ? "bg-green-600" : "bg-gray-300"
-                }`}
-              ></div>
-            </div>
+            <div
+              className={`absolute top-2 left-1/2 transform -translate-x-1/2 w-full h-1 ${
+                currentIndex > index ? "bg-green-600" : "bg-gray-300"
+              }`}
+              style={{
+                width: "100%",
+                height: "2px",
+                zIndex: -1,
+              }}
+            ></div>
           )}
 
           {/* Status Dot */}
           <div
-            className={`w-5 h-5 rounded-full z-10 ${
-              isActive ? "bg-green-600" : "bg-gray-400"
+            className={`w-6 h-6 rounded-full z-10 border-2 ${
+              isActive ? "bg-green-600 border-green-600" : "bg-gray-400 border-gray-400"
             }`}
           ></div>
 
