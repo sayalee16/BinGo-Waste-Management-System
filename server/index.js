@@ -29,6 +29,8 @@ app.get("/", (req, res) => {
 app.use("/api/users", userRoutes);
 app.use("/api/wastebin",wasteBinRoutes);
 app.use("/api/userreport",userReportRoutes);
+app.use("/userReportImages", express.static("public/userReportImages"));
+
 
 connectDB();
 

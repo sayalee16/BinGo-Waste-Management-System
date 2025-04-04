@@ -20,31 +20,34 @@ const UserReportForm = () => {
   };
 
   const handleSubmit = async (e) => {
-<<<<<<< HEAD
-    const token = localStorage.getItem("token");
     e.preventDefault();
-    
+    const token = localStorage.getItem("token");
+  
     if (!token) {
-      setError("Unauthorized: Please log in to perform this action.");
+      alert("Unauthorized: Please log in to perform this action.");
       return;
     }
-    // Create a FormData object
+  
+    // Create a FormData object for file uploads
     const formDataToSend = new FormData();
     formDataToSend.append("bin", formData.bin);
     formDataToSend.append("user_id", formData.user_id);
     formDataToSend.append("status", formData.status);
-    formDataToSend.append("attachment", formData.attachment); // Add the file
     formDataToSend.append("description", formData.description);
+    formDataToSend.append("attachment", formData.attachment); // Attach file
   
     try {
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/userreport/create-report`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          // Do NOT set "Content-Type" when using FormData — browser sets it correctly
-        },
-        body: formDataToSend, // Send FormData
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/userreport/create-report`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            // ❌ Do NOT set Content-Type here, FormData sets it automatically
+          },
+          body: formDataToSend,
+        }
+      );
   
       if (!response.ok) {
         throw new Error("Failed to submit the report");
@@ -53,57 +56,21 @@ const UserReportForm = () => {
       const data = await response.json();
       console.log("Report submitted successfully:", data);
       alert("Report submitted successfully!");
+  
+      // Clear form after successful submission
+      setFormData({
+        bin: "",
+        user_id: "",
+        status: "full",
+        attachment: "",
+        description: "",
+      });
     } catch (err) {
       console.error("Error submitting the report:", err);
       alert("Failed to submit the report. Please try again.");
-=======
-    e.preventDefault();
-    console.log("Form Submitted", formData);
-
-    try {
-      const res = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/userreport/create-report`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${localStorage.getItem("token")}`
-          },
-          body: JSON.stringify({
-            bin: formData.bin,
-            user_id: formData.user_id,
-            status: formData.status,
-            description: formData.description,
-            attachment: formData.attachment,
-          }),
-        }
-      );
-
-      const data = await res.json(); // Convert response to JSON
-      console.log("Server Response:", data); // Debugging
-
-      // Store token and user data
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("user", JSON.stringify(data.user));
-
-      // Clear state and show success message
-      setOldUser({ phone: "", password: "" });
-      setError("");
-      setLoggedIn(true);
-      alert("Login successful!");
-
-      if (data.user.isAdmin) {
-        navigate("/adminMainNavigation"); // Redirect to admin Main page
-      } else {
-        navigate("/userMainNavigation"); // Redirect to user Main page
-      }
-    } catch (error) {
-      console.error("Login error:", error);
-      setError("Something went wrong. Please try again.");
->>>>>>> b7225da8d3fd9fa65fb074a37f8549fdb2620e12
     }
   };
-
+  
   return (
     <>
       <Navbar />
@@ -159,7 +126,7 @@ const UserReportForm = () => {
           <label className="block text-green-700 font-medium mb-1 text-sm">
             Attachment:
           </label>
-          <div className="relative w-full mb-3">
+          <div className="relative w-full flex items-center mb-3">
             <input
               type="file"
               name="attachment"
@@ -170,10 +137,15 @@ const UserReportForm = () => {
             />
             <label
               htmlFor="file-upload"
-              className="w-full p-2 bg-green-500 hover:bg-green-600 text-white font-medium rounded-md shadow-sm text-center cursor-pointer transition duration-300 text-sm"
+              className="p-2 bg-green-500 hover:bg-green-600 text-white font-medium rounded-md shadow-sm text-center cursor-pointer transition duration-300 text-sm"
             >
               Choose File
             </label>
+            {formData.attachment && (
+              <span className="ml-3 text-xs text-gray-600 truncate">
+                {formData.attachment.name}
+              </span>
+            )}
           </div>
 
           <label className="block text-green-700 font-medium mb-1 text-sm">

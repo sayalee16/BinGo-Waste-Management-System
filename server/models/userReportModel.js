@@ -18,9 +18,15 @@ const userReportSchema = new Schema({
         required: true
     },
     attachment: {
-        type: String,  
-        required: true
-    },
+        data: {
+          type: Buffer,
+          required: true,
+        },
+        contentType: {
+          type: String,
+          required: true,
+        },
+      },      
     description: {
         type: String,  
         required: false  

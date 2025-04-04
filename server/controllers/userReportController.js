@@ -1,61 +1,33 @@
 import UserReport from "../models/userReportModel.js";
-import multer from "multer";
-import path from "path";
-import fs from "fs";
 
-const router = express.Router();
-
-// Set up multer storage (uploads to /uploads folder)
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    const uploadPath = "uploads/";
-    if (!fs.existsSync(uploadPath)) {
-      fs.mkdirSync(uploadPath, { recursive: true });
-    }
-    cb(null, uploadPath);
-  },
-  filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(null, uniqueSuffix + path.extname(file.originalname));
-  },
-});
-
-const upload = multer({ storage });
-
-router.post("/create-report", upload.single("attachment"), async (req, res) => {
-  try {
-    const { bin, user_id, status, description } = req.body;
-    const file = req.file;
-
-    if (!file) {
-      return res.status(400).json({ error: "Attachment is required" });
-    }
-
-    // Create report
-    const newReport = new Report({
-      bin,
-      user_id,
-      status,
-      description,
-      attachment: `${process.env.BASE_URL || "http://localhost:8800"}/${file.path}`, // public URL
-    });
-
-    await newReport.save();
-    res.status(201).json({ message: "Report created successfully", report: newReport });
-  } catch (err) {
-    console.error("Error in create-report:", err);
-    res.status(500).json({ error: "Server error while submitting report" });
-  }
-});
 export const createReport = async (req, res) => {
     try {
-        const userReport = new UserReport(req.body);
-        await userReport.save();
-        res.status(201).json({ msg: "User Report created", userReport });
+      const { bin, user_id, status, description } = req.body;
+      const file = req.file;
+  
+      if (!file) {
+        return res.status(400).json({ error: "Attachment is required" });
+      }
+  
+      const newReport = new UserReport({
+        bin,
+        user_id,
+        status,
+        description,
+        attachment: {
+          data: file.buffer,
+          contentType: file.mimetype,
+        },
+      });
+  
+      await newReport.save();
+      res.status(201).json({ message: "Report created successfully", report: newReport });
     } catch (err) {
-        res.status(500).json({ msg: "Failed to create user report", err: err.message });
+      console.error("Error in create-report:", err);
+      res.status(500).json({ error: "Server error while submitting report" });
     }
-};
+  };
+  
 
 export const getAllReports = async (req, res) => {
     try {
