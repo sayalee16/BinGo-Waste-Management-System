@@ -1,16 +1,33 @@
 import UserReport from "../models/userReportModel.js";
-import User from "../models/userModel.js"; // importing user as well
-
 
 export const createReport = async (req, res) => {
     try {
-        const userReport = new UserReport(req.body);
-        await userReport.save();
-        res.status(201).json({ msg: "User Report created", userReport });
+      const { bin, user_id, status, description } = req.body;
+      const file = req.file;
+  
+      if (!file) {
+        return res.status(400).json({ error: "Attachment is required" });
+      }
+  
+      const newReport = new UserReport({
+        bin,
+        user_id,
+        status,
+        description,
+        attachment: {
+          data: file.buffer,
+          contentType: file.mimetype,
+        },
+      });
+  
+      await newReport.save();
+      res.status(201).json({ message: "Report created successfully", report: newReport });
     } catch (err) {
-        res.status(500).json({ msg: "Failed to create user report", err: err.message });
+      console.error("Error in create-report:", err);
+      res.status(500).json({ error: "Server error while submitting report" });
     }
-};
+  };
+  
 
 export const getAllReports = async (req, res) => {
     try {
@@ -101,7 +118,7 @@ export const updateReportWC = async (req, res) => {
 export const deleteReport = async (req, res) => {
     console.log("Received DELETE request"); // Debug log
     try {
-        const deletedReports = await UserReport.deleteMany({ wc_status: "done" });
+        const deletedReports = await UserReport.deleteMany({ wc_status: "recycled" });
 
         if (deletedReports.deletedCount === 0) {
             console.log("No reports found to delete"); // Debug log

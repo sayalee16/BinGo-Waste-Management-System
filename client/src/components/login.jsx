@@ -3,12 +3,15 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import UserMainNavigation from './userMainNavigation';
 import AdminMainNavigation from './AdminMainNavigation';
+import { useContext } from 'react';
+import { AuthContext } from '../context/authContext'; // Importing AuthContext for user authentication
 
 const Login = () => {
   const navigate = useNavigate(); // React Router hook for navigation
 
   //for toggle animation
   const [isSignIn, setIsSignIn] = useState(true);
+  const { updateUser} = useContext(AuthContext);
 
   //login fields
   const [oldUser, setOldUser] = useState({
@@ -77,11 +80,11 @@ const Login = () => {
           setError("");
           setLoggedIn(true);
           alert("Login successful!");
-
+          updateUser(data.token);
           if (data.user.isAdmin) {
-            navigate("/adminMainNavigation"); // Redirect to admin Main page
+            navigate("/AdminMainNavigation"); // Redirect to admin Main page
           } else {
-            navigate("/userMainNavigation"); // Redirect to user Main page
+            navigate("/userReportForm"); // Redirect to user Main page
           }
       } catch (error) {
           console.error("Login error:", error);

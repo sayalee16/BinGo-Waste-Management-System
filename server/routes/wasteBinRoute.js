@@ -10,7 +10,8 @@ import {
     deleteWasteBin,
     updateBinStatus,
     simulateBinCapacityChange,
-    getAllWasteBinsFiltered
+    getAllWasteBinsFiltered,
+    getAllWasteBinsSensor
 } from "../controllers/wasteBinController.js";
 
 //check if admin
@@ -25,6 +26,8 @@ const authorizeAdmin = (req, res, next) => {
 router.get("/wastebins", getAllWasteBins); 
 
 router.get("/wastebins-filtered", getAllWasteBinsFiltered); 
+
+router.get("/wastebins-nosensor", getAllWasteBinsSensor); 
 
 router.get("/wastebin/:id", authenticateUser, getWasteBinById);  
 

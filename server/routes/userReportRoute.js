@@ -1,6 +1,7 @@
 import express from "express";
-import { authenticateUser,authenticateAdmin ,authenticateWC} from "../middleware/auth.js"; 
-const router = express.Router();
+import { authenticateUser, authenticateAdmin, authenticateWC } from "../middleware/auth.js";
+import upload from "../config/multer.js"; // ✅
+
 import { 
   getAllReports, 
   getReportById, 
@@ -9,23 +10,14 @@ import {
   updateReportWC, 
   deleteReport 
 } from "../controllers/userReportController.js";
-//get all report
-router.get("/reports", getAllReports); 
 
-//get report by id
-router.get("/get-report/:id", authenticateUser,getReportById); 
+const router = express.Router();
 
-//create report
-router.post("/create-report", authenticateUser,createReport); 
-
-//update report 
-router.put("/admin-update-report/:id",authenticateAdmin, updateReportAdmin); 
-
-//update report
-router.put("/wc-update-report/:id", authenticateWC, updateReportWC); 
-
-
-//delete report
-router.delete("/delete-reports", authenticateAdmin, deleteReport); 
+router.get("/reports", getAllReports);
+router.get("/get-report/:id", authenticateUser, getReportById);
+router.post("/create-report", authenticateUser, upload.single("attachment"), createReport);
+router.put("/admin-update-report/:id", authenticateAdmin, updateReportAdmin);
+router.put("/wc-update-report/:id", authenticateWC, updateReportWC);
+router.delete("/delete-reports", authenticateAdmin, deleteReport);
 
 export default router;
