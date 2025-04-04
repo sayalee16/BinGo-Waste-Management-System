@@ -8,10 +8,11 @@ import Login from "./components/login";
 import AdminDashboard from './pages/adminDashboard';
 import UserMainNavigation from './components/userMainNavigation';
 //import WCReports from './pages/WCReports';
-import AdminMainNavigation from './components/AdminMainNavigation';
+import AdminMainNavigation from './components/adminMainNavigation';
 import UserReportForm from './pages/userReportForm';
 //import WasteCollectorLayout from './components/WasteCollectorLayout'; // Assuming this is a separate file
 import Complaints from './pages/complaints';
+import CollectorMap from './pages/map/CollectorMap';
 const App = () => {
   return (
     <Router>
@@ -36,6 +37,7 @@ const App = () => {
 
         <Route path="/schedule" element={<Schedule />} />
 
+        <Route path="/collectorMap" element={<CollectorMap />} />
       </Routes>
     </Router>
   );

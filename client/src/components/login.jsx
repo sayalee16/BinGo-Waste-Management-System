@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import UserMainNavigation from './userMainNavigation';
-import AdminMainNavigation from './AdminMainNavigation';
+import AdminMainNavigation from './adminMainNavigation';
 import { useContext } from 'react';
 import { AuthContext } from '../context/authContext'; // Importing AuthContext for user authentication
 
