@@ -84,7 +84,7 @@ const Login = () => {
           if (data.user.isAdmin) {
             navigate("/adminMainNavigation"); // Redirect to admin Main page
           } else {
-            navigate("/userReportForm"); // Redirect to user Main page
+            navigate("/userMainNavigation"); // Redirect to user Main page
           }
       } catch (error) {
           console.error("Login error:", error);

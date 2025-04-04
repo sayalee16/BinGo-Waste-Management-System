@@ -73,10 +73,10 @@ const UserReportForm = () => {
     <>
       <Navbar />
       <div
-        className="flex justify-center items-start min-h-screen pt-10 px-4 bg-cover bg-center"
+        className="flex justify-center bg-light-green-600 items-start min-h-screen pt-10 px-4 bg-cover bg-center"
         style={{
           backgroundImage: "url('/report.webp')", // Ensure the path is correct
-          backgroundSize: "cover", // Ensures the image covers the entire screen
+          backgroundSize: "center", // Ensures the image covers the entire screen
           backgroundPosition: "center", // Centers the image
           backgroundRepeat: "no-repeat", // Prevents the image from repeating
         }}
