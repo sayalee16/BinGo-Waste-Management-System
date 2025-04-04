@@ -298,7 +298,7 @@ function DustbinMarkers({ userPosition, onRouteChange, setNearbyBins, highlightB
             bin.location.latitude, bin.location.longitude
           ),
         }))
-        .filter(bin => bin.distance <= 30000) // Filter bins within 30km
+        .filter(bin => bin.distance <= 5000) // Filter bins within 30km
         .sort((a, b) => a.distance - b.distance);
 
       setNearbyBins(nearby);

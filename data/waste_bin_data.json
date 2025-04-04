@@ -1,716 +1,960 @@
-[
-  {
-      "id": "b2b64227-197a-49be-b757-1ac31dcf27f2",
-      "totalCapacity": 100,
-      "realTimeCapacity": 87,
-      "approxTime": "4 hrs",
-      "lastEmptiedAt": "2025-03-26T12:42:08.189204",
-      "locn": {
-          "latitude": 18.671817,
-          "longitude": 73.920807
-      },
-      "category": "plastic",
-      "status": "partially_filled",
-      "sensorEnabled": true,
-      "ward": "Viman Nagar",
-      "zone": "Nagar Road-Wadgaon Sheri",
-      "wasteQuantityPerDay": "27.21 tonnes"
+[{
+    "_id": {
+      "$oid": "67e65082151e34626f4bd276"
+    },
+    "id": "b2b64227-197a-49be-b757-1ac31dcf27f2",
+    "totalCapacity": 100,
+    "realTimeCapacity": 87,
+    "approxTime": "4 hrs",
+    "lastEmptiedAt": "2025-03-26T12:42:08.189204",
+    "locn": {
+      "latitude": 18.671817,
+      "longitude": 73.920807
+    },
+    "category": "plastic",
+    "status": "partially filled",
+    "sensorEnabled": true,
+    "ward": "Viman Nagar",
+    "zone": "Nagar Road-Wadgaon Sheri",
+    "wasteQuantityPerDay": "27.21 tonnes"
   },
   {
-      "id": "034905b3-a7f5-4a0c-8714-c3f46629ec5c",
-      "totalCapacity": 100,
-      "realTimeCapacity": 53,
-      "approxTime": "5 hrs",
-      "lastEmptiedAt": "2025-03-25T12:42:08.189455",
-      "locn": {
-          "latitude": 18.445343,
-          "longitude": 73.778457
-      },
-      "category": "wet",
-      "status": "recycled",
-      "sensorEnabled": true,
-      "ward": "Kharadi-Chandan Nagar",
-      "zone": "NaN",
-      "wasteQuantityPerDay": "29.28 tonnes"
+    "_id": {
+      "$oid": "67e65082151e34626f4bd277"
+    },
+    "id": "034905b3-a7f5-4a0c-8714-c3f46629ec5c",
+    "totalCapacity": 100,
+    "realTimeCapacity": 53,
+    "approxTime": "5 hrs",
+    "lastEmptiedAt": "2025-03-25T12:42:08.189455",
+    "locn": {
+      "latitude": 18.445343,
+      "longitude": 73.778457
+    },
+    "category": "wet",
+    "status": "recycled",
+    "sensorEnabled": true,
+    "ward": "Kharadi-Chandan Nagar",
+    "zone": "NaN",
+    "wasteQuantityPerDay": "29.28 tonnes"
   },
   {
-      "id": "96fdf7dd-5224-4ad2-b8f7-848c261b5fdd",
-      "totalCapacity": 100,
-      "realTimeCapacity": 88,
-      "approxTime": "3 hrs",
-      "lastEmptiedAt": "2025-03-17T12:42:08.189721",
-      "locn": {
-          "latitude": 18.619066,
-          "longitude": 73.928211
-      },
-      "category": "wet",
-      "status": "filled",
-      "sensorEnabled": true,
-      "ward": "Wadgaon-Sheri-Kalyani nagar",
-      "zone": "NaN",
-      "wasteQuantityPerDay": "23.67 tonnes"
+    "_id": {
+      "$oid": "67e65082151e34626f4bd278"
+    },
+    "id": "96fdf7dd-5224-4ad2-b8f7-848c261b5fdd",
+    "totalCapacity": 100,
+    "realTimeCapacity": 88,
+    "approxTime": "3 hrs",
+    "lastEmptiedAt": "2025-03-17T12:42:08.189721",
+    "locn": {
+      "latitude": 18.619066,
+      "longitude": 73.928211
+    },
+    "category": "wet",
+    "status": "filled",
+    "sensorEnabled": true,
+    "ward": "Wadgaon-Sheri-Kalyani nagar",
+    "zone": "NaN",
+    "wasteQuantityPerDay": "23.67 tonnes"
   },
   {
-      "id": "9918a3a8-69a0-4803-a14a-2d1cfa0585e6",
-      "totalCapacity": 100,
-      "realTimeCapacity": 27,
-      "approxTime": "4 hrs",
-      "lastEmptiedAt": "2025-03-19T12:42:08.189979",
-      "locn": {
-          "latitude": 18.524301,
-          "longitude": 73.891836
-      },
-      "category": "plastic",
-      "status": "partially_filled",
-      "sensorEnabled": true,
-      "ward": "Kalas-Dhanori",
-      "zone": "Yerwada kalas Dhanori",
-      "wasteQuantityPerDay": "36.96 tonnes"
+    "_id": {
+      "$oid": "67e65082151e34626f4bd279"
+    },
+    "id": "9918a3a8-69a0-4803-a14a-2d1cfa0585e6",
+    "totalCapacity": 100,
+    "realTimeCapacity": 27,
+    "approxTime": "4 hrs",
+    "lastEmptiedAt": "2025-03-19T12:42:08.189979",
+    "locn": {
+      "latitude": 18.524301,
+      "longitude": 73.891836
+    },
+    "category": "plastic",
+    "status": "partially filled",
+    "sensorEnabled": true,
+    "ward": "Kalas-Dhanori",
+    "zone": "Yerwada kalas Dhanori",
+    "wasteQuantityPerDay": "36.96 tonnes"
   },
   {
-      "id": "e739ac11-1adf-4737-9c6a-f3242e952c9f",
-      "totalCapacity": 100,
-      "realTimeCapacity": 27,
-      "approxTime": "12 hrs",
-      "lastEmptiedAt": "2025-03-23T12:42:08.190354",
-      "locn": {
-          "latitude": 18.52286,
-          "longitude": 73.803013
-      },
-      "category": "dry",
-      "status": "filled",
-      "sensorEnabled": true,
-      "ward": "Phule Nagar-Nagpur Chwal",
-      "zone": "NaN",
-      "wasteQuantityPerDay": "37.54 tonnes"
+    "_id": {
+      "$oid": "67e65082151e34626f4bd27a"
+    },
+    "id": "e739ac11-1adf-4737-9c6a-f3242e952c9f",
+    "totalCapacity": 100,
+    "realTimeCapacity": 27,
+    "approxTime": "12 hrs",
+    "lastEmptiedAt": "2025-03-23T12:42:08.190354",
+    "locn": {
+      "latitude": 18.52286,
+      "longitude": 73.803013
+    },
+    "category": "dry",
+    "status": "filled",
+    "sensorEnabled": true,
+    "ward": "Phule Nagar-Nagpur Chwal",
+    "zone": "NaN",
+    "wasteQuantityPerDay": "37.54 tonnes"
   },
   {
-      "id": "c4377ff8-f02e-4b5d-bba1-a573cb352537",
-      "totalCapacity": 100,
-      "realTimeCapacity": 33,
-      "approxTime": "5 hrs",
-      "lastEmptiedAt": "2025-03-17T12:42:08.190636",
-      "locn": {
-          "latitude": 18.670063,
-          "longitude": 73.942173
-      },
-      "category": "plastic",
-      "status": "recycled",
-      "sensorEnabled": true,
-      "ward": "Yerawada",
-      "zone": "NaN",
-      "wasteQuantityPerDay": "22.35 tonnes"
+    "_id": {
+      "$oid": "67e65082151e34626f4bd27b"
+    },
+    "id": "c4377ff8-f02e-4b5d-bba1-a573cb352537",
+    "totalCapacity": 100,
+    "realTimeCapacity": 33,
+    "approxTime": "5 hrs",
+    "lastEmptiedAt": "2025-03-17T12:42:08.190636",
+    "locn": {
+      "latitude": 18.670063,
+      "longitude": 73.942173
+    },
+    "category": "plastic",
+    "status": "recycled",
+    "sensorEnabled": true,
+    "ward": "Yerawada",
+    "zone": "NaN",
+    "wasteQuantityPerDay": "22.35 tonnes"
   },
   {
-      "id": "e41ab530-b8e1-4765-a663-85af57b1250e",
-      "totalCapacity": 100,
-      "realTimeCapacity": 20,
-      "approxTime": "11 hrs",
-      "lastEmptiedAt": "2025-03-26T12:42:08.191237",
-      "locn": {
-          "latitude": 18.469132,
-          "longitude": 73.905326
-      },
-      "category": "dry",
-      "status": "partially_filled",
-      "sensorEnabled": true,
-      "ward": "Tadiwala Road-Sasoon Hospital",
-      "zone": "Dhole Patil Road",
-      "wasteQuantityPerDay": "39.18 tonnes"
+    "_id": {
+      "$oid": "67e65082151e34626f4bd27c"
+    },
+    "id": "e41ab530-b8e1-4765-a663-85af57b1250e",
+    "totalCapacity": 100,
+    "realTimeCapacity": 20,
+    "approxTime": "11 hrs",
+    "lastEmptiedAt": "2025-03-26T12:42:08.191237",
+    "locn": {
+      "latitude": 18.469132,
+      "longitude": 73.905326
+    },
+    "category": "dry",
+    "status": "partially filled",
+    "sensorEnabled": true,
+    "ward": "Tadiwala Road-Sasoon Hospital",
+    "zone": "Dhole Patil Road",
+    "wasteQuantityPerDay": "39.18 tonnes"
   },
   {
-      "id": "91c21805-e936-43f3-8f1b-881da95c4fc3",
-      "totalCapacity": 100,
-      "realTimeCapacity": 27,
-      "approxTime": "8 hrs",
-      "lastEmptiedAt": "2025-03-18T12:42:08.191699",
-      "locn": {
-          "latitude": 18.668078,
-          "longitude": 73.746394
-      },
-      "category": "plastic",
-      "status": "filled",
-      "sensorEnabled": true,
-      "ward": "Koregain Park-Ghorpadi",
-      "zone": "NaN",
-      "wasteQuantityPerDay": "36.49 tonnes"
+    "_id": {
+      "$oid": "67e65082151e34626f4bd27d"
+    },
+    "id": "91c21805-e936-43f3-8f1b-881da95c4fc3",
+    "totalCapacity": 100,
+    "realTimeCapacity": 27,
+    "approxTime": "8 hrs",
+    "lastEmptiedAt": "2025-03-18T12:42:08.191699",
+    "locn": {
+      "latitude": 18.668078,
+      "longitude": 73.746394
+    },
+    "category": "plastic",
+    "status": "filled",
+    "sensorEnabled": true,
+    "ward": "Koregain Park-Ghorpadi",
+    "zone": "NaN",
+    "wasteQuantityPerDay": "36.49 tonnes"
   },
   {
-      "id": "253a7394-e852-4aee-bb52-0d376507c366",
-      "totalCapacity": 100,
-      "realTimeCapacity": 15,
-      "approxTime": "9 hrs",
-      "lastEmptiedAt": "2025-03-20T12:42:08.191972",
-      "locn": {
-          "latitude": 18.614335,
-          "longitude": 73.724205
-      },
-      "category": "dry",
-      "status": "recycled",
-      "sensorEnabled": true,
-      "ward": "Aundh-Bopodi",
-      "zone": "Aundh Baner",
-      "wasteQuantityPerDay": "28.54 tonnes"
+    "_id": {
+      "$oid": "67e65082151e34626f4bd27e"
+    },
+    "id": "253a7394-e852-4aee-bb52-0d376507c366",
+    "totalCapacity": 100,
+    "realTimeCapacity": 15,
+    "approxTime": "9 hrs",
+    "lastEmptiedAt": "2025-03-20T12:42:08.191972",
+    "locn": {
+      "latitude": 18.614335,
+      "longitude": 73.724205
+    },
+    "category": "dry",
+    "status": "recycled",
+    "sensorEnabled": true,
+    "ward": "Aundh-Bopodi",
+    "zone": "Aundh Baner",
+    "wasteQuantityPerDay": "28.54 tonnes"
   },
   {
-      "id": "57ad3dca-1410-4211-8912-81264f0a036d",
-      "totalCapacity": 100,
-      "realTimeCapacity": 23,
-      "approxTime": "4 hrs",
-      "lastEmptiedAt": "2025-03-22T12:42:08.192113",
-      "locn": {
-          "latitude": 18.524032,
-          "longitude": 73.837085
-      },
-      "category": "wet",
-      "status": "partially_filled",
-      "sensorEnabled": true,
-      "ward": "Baner-Balewadi-pashan",
-      "zone": "NaN",
-      "wasteQuantityPerDay": "41.86 tonnes"
+    "_id": {
+      "$oid": "67e65082151e34626f4bd27f"
+    },
+    "id": "57ad3dca-1410-4211-8912-81264f0a036d",
+    "totalCapacity": 100,
+    "realTimeCapacity": 23,
+    "approxTime": "4 hrs",
+    "lastEmptiedAt": "2025-03-22T12:42:08.192113",
+    "locn": {
+      "latitude": 18.524032,
+      "longitude": 73.837085
+    },
+    "category": "wet",
+    "status": "partially filled",
+    "sensorEnabled": true,
+    "ward": "Baner-Balewadi-pashan",
+    "zone": "NaN",
+    "wasteQuantityPerDay": "41.86 tonnes"
   },
   {
-      "id": "bc77620c-e22c-47bc-b3f2-9d5c9cd8ebd9",
-      "totalCapacity": 100,
-      "realTimeCapacity": 90,
-      "approxTime": "3 hrs",
-      "lastEmptiedAt": "2025-03-21T12:42:08.192458",
-      "locn": {
-          "latitude": 18.536023,
-          "longitude": 73.93123
-      },
-      "category": "wet",
-      "status": "filled",
-      "sensorEnabled": true,
-      "ward": "Pune University-Wakdewadi",
-      "zone": "Shivaji Nagar-Ghole Road",
-      "wasteQuantityPerDay": "49.79 tonnes"
+    "_id": {
+      "$oid": "67e65082151e34626f4bd280"
+    },
+    "id": "bc77620c-e22c-47bc-b3f2-9d5c9cd8ebd9",
+    "totalCapacity": 100,
+    "realTimeCapacity": 90,
+    "approxTime": "3 hrs",
+    "lastEmptiedAt": "2025-03-21T12:42:08.192458",
+    "locn": {
+      "latitude": 18.536023,
+      "longitude": 73.93123
+    },
+    "category": "wet",
+    "status": "filled",
+    "sensorEnabled": true,
+    "ward": "Pune University-Wakdewadi",
+    "zone": "Shivaji Nagar-Ghole Road",
+    "wasteQuantityPerDay": "49.79 tonnes"
   },
   {
-      "id": "85bb57aa-b0e1-4f8e-ad57-577471e5469c",
-      "totalCapacity": 100,
-      "realTimeCapacity": 49,
-      "approxTime": "8 hrs",
-      "lastEmptiedAt": "2025-03-20T12:42:08.192705",
-      "locn": {
-          "latitude": 18.673132,
-          "longitude": 73.805522
-      },
-      "category": "wet",
-      "status": "partially_filled",
-      "sensorEnabled": true,
-      "ward": "Deccan Gymkhana-Model Colony",
-      "zone": "NaN",
-      "wasteQuantityPerDay": "53.87 tonnes"
+    "_id": {
+      "$oid": "67e65082151e34626f4bd281"
+    },
+    "id": "85bb57aa-b0e1-4f8e-ad57-577471e5469c",
+    "totalCapacity": 100,
+    "realTimeCapacity": 49,
+    "approxTime": "8 hrs",
+    "lastEmptiedAt": "2025-03-20T12:42:08.192705",
+    "locn": {
+      "latitude": 18.673132,
+      "longitude": 73.805522
+    },
+    "category": "wet",
+    "status": "partially filled",
+    "sensorEnabled": true,
+    "ward": "Deccan Gymkhana-Model Colony",
+    "zone": "NaN",
+    "wasteQuantityPerDay": "53.87 tonnes"
   },
   {
-      "id": "fd6da083-cb7b-427e-942a-1505942b74ec",
-      "totalCapacity": 100,
-      "realTimeCapacity": 74,
-      "approxTime": "10 hrs",
-      "lastEmptiedAt": "2025-03-21T12:42:08.192860",
-      "locn": {
-          "latitude": 18.567966,
-          "longitude": 73.89521
-      },
-      "category": "plastic",
-      "status": "partially_filled",
-      "sensorEnabled": true,
-      "ward": "Bavdhan-Kothrud Depot",
-      "zone": "Kothrud Bavdhan",
-      "wasteQuantityPerDay": "40.73 tonnes"
+    "_id": {
+      "$oid": "67e65082151e34626f4bd282"
+    },
+    "id": "fd6da083-cb7b-427e-942a-1505942b74ec",
+    "totalCapacity": 100,
+    "realTimeCapacity": 74,
+    "approxTime": "10 hrs",
+    "lastEmptiedAt": "2025-03-21T12:42:08.192860",
+    "locn": {
+      "latitude": 18.567966,
+      "longitude": 73.89521
+    },
+    "category": "plastic",
+    "status": "partially filled",
+    "sensorEnabled": true,
+    "ward": "Bavdhan-Kothrud Depot",
+    "zone": "Kothrud Bavdhan",
+    "wasteQuantityPerDay": "40.73 tonnes"
   },
   {
-      "id": "9f3e953d-3df9-430c-aa15-722fb4bbdd9f",
-      "totalCapacity": 100,
-      "realTimeCapacity": 48,
-      "approxTime": "2 hrs",
-      "lastEmptiedAt": "2025-03-23T12:42:08.193008",
-      "locn": {
-          "latitude": 18.618487,
-          "longitude": 73.835033
-      },
-      "category": "plastic",
-      "status": "recycled",
-      "sensorEnabled": true,
-      "ward": "Rambaugh Colony-Shivtirth Nagar",
-      "zone": "NaN",
-      "wasteQuantityPerDay": "14.64 tonnes"
+    "_id": {
+      "$oid": "67e65082151e34626f4bd283"
+    },
+    "id": "9f3e953d-3df9-430c-aa15-722fb4bbdd9f",
+    "totalCapacity": 100,
+    "realTimeCapacity": 48,
+    "approxTime": "2 hrs",
+    "lastEmptiedAt": "2025-03-23T12:42:08.193008",
+    "locn": {
+      "latitude": 18.618487,
+      "longitude": 73.835033
+    },
+    "category": "plastic",
+    "status": "recycled",
+    "sensorEnabled": true,
+    "ward": "Rambaugh Colony-Shivtirth Nagar",
+    "zone": "NaN",
+    "wasteQuantityPerDay": "14.64 tonnes"
   },
   {
-      "id": "e25527a1-a9a6-4977-a410-7637bc1ce9ea",
-      "totalCapacity": 100,
-      "realTimeCapacity": 52,
-      "approxTime": "11 hrs",
-      "lastEmptiedAt": "2025-03-19T12:42:08.193157",
-      "locn": {
-          "latitude": 18.62429,
-          "longitude": 73.979775
-      },
-      "category": "plastic",
-      "status": "partially_filled",
-      "sensorEnabled": true,
-      "ward": "Mayur Colony-Dahanukar Colony",
-      "zone": "NaN",
-      "wasteQuantityPerDay": "39.69 tonnes"
+    "_id": {
+      "$oid": "67e65082151e34626f4bd284"
+    },
+    "id": "e25527a1-a9a6-4977-a410-7637bc1ce9ea",
+    "totalCapacity": 100,
+    "realTimeCapacity": 52,
+    "approxTime": "11 hrs",
+    "lastEmptiedAt": "2025-03-19T12:42:08.193157",
+    "locn": {
+      "latitude": 18.62429,
+      "longitude": 73.979775
+    },
+    "category": "plastic",
+    "status": "partially filled",
+    "sensorEnabled": true,
+    "ward": "Mayur Colony-Dahanukar Colony",
+    "zone": "NaN",
+    "wasteQuantityPerDay": "39.69 tonnes"
   },
   {
-      "id": "9f173df9-a448-4a19-9808-876c16ad8f85",
-      "totalCapacity": 100,
-      "realTimeCapacity": 89,
-      "approxTime": "2 hrs",
-      "lastEmptiedAt": "2025-03-17T12:42:08.193293",
-      "locn": {
-          "latitude": 18.505534,
-          "longitude": 73.826409
-      },
-      "category": "dry",
-      "status": "partially_filled",
-      "sensorEnabled": true,
-      "ward": "Sahakarnagar-Padmavati",
-      "zone": "Dhanawadi Sahakarnagar",
-      "wasteQuantityPerDay": "49.92 tonnes"
+    "_id": {
+      "$oid": "67e65082151e34626f4bd285"
+    },
+    "id": "9f173df9-a448-4a19-9808-876c16ad8f85",
+    "totalCapacity": 100,
+    "realTimeCapacity": 89,
+    "approxTime": "2 hrs",
+    "lastEmptiedAt": "2025-03-17T12:42:08.193293",
+    "locn": {
+      "latitude": 18.505534,
+      "longitude": 73.826409
+    },
+    "category": "dry",
+    "status": "partially filled",
+    "sensorEnabled": true,
+    "ward": "Sahakarnagar-Padmavati",
+    "zone": "Dhanawadi Sahakarnagar",
+    "wasteQuantityPerDay": "49.92 tonnes"
   },
   {
-      "id": "26966f60-0224-42de-904f-7bffdfb9bd16",
-      "totalCapacity": 100,
-      "realTimeCapacity": 55,
-      "approxTime": "2 hrs",
-      "lastEmptiedAt": "2025-03-25T12:42:08.193427",
-      "locn": {
-          "latitude": 18.649178,
-          "longitude": 73.98687
-      },
-      "category": "dry",
-      "status": "filled",
-      "sensorEnabled": true,
-      "ward": "Dhankawadi-Ambegaon Pathar",
-      "zone": "NaN",
-      "wasteQuantityPerDay": "44.0 tonnes"
+    "_id": {
+      "$oid": "67e65082151e34626f4bd286"
+    },
+    "id": "26966f60-0224-42de-904f-7bffdfb9bd16",
+    "totalCapacity": 100,
+    "realTimeCapacity": 55,
+    "approxTime": "2 hrs",
+    "lastEmptiedAt": "2025-03-25T12:42:08.193427",
+    "locn": {
+      "latitude": 18.649178,
+      "longitude": 73.98687
+    },
+    "category": "dry",
+    "status": "filled",
+    "sensorEnabled": true,
+    "ward": "Dhankawadi-Ambegaon Pathar",
+    "zone": "NaN",
+    "wasteQuantityPerDay": "44.0 tonnes"
   },
   {
-      "id": "7cd6653d-c96e-4515-9654-4e4dfe028d9e",
-      "totalCapacity": 100,
-      "realTimeCapacity": 82,
-      "approxTime": "8 hrs",
-      "lastEmptiedAt": "2025-03-18T12:42:08.193556",
-      "locn": {
-          "latitude": 18.584049,
-          "longitude": 73.8114
-      },
-      "category": "dry",
-      "status": "filled",
-      "sensorEnabled": true,
-      "ward": "Dutta Nagar-Katraj Gaothan",
-      "zone": "NaN",
-      "wasteQuantityPerDay": "44.73 tonnes"
+    "_id": {
+      "$oid": "67e65082151e34626f4bd287"
+    },
+    "id": "7cd6653d-c96e-4515-9654-4e4dfe028d9e",
+    "totalCapacity": 100,
+    "realTimeCapacity": 82,
+    "approxTime": "8 hrs",
+    "lastEmptiedAt": "2025-03-18T12:42:08.193556",
+    "locn": {
+      "latitude": 18.584049,
+      "longitude": 73.8114
+    },
+    "category": "dry",
+    "status": "filled",
+    "sensorEnabled": true,
+    "ward": "Dutta Nagar-Katraj Gaothan",
+    "zone": "NaN",
+    "wasteQuantityPerDay": "44.73 tonnes"
   },
   {
-      "id": "e4566317-002b-4918-97b5-95ab49f7b945",
-      "totalCapacity": 100,
-      "realTimeCapacity": 27,
-      "approxTime": "10 hrs",
-      "lastEmptiedAt": "2025-03-19T12:42:08.193684",
-      "locn": {
-          "latitude": 18.606328,
-          "longitude": 73.989984
-      },
-      "category": "plastic",
-      "status": "partially_filled",
-      "sensorEnabled": true,
-      "ward": "Janta Vasahat-Duttawadi",
-      "zone": "Sinhagad Road",
-      "wasteQuantityPerDay": "23.57 tonnes"
+    "_id": {
+      "$oid": "67e65082151e34626f4bd288"
+    },
+    "id": "e4566317-002b-4918-97b5-95ab49f7b945",
+    "totalCapacity": 100,
+    "realTimeCapacity": 27,
+    "approxTime": "10 hrs",
+    "lastEmptiedAt": "2025-03-19T12:42:08.193684",
+    "locn": {
+      "latitude": 18.606328,
+      "longitude": 73.989984
+    },
+    "category": "plastic",
+    "status": "partially filled",
+    "sensorEnabled": true,
+    "ward": "Janta Vasahat-Duttawadi",
+    "zone": "Sinhagad Road",
+    "wasteQuantityPerDay": "23.57 tonnes"
   },
   {
-      "id": "49764dd2-ca5d-42cc-bcf9-eb0d41c906cf",
-      "totalCapacity": 100,
-      "realTimeCapacity": 26,
-      "approxTime": "7 hrs",
-      "lastEmptiedAt": "2025-03-20T12:42:08.193809",
-      "locn": {
-          "latitude": 18.448685,
-          "longitude": 73.794311
-      },
-      "category": "wet",
-      "status": "recycled",
-      "sensorEnabled": true,
-      "ward": "Wadgaon Dhayri-Wadgaon Budruk",
-      "zone": "NaN",
-      "wasteQuantityPerDay": "44.74 tonnes"
+    "_id": {
+      "$oid": "67e65082151e34626f4bd289"
+    },
+    "id": "49764dd2-ca5d-42cc-bcf9-eb0d41c906cf",
+    "totalCapacity": 100,
+    "realTimeCapacity": 26,
+    "approxTime": "7 hrs",
+    "lastEmptiedAt": "2025-03-20T12:42:08.193809",
+    "locn": {
+      "latitude": 18.448685,
+      "longitude": 73.794311
+    },
+    "category": "wet",
+    "status": "recycled",
+    "sensorEnabled": true,
+    "ward": "Wadgaon Dhayri-Wadgaon Budruk",
+    "zone": "NaN",
+    "wasteQuantityPerDay": "44.74 tonnes"
   },
   {
-      "id": "c2520dd1-0d3a-4ad5-8417-b5235577cf8c",
-      "totalCapacity": 100,
-      "realTimeCapacity": 77,
-      "approxTime": "3 hrs",
-      "lastEmptiedAt": "2025-03-25T12:42:08.193933",
-      "locn": {
-          "latitude": 18.608318,
-          "longitude": 73.850969
-      },
-      "category": "dry",
-      "status": "partially_filled",
-      "sensorEnabled": true,
-      "ward": "Suncity-Hingne Khurd",
-      "zone": "NaN",
-      "wasteQuantityPerDay": "29.11 tonnes"
+    "_id": {
+      "$oid": "67e65082151e34626f4bd28a"
+    },
+    "id": "c2520dd1-0d3a-4ad5-8417-b5235577cf8c",
+    "totalCapacity": 100,
+    "realTimeCapacity": 77,
+    "approxTime": "3 hrs",
+    "lastEmptiedAt": "2025-03-25T12:42:08.193933",
+    "locn": {
+      "latitude": 18.608318,
+      "longitude": 73.850969
+    },
+    "category": "dry",
+    "status": "partially filled",
+    "sensorEnabled": true,
+    "ward": "Suncity-Hingne Khurd",
+    "zone": "NaN",
+    "wasteQuantityPerDay": "29.11 tonnes"
   },
   {
-      "id": "5e4acf55-8aab-432b-91b3-b06e546fd31a",
-      "totalCapacity": 100,
-      "realTimeCapacity": 44,
-      "approxTime": "7 hrs",
-      "lastEmptiedAt": "2025-03-24T12:42:08.194067",
-      "locn": {
-          "latitude": 18.414936,
-          "longitude": 73.902773
-      },
-      "category": "plastic",
-      "status": "filled",
-      "sensorEnabled": true,
-      "ward": "Erandawana-Happy Colony",
-      "zone": "Warje karve Nagar",
-      "wasteQuantityPerDay": "43.47 tonnes"
+    "_id": {
+      "$oid": "67e65082151e34626f4bd28b"
+    },
+    "id": "5e4acf55-8aab-432b-91b3-b06e546fd31a",
+    "totalCapacity": 100,
+    "realTimeCapacity": 44,
+    "approxTime": "7 hrs",
+    "lastEmptiedAt": "2025-03-24T12:42:08.194067",
+    "locn": {
+      "latitude": 18.414936,
+      "longitude": 73.902773
+    },
+    "category": "plastic",
+    "status": "filled",
+    "sensorEnabled": true,
+    "ward": "Erandawana-Happy Colony",
+    "zone": "Warje karve Nagar",
+    "wasteQuantityPerDay": "43.47 tonnes"
   },
   {
-      "id": "ac5c858b-7e01-4d9a-8a8d-2eef4203975a",
-      "totalCapacity": 100,
-      "realTimeCapacity": 99,
-      "approxTime": "9 hrs",
-      "lastEmptiedAt": "2025-03-22T12:42:08.194212",
-      "locn": {
-          "latitude": 18.485691,
-          "longitude": 73.722571
-      },
-      "category": "dry",
-      "status": "recycled",
-      "sensorEnabled": true,
-      "ward": "Karvenagar",
-      "zone": "NaN",
-      "wasteQuantityPerDay": "37.05 tonnes"
+    "_id": {
+      "$oid": "67e65082151e34626f4bd28c"
+    },
+    "id": "ac5c858b-7e01-4d9a-8a8d-2eef4203975a",
+    "totalCapacity": 100,
+    "realTimeCapacity": 99,
+    "approxTime": "9 hrs",
+    "lastEmptiedAt": "2025-03-22T12:42:08.194212",
+    "locn": {
+      "latitude": 18.485691,
+      "longitude": 73.722571
+    },
+    "category": "dry",
+    "status": "recycled",
+    "sensorEnabled": true,
+    "ward": "Karvenagar",
+    "zone": "NaN",
+    "wasteQuantityPerDay": "37.05 tonnes"
   },
   {
-      "id": "2018ff7c-9f6c-4b29-a245-d82da999b20a",
-      "totalCapacity": 100,
-      "realTimeCapacity": 70,
-      "approxTime": "4 hrs",
-      "lastEmptiedAt": "2025-03-18T12:42:08.194336",
-      "locn": {
-          "latitude": 18.604195,
-          "longitude": 73.897278
-      },
-      "category": "plastic",
-      "status": "filled",
-      "sensorEnabled": true,
-      "ward": "Warje-Malwadi",
-      "zone": "NaN",
-      "wasteQuantityPerDay": "39.14 tonnes"
+    "_id": {
+      "$oid": "67e65082151e34626f4bd28d"
+    },
+    "id": "2018ff7c-9f6c-4b29-a245-d82da999b20a",
+    "totalCapacity": 100,
+    "realTimeCapacity": 70,
+    "approxTime": "4 hrs",
+    "lastEmptiedAt": "2025-03-18T12:42:08.194336",
+    "locn": {
+      "latitude": 18.604195,
+      "longitude": 73.897278
+    },
+    "category": "plastic",
+    "status": "filled",
+    "sensorEnabled": true,
+    "ward": "Warje-Malwadi",
+    "zone": "NaN",
+    "wasteQuantityPerDay": "39.14 tonnes"
   },
   {
-      "id": "25e6bd39-e132-4a10-86fe-9e3255c121fc",
-      "totalCapacity": 100,
-      "realTimeCapacity": 44,
-      "approxTime": "8 hrs",
-      "lastEmptiedAt": "2025-03-25T12:42:08.194472",
-      "locn": {
-          "latitude": 18.672385,
-          "longitude": 73.94193
-      },
-      "category": "wet",
-      "status": "filled",
-      "sensorEnabled": true,
-      "ward": "Mundhwa-Magarpatta City",
-      "zone": "Hadapsar Mundhwa",
-      "wasteQuantityPerDay": "26.99 tonnes"
+    "_id": {
+      "$oid": "67e65082151e34626f4bd28e"
+    },
+    "id": "25e6bd39-e132-4a10-86fe-9e3255c121fc",
+    "totalCapacity": 100,
+    "realTimeCapacity": 44,
+    "approxTime": "8 hrs",
+    "lastEmptiedAt": "2025-03-25T12:42:08.194472",
+    "locn": {
+      "latitude": 18.672385,
+      "longitude": 73.94193
+    },
+    "category": "wet",
+    "status": "filled",
+    "sensorEnabled": true,
+    "ward": "Mundhwa-Magarpatta City",
+    "zone": "Hadapsar Mundhwa",
+    "wasteQuantityPerDay": "26.99 tonnes"
   },
   {
-      "id": "43a0fdb8-a98e-4883-86d7-3184dee3258b",
-      "totalCapacity": 100,
-      "realTimeCapacity": 12,
-      "approxTime": "9 hrs",
-      "lastEmptiedAt": "2025-03-24T12:42:08.194606",
-      "locn": {
-          "latitude": 18.63678,
-          "longitude": 73.795402
-      },
-      "category": "dry",
-      "status": "filled",
-      "sensorEnabled": true,
-      "ward": "Hadapsar Gaothan-Satav Wadi",
-      "zone": "NaN",
-      "wasteQuantityPerDay": "25.44 tonnes"
+    "_id": {
+      "$oid": "67e65082151e34626f4bd28f"
+    },
+    "id": "43a0fdb8-a98e-4883-86d7-3184dee3258b",
+    "totalCapacity": 100,
+    "realTimeCapacity": 12,
+    "approxTime": "9 hrs",
+    "lastEmptiedAt": "2025-03-24T12:42:08.194606",
+    "locn": {
+      "latitude": 18.63678,
+      "longitude": 73.795402
+    },
+    "category": "dry",
+    "status": "filled",
+    "sensorEnabled": true,
+    "ward": "Hadapsar Gaothan-Satav Wadi",
+    "zone": "NaN",
+    "wasteQuantityPerDay": "25.44 tonnes"
   },
   {
-      "id": "05fe04de-fc47-4a29-aa4b-deb2a5fd73f0",
-      "totalCapacity": 100,
-      "realTimeCapacity": 68,
-      "approxTime": "10 hrs",
-      "lastEmptiedAt": "2025-03-23T12:42:08.194742",
-      "locn": {
-          "latitude": 18.435851,
-          "longitude": 73.803141
-      },
-      "category": "dry",
-      "status": "recycled",
-      "sensorEnabled": true,
-      "ward": "Mohammad Wadi-Kausar Bhugh",
-      "zone": "NaN",
-      "wasteQuantityPerDay": "48.43 tonnes"
+    "_id": {
+      "$oid": "67e65082151e34626f4bd290"
+    },
+    "id": "05fe04de-fc47-4a29-aa4b-deb2a5fd73f0",
+    "totalCapacity": 100,
+    "realTimeCapacity": 68,
+    "approxTime": "10 hrs",
+    "lastEmptiedAt": "2025-03-23T12:42:08.194742",
+    "locn": {
+      "latitude": 18.435851,
+      "longitude": 73.803141
+    },
+    "category": "dry",
+    "status": "recycled",
+    "sensorEnabled": true,
+    "ward": "Mohammad Wadi-Kausar Bhugh",
+    "zone": "NaN",
+    "wasteQuantityPerDay": "48.43 tonnes"
   },
   {
-      "id": "e2c732d3-6f3f-4f98-bcca-0229e22b6671",
-      "totalCapacity": 100,
-      "realTimeCapacity": 45,
-      "approxTime": "8 hrs",
-      "lastEmptiedAt": "2025-03-17T12:42:08.194867",
-      "locn": {
-          "latitude": 18.432743,
-          "longitude": 73.821433
-      },
-      "category": "dry",
-      "status": "recycled",
-      "sensorEnabled": true,
-      "ward": "Ramtekdi-Sasane Nagar",
-      "zone": "Wanawadi Ramtekdi",
-      "wasteQuantityPerDay": "22.74 tonnes"
+    "_id": {
+      "$oid": "67e65082151e34626f4bd291"
+    },
+    "id": "e2c732d3-6f3f-4f98-bcca-0229e22b6671",
+    "totalCapacity": 100,
+    "realTimeCapacity": 45,
+    "approxTime": "8 hrs",
+    "lastEmptiedAt": "2025-03-17T12:42:08.194867",
+    "locn": {
+      "latitude": 18.432743,
+      "longitude": 73.821433
+    },
+    "category": "dry",
+    "status": "recycled",
+    "sensorEnabled": true,
+    "ward": "Ramtekdi-Sasane Nagar",
+    "zone": "Wanawadi Ramtekdi",
+    "wasteQuantityPerDay": "22.74 tonnes"
   },
   {
-      "id": "8b027354-b6e7-415c-972a-58ed39af1076",
-      "totalCapacity": 100,
-      "realTimeCapacity": 77,
-      "approxTime": "2 hrs",
-      "lastEmptiedAt": "2025-03-18T12:42:08.194993",
-      "locn": {
-          "latitude": 18.641894,
-          "longitude": 73.998538
-      },
-      "category": "plastic",
-      "status": "partially_filled",
-      "sensorEnabled": true,
-      "ward": "Wanawadi",
-      "zone": "NaN",
-      "wasteQuantityPerDay": "43.73 tonnes"
+    "_id": {
+      "$oid": "67e65082151e34626f4bd292"
+    },
+    "id": "8b027354-b6e7-415c-972a-58ed39af1076",
+    "totalCapacity": 100,
+    "realTimeCapacity": 77,
+    "approxTime": "2 hrs",
+    "lastEmptiedAt": "2025-03-18T12:42:08.194993",
+    "locn": {
+      "latitude": 18.641894,
+      "longitude": 73.998538
+    },
+    "category": "plastic",
+    "status": "partially filled",
+    "sensorEnabled": true,
+    "ward": "Wanawadi",
+    "zone": "NaN",
+    "wasteQuantityPerDay": "43.73 tonnes"
   },
   {
-      "id": "555cffc1-a743-4d8f-a8a1-97ed10bdd2e2",
-      "totalCapacity": 100,
-      "realTimeCapacity": 23,
-      "approxTime": "5 hrs",
-      "lastEmptiedAt": "2025-03-20T12:42:08.195126",
-      "locn": {
-          "latitude": 18.541879,
-          "longitude": 73.990639
-      },
-      "category": "dry",
-      "status": "filled",
-      "sensorEnabled": true,
-      "ward": "Kondhwa Khurd-Mittha Nagar",
-      "zone": "NaN",
-      "wasteQuantityPerDay": "45.67 tonnes"
+    "_id": {
+      "$oid": "67e65082151e34626f4bd293"
+    },
+    "id": "555cffc1-a743-4d8f-a8a1-97ed10bdd2e2",
+    "totalCapacity": 100,
+    "realTimeCapacity": 23,
+    "approxTime": "5 hrs",
+    "lastEmptiedAt": "2025-03-20T12:42:08.195126",
+    "locn": {
+      "latitude": 18.541879,
+      "longitude": 73.990639
+    },
+    "category": "dry",
+    "status": "filled",
+    "sensorEnabled": true,
+    "ward": "Kondhwa Khurd-Mittha Nagar",
+    "zone": "NaN",
+    "wasteQuantityPerDay": "45.67 tonnes"
   },
   {
-      "id": "a307e069-87a3-4168-8f1c-68523d1a64ca",
-      "totalCapacity": 100,
-      "realTimeCapacity": 32,
-      "approxTime": "9 hrs",
-      "lastEmptiedAt": "2025-03-17T12:42:08.195258",
-      "locn": {
-          "latitude": 18.638313,
-          "longitude": 73.987208
-      },
-      "category": "dry",
-      "status": "filled",
-      "sensorEnabled": true,
-      "ward": "Balaji Nagar-Rajiv Gandhi Nagar",
-      "zone": "Kondhwa Yewalewadi",
-      "wasteQuantityPerDay": "35.74 tonnes"
+    "_id": {
+      "$oid": "67e65082151e34626f4bd294"
+    },
+    "id": "a307e069-87a3-4168-8f1c-68523d1a64ca",
+    "totalCapacity": 100,
+    "realTimeCapacity": 32,
+    "approxTime": "9 hrs",
+    "lastEmptiedAt": "2025-03-17T12:42:08.195258",
+    "locn": {
+      "latitude": 18.638313,
+      "longitude": 73.987208
+    },
+    "category": "dry",
+    "status": "filled",
+    "sensorEnabled": true,
+    "ward": "Balaji Nagar-Rajiv Gandhi Nagar",
+    "zone": "Kondhwa Yewalewadi",
+    "wasteQuantityPerDay": "35.74 tonnes"
   },
   {
-      "id": "2184aa85-45d1-4ed4-9708-0466ed5252a8",
-      "totalCapacity": 100,
-      "realTimeCapacity": 30,
-      "approxTime": "4 hrs",
-      "lastEmptiedAt": "2025-03-19T12:42:08.195392",
-      "locn": {
-          "latitude": 18.526535,
-          "longitude": 73.746039
-      },
-      "category": "wet",
-      "status": "filled",
-      "sensorEnabled": true,
-      "ward": "Kondhwa Budruk-Yewalewadi",
-      "zone": "NaN",
-      "wasteQuantityPerDay": "55.21 tonnes"
+    "_id": {
+      "$oid": "67e65082151e34626f4bd295"
+    },
+    "id": "2184aa85-45d1-4ed4-9708-0466ed5252a8",
+    "totalCapacity": 100,
+    "realTimeCapacity": 30,
+    "approxTime": "4 hrs",
+    "lastEmptiedAt": "2025-03-19T12:42:08.195392",
+    "locn": {
+      "latitude": 18.526535,
+      "longitude": 73.746039
+    },
+    "category": "wet",
+    "status": "filled",
+    "sensorEnabled": true,
+    "ward": "Kondhwa Budruk-Yewalewadi",
+    "zone": "NaN",
+    "wasteQuantityPerDay": "55.21 tonnes"
   },
   {
-      "id": "e5ac627c-30d8-4b3a-83d9-c19d93dc08d6",
-      "totalCapacity": 100,
-      "realTimeCapacity": 70,
-      "approxTime": "11 hrs",
-      "lastEmptiedAt": "2025-03-19T12:42:08.195522",
-      "locn": {
-          "latitude": 18.638748,
-          "longitude": 73.957444
-      },
-      "category": "wet",
-      "status": "recycled",
-      "sensorEnabled": true,
-      "ward": "Shaniwar Peth-Sadashiv Peth",
-      "zone": "Kasba Vishrambaugh Wada",
-      "wasteQuantityPerDay": "39.5 tonnes"
+    "_id": {
+      "$oid": "67e65082151e34626f4bd296"
+    },
+    "id": "e5ac627c-30d8-4b3a-83d9-c19d93dc08d6",
+    "totalCapacity": 100,
+    "realTimeCapacity": 70,
+    "approxTime": "11 hrs",
+    "lastEmptiedAt": "2025-03-19T12:42:08.195522",
+    "locn": {
+      "latitude": 18.638748,
+      "longitude": 73.957444
+    },
+    "category": "wet",
+    "status": "recycled",
+    "sensorEnabled": true,
+    "ward": "Shaniwar Peth-Sadashiv Peth",
+    "zone": "Kasba Vishrambaugh Wada",
+    "wasteQuantityPerDay": "39.5 tonnes"
   },
   {
-      "id": "ea707a03-4416-4850-8fe4-f1ec5b6a94a9",
-      "totalCapacity": 100,
-      "realTimeCapacity": 82,
-      "approxTime": "12 hrs",
-      "lastEmptiedAt": "2025-03-18T12:42:08.195644",
-      "locn": {
-          "latitude": 18.483247,
-          "longitude": 73.848897
-      },
-      "category": "wet",
-      "status": "filled",
-      "sensorEnabled": true,
-      "ward": "Kasba Peth-Somwarpeth",
-      "zone": "NaN",
-      "wasteQuantityPerDay": "29.98 tonnes"
+    "_id": {
+      "$oid": "67e65082151e34626f4bd297"
+    },
+    "id": "ea707a03-4416-4850-8fe4-f1ec5b6a94a9",
+    "totalCapacity": 100,
+    "realTimeCapacity": 82,
+    "approxTime": "12 hrs",
+    "lastEmptiedAt": "2025-03-18T12:42:08.195644",
+    "locn": {
+      "latitude": 18.483247,
+      "longitude": 73.848897
+    },
+    "category": "wet",
+    "status": "filled",
+    "sensorEnabled": true,
+    "ward": "Kasba Peth-Somwarpeth",
+    "zone": "NaN",
+    "wasteQuantityPerDay": "29.98 tonnes"
   },
   {
-      "id": "8566cbdc-22bc-43ab-be9b-6c84b3ae2f1a",
-      "totalCapacity": 100,
-      "realTimeCapacity": 83,
-      "approxTime": "7 hrs",
-      "lastEmptiedAt": "2025-03-17T12:42:08.195768",
-      "locn": {
-          "latitude": 18.417976,
-          "longitude": 73.929456
-      },
-      "category": "wet",
-      "status": "partially_filled",
-      "sensorEnabled": true,
-      "ward": "Navi Peth-Parvati",
-      "zone": "NaN",
-      "wasteQuantityPerDay": "46.32 tonnes"
+    "_id": {
+      "$oid": "67e65082151e34626f4bd298"
+    },
+    "id": "8566cbdc-22bc-43ab-be9b-6c84b3ae2f1a",
+    "totalCapacity": 100,
+    "realTimeCapacity": 83,
+    "approxTime": "7 hrs",
+    "lastEmptiedAt": "2025-03-17T12:42:08.195768",
+    "locn": {
+      "latitude": 18.417976,
+      "longitude": 73.929456
+    },
+    "category": "wet",
+    "status": "partially filled",
+    "sensorEnabled": true,
+    "ward": "Navi Peth-Parvati",
+    "zone": "NaN",
+    "wasteQuantityPerDay": "46.32 tonnes"
   },
   {
-      "id": "daa95462-c3fd-4de9-af52-bd41a3878dda",
-      "totalCapacity": 100,
-      "realTimeCapacity": 15,
-      "approxTime": "9 hrs",
-      "lastEmptiedAt": "2025-03-25T12:42:08.195923",
-      "locn": {
-          "latitude": 18.55601,
-          "longitude": 73.871705
-      },
-      "category": "dry",
-      "status": "filled",
-      "sensorEnabled": true,
-      "ward": "Rasta Peth-Ravivar Peth",
-      "zone": "Bhawadi Peth",
-      "wasteQuantityPerDay": "31.42 tonnes"
+    "_id": {
+      "$oid": "67e65082151e34626f4bd299"
+    },
+    "id": "daa95462-c3fd-4de9-af52-bd41a3878dda",
+    "totalCapacity": 100,
+    "realTimeCapacity": 15,
+    "approxTime": "9 hrs",
+    "lastEmptiedAt": "2025-03-25T12:42:08.195923",
+    "locn": {
+      "latitude": 18.55601,
+      "longitude": 73.871705
+    },
+    "category": "dry",
+    "status": "filled",
+    "sensorEnabled": true,
+    "ward": "Rasta Peth-Ravivar Peth",
+    "zone": "Bhawadi Peth",
+    "wasteQuantityPerDay": "31.42 tonnes"
   },
   {
-      "id": "fe9ca1cf-43b6-471d-8b6b-52e324e845a0",
-      "totalCapacity": 100,
-      "realTimeCapacity": 27,
-      "approxTime": "7 hrs",
-      "lastEmptiedAt": "2025-03-22T12:42:08.196051",
-      "locn": {
-          "latitude": 18.684419,
-          "longitude": 73.822745
-      },
-      "category": "dry",
-      "status": "partially_filled",
-      "sensorEnabled": true,
-      "ward": "khadakmal Ali-Mahatma Phule Peth",
-      "zone": "NaN",
-      "wasteQuantityPerDay": "26.71 tonnes"
+    "_id": {
+      "$oid": "67e65082151e34626f4bd29a"
+    },
+    "id": "fe9ca1cf-43b6-471d-8b6b-52e324e845a0",
+    "totalCapacity": 100,
+    "realTimeCapacity": 27,
+    "approxTime": "7 hrs",
+    "lastEmptiedAt": "2025-03-22T12:42:08.196051",
+    "locn": {
+      "latitude": 18.684419,
+      "longitude": 73.822745
+    },
+    "category": "dry",
+    "status": "partially filled",
+    "sensorEnabled": true,
+    "ward": "khadakmal Ali-Mahatma Phule Peth",
+    "zone": "NaN",
+    "wasteQuantityPerDay": "26.71 tonnes"
   },
   {
-      "id": "aaa72d0d-bb29-4384-bddb-a34f51b1522b",
-      "totalCapacity": 100,
-      "realTimeCapacity": 85,
-      "approxTime": "4 hrs",
-      "lastEmptiedAt": "2025-03-21T12:42:08.196189",
-      "locn": {
-          "latitude": 18.418788,
-          "longitude": 73.876838
-      },
-      "category": "plastic",
-      "status": "partially_filled",
-      "sensorEnabled": true,
-      "ward": "Lohiya Nagar-Kashewadi",
-      "zone": "NaN",
-      "wasteQuantityPerDay": "18.46 tonnes"
+    "_id": {
+      "$oid": "67e65082151e34626f4bd29b"
+    },
+    "id": "aaa72d0d-bb29-4384-bddb-a34f51b1522b",
+    "totalCapacity": 100,
+    "realTimeCapacity": 85,
+    "approxTime": "4 hrs",
+    "lastEmptiedAt": "2025-03-21T12:42:08.196189",
+    "locn": {
+      "latitude": 18.418788,
+      "longitude": 73.876838
+    },
+    "category": "plastic",
+    "status": "partially filled",
+    "sensorEnabled": true,
+    "ward": "Lohiya Nagar-Kashewadi",
+    "zone": "NaN",
+    "wasteQuantityPerDay": "18.46 tonnes"
   },
   {
-      "id": "7ddd5b4d-5f61-4d2e-976a-8bc841431603",
-      "totalCapacity": 100,
-      "realTimeCapacity": 99,
-      "approxTime": "12 hrs",
-      "lastEmptiedAt": "2025-03-26T12:42:08.196312",
-      "locn": {
-          "latitude": 18.636888,
-          "longitude": 73.937534
-      },
-      "category": "plastic",
-      "status": "recycled",
-      "sensorEnabled": true,
-      "ward": "Salibary Park_ Mukund Nagar",
-      "zone": "Bibwewadi",
-      "wasteQuantityPerDay": "56.01 tonnes"
+    "_id": {
+      "$oid": "67e65082151e34626f4bd29c"
+    },
+    "id": "7ddd5b4d-5f61-4d2e-976a-8bc841431603",
+    "totalCapacity": 100,
+    "realTimeCapacity": 99,
+    "approxTime": "12 hrs",
+    "lastEmptiedAt": "2025-03-26T12:42:08.196312",
+    "locn": {
+      "latitude": 18.636888,
+      "longitude": 73.937534
+    },
+    "category": "plastic",
+    "status": "recycled",
+    "sensorEnabled": true,
+    "ward": "Salibary Park_ Mukund Nagar",
+    "zone": "Bibwewadi",
+    "wasteQuantityPerDay": "56.01 tonnes"
   },
   {
-      "id": "41a31cb5-b6b9-4ea1-b4d7-557889176579",
-      "totalCapacity": 100,
-      "realTimeCapacity": 40,
-      "approxTime": "5 hrs",
-      "lastEmptiedAt": "2025-03-22T12:42:08.196452",
-      "locn": {
-          "latitude": 18.470472,
-          "longitude": 73.867336
-      },
-      "category": "dry",
-      "status": "filled",
-      "sensorEnabled": true,
-      "ward": "Bibwewadi-Bibwewadi Gaothan",
-      "zone": "NaN",
-      "wasteQuantityPerDay": "60.03 tonnes"
+    "_id": {
+      "$oid": "67e65082151e34626f4bd29d"
+    },
+    "id": "41a31cb5-b6b9-4ea1-b4d7-557889176579",
+    "totalCapacity": 100,
+    "realTimeCapacity": 40,
+    "approxTime": "5 hrs",
+    "lastEmptiedAt": "2025-03-22T12:42:08.196452",
+    "locn": {
+      "latitude": 18.470472,
+      "longitude": 73.867336
+    },
+    "category": "dry",
+    "status": "filled",
+    "sensorEnabled": true,
+    "ward": "Bibwewadi-Bibwewadi Gaothan",
+    "zone": "NaN",
+    "wasteQuantityPerDay": "60.03 tonnes"
   },
   {
-      "id": "457be3df-e5cc-469a-a130-665c89af097f",
-      "totalCapacity": 100,
-      "realTimeCapacity": 78,
-      "approxTime": "5 hrs",
-      "lastEmptiedAt": "2025-03-26T12:42:08.196580",
-      "locn": {
-          "latitude": 18.547822,
-          "longitude": 73.937326
-      },
-      "category": "wet",
-      "status": "partially_filled",
-      "sensorEnabled": true,
-      "ward": "Upper Indra Nagar",
-      "zone": "NaN",
-      "wasteQuantityPerDay": "35.99 tonnes"
+    "_id": {
+      "$oid": "67e65082151e34626f4bd29e"
+    },
+    "id": "457be3df-e5cc-469a-a130-665c89af097f",
+    "totalCapacity": 100,
+    "realTimeCapacity": 78,
+    "approxTime": "5 hrs",
+    "lastEmptiedAt": "2025-03-26T12:42:08.196580",
+    "locn": {
+      "latitude": 18.547822,
+      "longitude": 73.937326
+    },
+    "category": "wet",
+    "status": "partially filled",
+    "sensorEnabled": true,
+    "ward": "Upper Indra Nagar",
+    "zone": "NaN",
+    "wasteQuantityPerDay": "35.99 tonnes"
   },
   {
-      "id": "9d490f1e-ecc0-4442-ac47-99951839c06c",
-      "totalCapacity": 100,
-      "realTimeCapacity": 48,
-      "approxTime": "6 hrs",
-      "lastEmptiedAt": "2025-03-25T12:42:08.196725",
-      "locn": {
-          "latitude": 18.427246,
-          "longitude": 73.862752
-      },
-      "category": "wet",
-      "status": "filled",
-      "sensorEnabled": true,
-      "ward": "Kondhwa-Yelwalewadi,Dhankawadi-Sahakanagar,Hadapsar-Mundhwa,Sinhagad Road,Warje-Karvenagar.",
-      "zone": "Ward 42",
-      "wasteQuantityPerDay": "66.53 tonnes"
-  }
-]
+    "_id": {
+      "$oid": "67e65082151e34626f4bd29f"
+    },
+    "id": "9d490f1e-ecc0-4442-ac47-99951839c06c",
+    "totalCapacity": 100,
+    "realTimeCapacity": 48,
+    "approxTime": "6 hrs",
+    "lastEmptiedAt": "2025-03-25T12:42:08.196725",
+    "locn": {
+      "latitude": 18.427246,
+      "longitude": 73.862752
+    },
+    "category": "wet",
+    "status": "filled",
+    "sensorEnabled": true,
+    "ward": "Kondhwa-Yelwalewadi,Dhankawadi-Sahakanagar,Hadapsar-Mundhwa,Sinhagad Road,Warje-Karvenagar.",
+    "zone": "Ward 42",
+    "wasteQuantityPerDay": "66.53 tonnes"
+  },
+  {
+    "_id": {
+      "$oid": "67ede138cd0a038db4d9b8b1"
+    },
+    "id": "b1c64227-197a-49be-b757-1ac31dcf27f2",
+    "totalCapacity": 100,
+    "realTimeCapacity": 92,
+    "approxTime": "6 hrs",
+    "lastEmptiedAt": {
+      "$date": "2025-04-03T12:40:10.512Z"
+    },
+    "locn": {
+      "latitude": 18.492734,
+      "longitude": 73.808439
+    },
+    "category": "organic",
+    "status": "filled",
+    "sensorEnabled": true,
+    "ward": "Karve Nagar",
+    "zone": "Kothrud-Bavdhan",
+    "wasteQuantityPerDay": "15.21 tonnes",
+    "predictedApproxTime": 10.34,
+    "predictedEmptyingDateTime": "2025-04-07 04:30:45"
+  },
+  {
+    "_id": {
+      "$oid": "67ede138cd0a038db4d9b8b2"
+    },
+    "id": "c3d7e5f8-6a3d-42e8-9df6-bc732a4871ea",
+    "totalCapacity": 100,
+    "realTimeCapacity": 78,
+    "approxTime": "8 hrs",
+    "lastEmptiedAt": {
+      "$date": "2025-04-01T10:20:35.112Z"
+    },
+    "locn": {
+      "latitude": 18.486945,
+      "longitude": 73.810123
+    },
+    "category": "plastic",
+    "status": "half-full",
+    "sensorEnabled": false,
+    "ward": "Karve Nagar",
+    "zone": "Kothrud-Bavdhan",
+    "wasteQuantityPerDay": "18.32 tonnes",
+    "predictedApproxTime": 9.25,
+    "predictedEmptyingDateTime": "2025-04-06 16:10:00"
+  },
+  {
+    "_id": {
+      "$oid": "67ede138cd0a038db4d9b8b3"
+    },
+    "id": "e9a8b7c6-4d5f-43e9-bc2a-9d8f6b732471",
+    "totalCapacity": 100,
+    "realTimeCapacity": 85,
+    "approxTime": "5 hrs",
+    "lastEmptiedAt": {
+      "$date": "2025-04-02T18:55:25.332Z"
+    },
+    "locn": {
+      "latitude": 18.490127,
+      "longitude": 73.807859
+    },
+    "category": "paper",
+    "status": "filled",
+    "sensorEnabled": true,
+    "ward": "Karve Nagar",
+    "zone": "Kothrud-Bavdhan",
+    "wasteQuantityPerDay": "12.78 tonnes",
+    "predictedApproxTime": 8.41,
+    "predictedEmptyingDateTime": "2025-04-05 22:45:12"
+  },
+  {
+    "_id": {
+      "$oid": "67ede138cd0a038db4d9b8b4"
+    },
+    "id": "f4d7c8a9-3b2e-46c1-a8df-95e7b6c4321f",
+    "totalCapacity": 100,
+    "realTimeCapacity": 90,
+    "approxTime": "7 hrs",
+    "lastEmptiedAt": {
+      "$date": "2025-04-01T08:40:50.772Z"
+    },
+    "locn": {
+      "latitude": 18.488236,
+      "longitude": 73.811924
+    },
+    "category": "glass",
+    "status": "filled",
+    "sensorEnabled": false,
+    "ward": "Karve Nagar",
+    "zone": "Kothrud-Bavdhan",
+    "wasteQuantityPerDay": "20.64 tonnes",
+    "predictedApproxTime": 11.12,
+    "predictedEmptyingDateTime": "2025-04-06 14:30:50"
+  },
+  {
+    "_id": {
+      "$oid": "67ede138cd0a038db4d9b8b5"
+    },
+    "id": "g8h7f6e5-d4c3-b2a1-9876-5f4e3d2c1a9b",
+    "totalCapacity": 100,
+    "realTimeCapacity": 95,
+    "approxTime": "9 hrs",
+    "lastEmptiedAt": {
+      "$date": "2025-03-31T15:30:20.512Z"
+    },
+    "locn": {
+      "latitude": 18.487542,
+      "longitude": 73.813245
+    },
+    "category": "electronic",
+    "status": "filled",
+    "sensorEnabled": true,
+    "ward": "Karve Nagar",
+    "zone": "Kothrud-Bavdhan",
+    "wasteQuantityPerDay": "11.43 tonnes",
+    "predictedApproxTime": 12.75,
+    "predictedEmptyingDateTime": "2025-04-07 10:20:35"
+  }]
