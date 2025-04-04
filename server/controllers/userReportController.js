@@ -90,15 +90,35 @@ export const getReportById = async (req, res) => {
 export const updateReportAdmin = async (req, res) => {
     try {
         const { id } = req.params;
+        const { admin_status } = req.body;
 
-        if (req.body.admin_status && !["pending", "approved", "rejected"].includes(req.body.admin_status)) {
+        if (!["pending", "approved", "rejected"].includes(admin_status)) {
             return res.status(400).json({ msg: "Invalid admin_status value" });
         }
-        const userReport = await UserReport.findByIdAndUpdate(id, req.body, { new: true });
-
+        //find by id and update the reports
+        const userReport = await UserReport.findByIdAndUpdate(id, { admin_status }, { new: true });
         if (!userReport) {
             return res.status(404).json({ msg: "User report not found" });
         }
+        //get the user who made report
+        const user = await User.findById(userReport.user_id);
+        if (!user) {
+            return res.status(404).json({ msg: "User not found" });
+        }
+        //checks for report validation
+        if (admin_status === "rejected") {
+            
+            if (user.points > 0) {
+                user.points -= 1;
+            }
+            if (user.points === 0) {
+                user.blacklisted = true;
+            }
+        } else if (admin_status === "approved") {
+            user.points += 1;
+            user.blacklisted = false; 
+        }
+        await user.save();
         res.status(200).json({ msg: "User report updated", userReport });
     } catch (err) {
         res.status(500).json({ msg: "Failed to update user report", err: err.message });
@@ -126,7 +146,7 @@ export const updateReportWC = async (req, res) => {
 export const deleteReport = async (req, res) => {
     console.log("Received DELETE request"); // Debug log
     try {
-        const deletedReports = await UserReport.deleteMany({ wc_status: "done" });
+        const deletedReports = await UserReport.deleteMany({ wc_status: "recycled" });
 
         if (deletedReports.deletedCount === 0) {
             console.log("No reports found to delete"); // Debug log

@@ -77,6 +77,10 @@ export const simulateBinCapacityChange = async (req, res) => {
     try {
       const { binId, newCapacity } = req.body;
       
+      if (!mongoose.Types.ObjectId.isValid(binId)) {
+        return res.status(400).json({ error: 'Invalid bin ID' });
+      }
+
       if (!binId || newCapacity === undefined) {
         return res.status(400).json({ message: "Both binId and newCapacity are required" });
       }
@@ -84,11 +88,11 @@ export const simulateBinCapacityChange = async (req, res) => {
       const bin = await WasteBin.findById(binId);
       if (!bin) return res.status(404).json({ message: "Bin not found" });
       
-      // Call updateBinStatus internally
-      await updateBinStatus({
-        body: { id: binId, realTimeCapacity: newCapacity }
-      }, res);
+      // Update bin status directly and send a response
+      const updatedBin = await updateBinStatus({ body: { id: binId, realTimeCapacity: newCapacity } }, res);
       
+      res.status(200).json({ msg: "Simulation successful", updatedBin });
+
     } catch (error) {
       console.error("Error simulating bin capacity change:", error);
       res.status(500).json({ error: error.message });

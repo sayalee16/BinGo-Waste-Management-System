@@ -32,7 +32,7 @@ const userReportSchema = new Schema({
     },
     wc_status: {
         type: String,
-        enum: ["pending", "done"],
+        enum: ["pending", "done","recycled"],
         default: "pending"
     },
     
