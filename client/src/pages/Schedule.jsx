@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import WCNavbar from "../components/WasteCollectorNavbar";
 
+
 const Schedule = () => {
   const [predictions, setPredictions] = useState([]);
   const [queryIndex, setQueryIndex] = useState("");

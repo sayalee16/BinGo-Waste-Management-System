@@ -1,11 +1,10 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { motion } from "framer-motion";
 import Navbar from "../components/Navbar";
-import { AuthContext } from '../context/authContext'; // Importing AuthContext for user authentication
-import { useContext } from 'react'; // Importing useContext to access context values
+import { AuthContext } from "../context/authContext";
 
 const UserReportForm = () => {
-  const { currUser } = useContext(AuthContext); // Accessing current user from AuthContext
-  console.log("Current User:", currUser); // Logging current user for debugging
+  const { currUser } = useContext(AuthContext);
   const [formData, setFormData] = useState({
     bin: "",
     user_id: currUser.userId,
@@ -13,7 +12,6 @@ const UserReportForm = () => {
     attachment: null,
     description: "",
   });
-  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,20 +25,19 @@ const UserReportForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem("token");
-  
+
     if (!token) {
       alert("Unauthorized: Please log in to perform this action.");
       return;
     }
-  
-    // Create a FormData object for file uploads
+
     const formDataToSend = new FormData();
     formDataToSend.append("bin", formData.bin);
-    formDataToSend.append("user_id", currUser.userId); // Use currUser.userId instead of currUser
+    formDataToSend.append("user_id", currUser.userId);
     formDataToSend.append("status", formData.status);
     formDataToSend.append("description", formData.description);
-    formDataToSend.append("attachment", formData.attachment); // Attach file
-  
+    formDataToSend.append("attachment", formData.attachment);
+
     try {
       const response = await fetch(
         `${import.meta.env.VITE_BACKEND_URL}/api/userreport/create-report`,
@@ -48,21 +45,17 @@ const UserReportForm = () => {
           method: "POST",
           headers: {
             Authorization: `Bearer ${token}`,
-            // ❌ Do NOT set Content-Type here, FormData sets it automatically
           },
           body: formDataToSend,
         }
       );
-  
-      if (!response.ok) {
-        throw new Error("Failed to submit the report");
-      }
-  
+
+      if (!response.ok) throw new Error("Failed to submit the report");
+
       const data = await response.json();
       console.log("Report submitted successfully:", data);
       alert("Report submitted successfully!");
-  
-      // Clear form after successful submission
+
       setFormData({
         bin: "",
         user_id: currUser.userId,
@@ -75,19 +68,39 @@ const UserReportForm = () => {
       alert("Failed to submit the report. Please try again.");
     }
   };
-  
+
   return (
     <>
       <Navbar />
-      <div className="flex justify-center items-start min-h-screen bg-green-50 pt-4">
-        <form
+      <div
+        className="flex justify-center bg-light-green-600 items-start min-h-screen pt-10 px-4 bg-cover bg-center"
+        style={{
+          backgroundImage: "url('/report.webp')", // Ensure the path is correct
+          backgroundSize: "center", // Ensures the image covers the entire screen
+          backgroundPosition: "center", // Centers the image
+          backgroundRepeat: "no-repeat", // Prevents the image from repeating
+        }}
+      >
+        <motion.form
           onSubmit={handleSubmit}
-          className="max-w-md w-full p-4 bg-white shadow-md rounded-xl border border-green-300"
+          initial={{ opacity: 0, x: 40 }} // Slight animation from the right
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="w-full max-w-md p-6 bg-white/90 shadow-xl rounded-2xl border border-green-300 backdrop-blur-md"
+          style={{
+            marginLeft: "-700px", // Increased negative margin to move the form further to the left
+          }}
         >
-          <h2 className="text-center text-lg font-bold text-green-600 mb-4">
-            Report Bin Status
-          </h2>
+          <motion.h2
+            className="text-center text-2xl font-bold text-green-700 mb-6"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.2 }}
+          >
+            ♻️ Report Bin Status
+          </motion.h2>
 
+          {/* Form Fields */}
           <label className="block text-green-700 font-medium mb-1 text-sm">
             Bin ID:
           </label>
@@ -97,20 +110,9 @@ const UserReportForm = () => {
             value={formData.bin}
             onChange={handleChange}
             required
-            className="w-full p-1 border rounded-md focus:ring-2 focus:ring-green-400 mb-3 text-sm"
+            placeholder="Enter Bin ID"
+            className="w-full p-2 border border-green-200 rounded-lg focus:ring-2 focus:ring-green-400 focus:outline-none mb-4 text-sm"
           />
-
-          {/* <label className="block text-green-700 font-medium mb-1 text-sm">
-            User ID:
-          </label>
-          <input
-            type="text"
-            name="user_id"
-            value={formData.user_id}
-            onChange={handleChange}
-            required
-            className="w-full p-1 border rounded-md focus:ring-2 focus:ring-green-400 mb-3 text-sm"
-          /> */}
 
           <label className="block text-green-700 font-medium mb-1 text-sm">
             Status:
@@ -120,7 +122,7 @@ const UserReportForm = () => {
             value={formData.status}
             onChange={handleChange}
             required
-            className="w-full p-1 border rounded-md focus:ring-2 focus:ring-green-400 mb-3 text-sm"
+            className="w-full p-2 border border-green-200 rounded-lg focus:ring-2 focus:ring-green-400 focus:outline-none mb-4 text-sm"
           >
             <option value="full">Full</option>
             <option value="damaged">Damaged</option>
@@ -131,7 +133,7 @@ const UserReportForm = () => {
           <label className="block text-green-700 font-medium mb-1 text-sm">
             Attachment:
           </label>
-          <div className="relative w-full flex items-center mb-3">
+          <div className="relative w-full flex items-center mb-4">
             <input
               type="file"
               name="attachment"
@@ -142,9 +144,9 @@ const UserReportForm = () => {
             />
             <label
               htmlFor="file-upload"
-              className="p-2 bg-green-500 hover:bg-green-600 text-white font-medium rounded-md shadow-sm text-center cursor-pointer transition duration-300 text-sm"
+              className="p-2 px-4 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-md shadow cursor-pointer text-sm"
             >
-              Choose File
+              📎 Upload File
             </label>
             {formData.attachment && (
               <span className="ml-3 text-xs text-gray-600 truncate">
@@ -160,17 +162,20 @@ const UserReportForm = () => {
             name="description"
             value={formData.description}
             onChange={handleChange}
-            className="w-full p-1 border rounded-md focus:ring-2 focus:ring-green-400 mb-3 text-sm"
             placeholder="Provide additional details..."
+            className="w-full p-2 border border-green-200 rounded-lg focus:ring-2 focus:ring-green-400 focus:outline-none mb-5 text-sm resize-none"
+            rows={3}
           ></textarea>
 
-          <button
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             type="submit"
-            className="w-full p-2 bg-green-500 hover:bg-green-600 text-white font-medium rounded-md shadow-sm transition duration-300 text-sm"
+            className="w-full p-2 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg shadow-md"
           >
-            Submit Report
-          </button>
-        </form>
+            🚀 Submit Report
+          </motion.button>
+        </motion.form>
       </div>
     </>
   );
