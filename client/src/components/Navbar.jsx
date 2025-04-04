@@ -28,7 +28,6 @@ const Navbar = () => {
   
   const navLinks = [
     { name: 'Home', path: '/userMainNavigation', icon: <Home size={18} /> },
-    { name: 'Schedule', path: '/schedule', icon: <Calendar size={18} /> },
     { name: 'Report', path: '/userReportForm', icon: <Flag size={18} /> },
   ];
   
@@ -41,6 +40,8 @@ const Navbar = () => {
           <div className="flex-shrink-0 flex items-center">
             <div className="flex items-center">
               <span className="text-white text-2xl font-bold">Bin<span className="text-green-200">GO</span></span>
+
+              <span className="text-white text-2xl font-bold ml-10">User Dashboard</span>
             </div>
           </div>
           
@@ -66,7 +67,7 @@ const Navbar = () => {
           <div className="hidden md:flex items-center space-x-3 text-white">
   <User size={30} />
   <div className="flex flex-col">
-    <span className="font-semibold text-lg"> Hey {currUser?.username || 'Guest'}</span>
+    <span className="font-semibold text-lg"> Hey {currUser?.username || 'Admin'}</span>
     <div className="text-s text-gray-200 mt-1">
       {currUser?.username ? 
         "Your waste-saving journey begins!" :
@@ -75,9 +76,6 @@ const Navbar = () => {
   </div>
 </div>
 
-
-
-          
           {/* Mobile Menu Button (Right) */}
           <div className="md:hidden flex items-center">
             <div className="flex items-center mr-4">
