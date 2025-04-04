@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import { AuthContext } from "../context/authContext";
 import { useContext } from "react";
-import { FaTruck, FaCheckCircle, FaRecycle } from "react-icons/fa";
+import { CheckCircle, Clock, RefreshCcw } from "lucide-react";
 
 const AdminMainNavigation = () => {
   const [reports, setReports] = useState([]);
@@ -11,6 +11,13 @@ const AdminMainNavigation = () => {
   const { currUser, updateUser } = useContext(AuthContext);
 
   console.log("Current User:", currUser);
+  const statusIcons = {
+    pending: <Clock size={16} />,
+    done: <CheckCircle size={16} />,
+    recycled: <RefreshCcw size={16} />,
+  };
+  
+  const statuses = ["pending", "done", "recycled"];
 
   useEffect(() => {
     if (!token) {
@@ -173,58 +180,37 @@ const AdminMainNavigation = () => {
                       report.user_id?._id ||
                       "Unknown User"}
                   </p>
+            
+                 {/* Timeline UI */}
+                 <div className="mt-4 overflow-visible">
+  <p className="font-semibold mb-2 text-gray-800">Waste Collector Status:</p>
+  <div className="relative flex items-center justify-between w-full px-4">
+    {["pending", "done", "recycled"].map((status, index) => {
+      const currentIndex = ["pending", "done", "recycled"].indexOf(report.wc_status);
+      const isActive = index <= currentIndex;
 
-                  {/* Timeline UI */}
-                  <div className="mt-6">
-                    <p className="font-semibold mb-4 text-gray-800 text-center">
-                      Waste Collector Status
-                    </p>
-                    <div className="relative flex items-center justify-between w-full px-4">
-                      {["pending", "done", "recycled"].map((status, index) => {
-                        const currentIndex = [
-                          "pending",
-                          "done",
-                          "recycled",
-                        ].indexOf(report.wc_status);
-                        const isActive = index <= currentIndex;
+      return (
+        <div key={status} className="flex-1 flex flex-col items-center relative">
+          {/* Connecting Line */}
+          {index < 2 && (
+            <div
+              className={`absolute top-2 left-1/2 transform -translate-x-1/2 w-full h-1 ${
+                currentIndex > index ? "bg-green-600" : "bg-gray-300"
+              }`}
+              style={{
+                width: "100%",
+                height: "2px",
+                zIndex: -1,
+              }}
+            ></div>
+          )}
 
-                        const iconMap = {
-                          pending: <FaTruck />,
-                          done: <FaCheckCircle />,
-                          recycled: <FaRecycle />,
-                        };
-
-                        return (
-                          <div
-                            key={status}
-                            className="flex-1 flex flex-col items-center relative"
-                          >
-                            {/* Connecting Line to the next step (shifted to right side) */}
-                            {index < 2 && (
-                              <div
-                                className={`absolute top-5 left-1/2 w-full h-1 ${
-                                  currentIndex > index
-                                    ? "bg-green-600"
-                                    : "bg-gray-300"
-                                }`}
-                                style={{
-                                  width: "100%",
-                                  height: "4px",
-                                  zIndex: 0,
-                                }}
-                              ></div>
-                            )}
-
-                            {/* Status Icon */}
-                            <div
-                              className={`w-10 h-10 rounded-full z-10 flex items-center justify-center text-xl shadow-md ${
-                                isActive
-                                  ? "bg-green-600 text-white"
-                                  : "bg-gray-400 text-gray-200"
-                              }`}
-                            >
-                              {iconMap[status]}
-                            </div>
+          {/* Status Dot */}
+          <div
+            className={`w-6 h-6 rounded-full z-10 border-2 ${
+              isActive ? "bg-green-600 border-green-600" : "bg-gray-400 border-gray-400"
+            }`}
+          ></div>
 
                             {/* Status Label */}
                             <span
