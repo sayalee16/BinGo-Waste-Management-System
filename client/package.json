@@ -16,6 +16,7 @@
     "jwt-decode": "^4.0.0",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.487.0",
+    "multer": "^1.4.5-lts.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-geocode": "^2.0.1",

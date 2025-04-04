@@ -1,14 +1,19 @@
 import { useState } from "react";
 import Navbar from "../components/Navbar";
+import { AuthContext } from '../context/authContext'; // Importing AuthContext for user authentication
+import { useContext } from 'react'; // Importing useContext to access context values
 
 const UserReportForm = () => {
+  const { currUser } = useContext(AuthContext); // Accessing current user from AuthContext
+  console.log("Current User:", currUser); // Logging current user for debugging
   const [formData, setFormData] = useState({
     bin: "",
-    user_id: "",
+    user_id: currUser.userId,
     status: "full",
     attachment: null,
     description: "",
   });
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -21,51 +26,56 @@ const UserReportForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form Submitted", formData);
-
+    const token = localStorage.getItem("token");
+  
+    if (!token) {
+      alert("Unauthorized: Please log in to perform this action.");
+      return;
+    }
+  
+    // Create a FormData object for file uploads
+    const formDataToSend = new FormData();
+    formDataToSend.append("bin", formData.bin);
+    formDataToSend.append("user_id", currUser.userId); // Use currUser.userId instead of currUser
+    formDataToSend.append("status", formData.status);
+    formDataToSend.append("description", formData.description);
+    formDataToSend.append("attachment", formData.attachment); // Attach file
+  
     try {
-      const res = await fetch(
+      const response = await fetch(
         `${import.meta.env.VITE_BACKEND_URL}/api/userreport/create-report`,
         {
           method: "POST",
           headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${localStorage.getItem("token")}`
+            Authorization: `Bearer ${token}`,
+            // ❌ Do NOT set Content-Type here, FormData sets it automatically
           },
-          body: JSON.stringify({
-            bin: formData.bin,
-            user_id: formData.user_id,
-            status: formData.status,
-            description: formData.description,
-            attachment: formData.attachment,
-          }),
+          body: formDataToSend,
         }
       );
-
-      const data = await res.json(); // Convert response to JSON
-      console.log("Server Response:", data); // Debugging
-
-      // Store token and user data
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("user", JSON.stringify(data.user));
-
-      // Clear state and show success message
-      setOldUser({ phone: "", password: "" });
-      setError("");
-      setLoggedIn(true);
-      alert("Login successful!");
-
-      if (data.user.isAdmin) {
-        navigate("/adminMainNavigation"); // Redirect to admin Main page
-      } else {
-        navigate("/userMainNavigation"); // Redirect to user Main page
+  
+      if (!response.ok) {
+        throw new Error("Failed to submit the report");
       }
-    } catch (error) {
-      console.error("Login error:", error);
-      setError("Something went wrong. Please try again.");
+  
+      const data = await response.json();
+      console.log("Report submitted successfully:", data);
+      alert("Report submitted successfully!");
+  
+      // Clear form after successful submission
+      setFormData({
+        bin: "",
+        user_id: currUser.userId,
+        status: "full",
+        attachment: "",
+        description: "",
+      });
+    } catch (err) {
+      console.error("Error submitting the report:", err);
+      alert("Failed to submit the report. Please try again.");
     }
   };
-
+  
   return (
     <>
       <Navbar />
@@ -90,7 +100,7 @@ const UserReportForm = () => {
             className="w-full p-1 border rounded-md focus:ring-2 focus:ring-green-400 mb-3 text-sm"
           />
 
-          <label className="block text-green-700 font-medium mb-1 text-sm">
+          {/* <label className="block text-green-700 font-medium mb-1 text-sm">
             User ID:
           </label>
           <input
@@ -100,7 +110,7 @@ const UserReportForm = () => {
             onChange={handleChange}
             required
             className="w-full p-1 border rounded-md focus:ring-2 focus:ring-green-400 mb-3 text-sm"
-          />
+          /> */}
 
           <label className="block text-green-700 font-medium mb-1 text-sm">
             Status:
@@ -121,7 +131,7 @@ const UserReportForm = () => {
           <label className="block text-green-700 font-medium mb-1 text-sm">
             Attachment:
           </label>
-          <div className="relative w-full mb-3">
+          <div className="relative w-full flex items-center mb-3">
             <input
               type="file"
               name="attachment"
@@ -132,10 +142,15 @@ const UserReportForm = () => {
             />
             <label
               htmlFor="file-upload"
-              className="w-full p-2 bg-green-500 hover:bg-green-600 text-white font-medium rounded-md shadow-sm text-center cursor-pointer transition duration-300 text-sm"
+              className="p-2 bg-green-500 hover:bg-green-600 text-white font-medium rounded-md shadow-sm text-center cursor-pointer transition duration-300 text-sm"
             >
               Choose File
             </label>
+            {formData.attachment && (
+              <span className="ml-3 text-xs text-gray-600 truncate">
+                {formData.attachment.name}
+              </span>
+            )}
           </div>
 
           <label className="block text-green-700 font-medium mb-1 text-sm">

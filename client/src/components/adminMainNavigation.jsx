@@ -120,21 +120,21 @@ const AdminMainNavigation = () => {
         <div className="flex flex-wrap flex-col gap-6 justify-center mt-4">
           {reports.length > 0 ? (
             reports.map((report) => (
-              <div
-                key={report._id}
-                className="flex md:flex-row w-full bg-green-200 shadow-lg rounded-xl overflow-hidden mb-6"
-              >
+              <div key={report._id} className="flex w-full md:w-2/3 lg:w-1/2 bg-green-200 shadow-lg rounded-xl overflow-hidden">
                 <img
-                  src={report.attachment}
-                  alt="Report Attachment"
-                  className="w-full md:w-1/3 h-48 object-cover"
-                />
-                <div className="p-4 w-full md:w-2/3">
-                  <h2
-                    className={`text-lg font-semibold mb-2 ${
-                      report.bin ? "text-green-800" : "text-red-800"
-                    }`}
-                  >
+  src={
+    report.attachment?.data?.data
+      ? `data:image/jpeg;base64,${btoa(
+          report.attachment.data.data.map((byte) => String.fromCharCode(byte)).join("")
+        )}`
+      : "/placeholder.jpg" // fallback if no image
+  }
+  alt="Report Attachment"
+  className="w-1/3 h-auto object-cover"
+/>
+
+                <div className="p-4 w-2/3">
+                  <h2 className={`text-lg font-semibold mb-2 ${report.bin ? "text-green-800" : "text-red-800"}`}>
                     {report.bin ? `Status: ${report.status}` : "Complaint"}
                   </h2>
                   <p className="text-gray-700 mb-2">

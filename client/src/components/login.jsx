@@ -82,9 +82,9 @@ const Login = () => {
           alert("Login successful!");
           updateUser(data.token);
           if (data.user.isAdmin) {
-            navigate("/adminMainNavigation"); // Redirect to admin Main page
+            navigate("/AdminMainNavigation"); // Redirect to admin Main page
           } else {
-            navigate("/userMainNavigation"); // Redirect to user Main page
+            navigate("/userReportForm"); // Redirect to user Main page
           }
       } catch (error) {
           console.error("Login error:", error);
