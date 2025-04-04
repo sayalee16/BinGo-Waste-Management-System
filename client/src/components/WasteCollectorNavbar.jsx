@@ -14,7 +14,7 @@ const WCNavbar = () => {
 
                 {/* Navigation Links */}
                 <div className="hidden md:flex space-x-6">
-                    <a href="/wc-reports" className="text-white text-lg hover:text-green-200 transition duration-300">Reports</a>
+                    <a href="/wc-route" className="text-white text-lg hover:text-green-200 transition duration-300">Routes</a>
                     <a href="/schedule" className="text-white text-lg hover:text-green-200 transition duration-300">Schedule</a>
                     <a href="/wc-profile" className="text-white text-lg hover:text-green-200 transition duration-300">Profile</a>
                 </div>
@@ -32,7 +32,7 @@ const WCNavbar = () => {
             {/* Mobile Menu */}
             {menuOpen && (
                 <div className="md:hidden bg-green-400 py-2 space-y-2">
-                    <a href="/wc-reports" className="block text-white text-center py-2 hover:bg-green-300">Reports</a>
+                    <a href="/wc-route" className="block text-white text-center py-2 hover:bg-green-300">Route</a>
                     <a href="/schedule" className="block text-white text-center py-2 hover:bg-green-300">Schedule</a>
                     <a href="/wc-profile" className="block text-white text-center py-2 hover:bg-green-300">Profile</a>
                 </div>

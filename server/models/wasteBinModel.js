@@ -39,12 +39,12 @@ const wasteBinSchema = new Schema({
     },
     category: {
         type: String,
-        enum: ["plastic", "wet", "dry"],
+        enum: ["plastic", "wet", "dry", "e-waste"],
         required: true
     },
     status: {
         type: String,
-        enum: ["filled", "recycled", "partially filled"],
+        enum: ["filled", "recycled", "partially filled", "empty"],
         required: true
     },
     sensorEnabled: {
