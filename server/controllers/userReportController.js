@@ -78,7 +78,7 @@ export const updateReportWC = async (req, res) => {
 export const deleteReport = async (req, res) => {
     console.log("Received DELETE request"); // Debug log
     try {
-        const deletedReports = await UserReport.deleteMany({ wc_status: "done" });
+        const deletedReports = await UserReport.deleteMany({ wc_status: "recycled" });
 
         if (deletedReports.deletedCount === 0) {
             console.log("No reports found to delete"); // Debug log
