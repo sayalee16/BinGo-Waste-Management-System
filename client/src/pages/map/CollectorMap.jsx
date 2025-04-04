@@ -21,7 +21,7 @@ const icons = {
     iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
     iconSize: [25, 41],
   }),
-  // Open area waste icon
+  //Not used it yet
   open_area: L.icon({
     iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-violet.png',
     iconSize: [25, 41],
@@ -156,46 +156,66 @@ function CollectorMap() {
         // Fetch reports data
         try {
         const reportsResponse = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/userreport/reports`);
-        const reportsData = reportsResponse.data;
+        const reportsData = await reportsResponse.json();
 
         // Fetch wastebins data
         const wastebinsResponse = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/wastebin/wastebins-filtered`);
 
         const wastebinsData = await wastebinsResponse.json();
-        console.log("Fetched Data:", wastebinsData); // Debugging
-
-        // Ensure it's an array
-      const wastebinArray = Array.isArray(wastebinsData) ? wastebinsData : [wastebinsData];
-
-      // Filter wastebins
-      const filteredWastebins = wastebinArray.filter(bin =>
+        const wastebinArray = Array.isArray(wastebinsData) ? wastebinsData : [wastebinsData];
+        const filteredWastebins = wastebinArray.filter(bin =>
           bin.status === "partially_filled" || bin.status === "filled"
-      );
-      console.log("Filtered Wastebins:", filteredWastebins); //debugging
-
-      // Convert wastebin data to match report format
-      const formattedWastebins = filteredWastebins.map(bin => ({
-          id: bin.id,
+        );
+        const formattedWastebins = filteredWastebins.map(bin => ({
+          id: bin._id,
           location: {
               latitude: bin.locn?.latitude,
               longitude: bin.locn?.longitude,
           },
           status: bin.status,
           isBin: true, // Mark it as a bin for symbol purpose
-      }));
+        }));
 
-      console.log("Formatted Wastebins:", formattedWastebins);
+        const formattedReports = await Promise.all(reportsData.map(async (report) => {
+          let location = null;
 
-      const wastePointsWithinRadius = formattedWastebins.filter(point => {
-        if (!point.location.latitude || !point.location.longitude) return false;
-        const distance = getDistance(LOCATION[0], LOCATION[1], point.location.latitude, point.location.longitude);
-        return distance <= RADIUS;
-      });
+          // If report has a bin, find its location
+          if (report.bin) {
+              const bin = wastebinArray.find(wastebin => wastebin._id === report.bin);
+              if (bin) {
+                  location = {
+                      latitude: bin.locn?.latitude,
+                      longitude: bin.locn?.longitude,
+                  };
+              }
+          }
 
-      console.log("Waste Points within RADIUS:", wastePointsWithinRadius); //debigging
+          // If no bin or bin is not found, get location from user data
+          if (!location) {
+              if (report.user_id.location?.coordinates?.length === 2) {
+                  location = {
+                      latitude: report.user_id.location.coordinates[1], // lat is second in GeoJSON
+                      longitude: report.user_id.location.coordinates[0], // lng is first
+                  };
+              }
+          }
+          return {
+            id: report._id,
+            location,
+            status: report.status,
+            isBin: !!report.bin, // If it has a bin, mark it as true
+        };
+     }));
+        const finalFormal = [...formattedWastebins , ...formattedReports];
 
-      setWastePoints(wastePointsWithinRadius);
-      setLoading(false);
+        const wastePointsWithinRadius = finalFormal.filter(point => {
+          if (!point.location.latitude || !point.location.longitude) return false;
+          const distance = getDistance(LOCATION[0], LOCATION[1], point.location.latitude, point.location.longitude);
+          return distance <= RADIUS;
+        });
+
+        setWastePoints(wastePointsWithinRadius);
+        setLoading(false);
 
       } catch (err) {
         console.error("Error fetching waste points:", err);
@@ -241,28 +261,45 @@ function CollectorMap() {
     createOptimizedRoute();
   }, [collectorPosition, activeWastePoints]);
 
-  //Handle marking a waste point as completed
+  //--> Handle marking a waste point as completed
   const handleMarkComplete = async (id) => {
     try {
-      // Send completion status to backend
-      await axios.post(`/api/waste-points/${id}/complete`, {
-        collectorId: "current-collector-id", // Replace with actual collector ID
-        completedAt: new Date().toISOString()
-      });
-      
+      if (activeWastePoints.length === 0) {
+          alert("No waste points to mark as collected.");
+          return;
+      }
+      const isoDateString = new Date().toISOString();
+
+      const updatePromises = activeWastePoints.map(point =>
+
+          fetch(`${import.meta.env.VITE_BACKEND_URL}/api/wastebin/update-wastebin/${point.id}`, {
+              method: "PUT",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify ({
+                  lastEmptiedAt: isoDateString,
+                  status: "empty",
+                  realTimeCapacity: 0
+              }),
+          })
+      );
+
+      await Promise.all(updatePromises);
+
       // Update local state
-      setCompletedIds(prev => [...prev, id]);
-      
-      // Show success message
-      alert(`Waste point #${id} marked as collected`);
-    } catch (err) {
-      console.error("Error marking waste point as completed:", err);
-      alert("Failed to update status. Please try again.");
-      
-      // For testing - still update UI
-      setCompletedIds(prev => [...prev, id]);
-    }
+      setCompletedIds(activeWastePoints.map(point => point.id));
+
+      setRoute([]);
+
+      alert("All waste points have been marked as collected.");
+      } catch (err) {
+          console.error("Error marking all waste points as completed:", err);
+          alert("Failed to update all statuses. Please try again.");
+      }
   };
+
+  handleRecycleMark = () => {
+    
+  }
 
   return (
     <div className="collector-map-container">
@@ -312,8 +349,8 @@ function CollectorMap() {
         />
         
         {/* Display optimized route as a blue polyline when available */}
-        {route.length > 0 && (
-          <Polyline 
+        {route.length > 1 && (
+          <Polyline
             positions={route} 
             color="#0078FF" 
             weight={5} 
@@ -321,43 +358,10 @@ function CollectorMap() {
           />
         )}
       </MapContainer>
-      
-      {/* Progress indicator */}
-      <div style={{ 
-        position: "absolute", 
-        bottom: "20px", 
-        right: "20px", 
-        zIndex: 1000,
-        backgroundColor: "white",
-        padding: "15px",
-        borderRadius: "8px",
-        boxShadow: "0 2px 5px rgba(0,0,0,0.2)",
-        minWidth: "200px"
-      }}>
-        <h3 style={{ margin: "0 0 10px 0" }}>Collection Progress</h3>
-        <div>
-          <strong>Completed:</strong> {completedIds.length} / {wastePoints.length}
-        </div>
-        <div style={{ 
-          backgroundColor: "#eee", 
-          height: "10px", 
-          borderRadius: "5px",
-          marginTop: "8px" 
-        }}>
-          <div style={{ 
-            backgroundColor: "#4CAF50",
-            width: `${wastePoints.length > 0 ? (completedIds.length / wastePoints.length) * 100 : 0}%`,
-            height: "100%",
-            borderRadius: "5px"
-          }}></div>
-        </div>
-        <div style={{ marginTop: "10px", fontSize: "12px" }}>
-          {activeWastePoints.length > 0 ? 
-            `${activeWastePoints.length} waste points remaining` : 
-            "All waste points collected!"
-          }
-        </div>
-      </div>
+      <button onClick={handleMarkComplete}>
+          Done - Mark All as Collected
+      </button>
+
     </div>
   );
 }

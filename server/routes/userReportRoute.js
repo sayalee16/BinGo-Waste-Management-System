@@ -13,7 +13,7 @@ import {
 
 const router = express.Router();
 
-router.get("/reports", authenticateAdmin, getAllReports);
+router.get("/reports", getAllReports);
 router.get("/get-report/:id", authenticateUser, getReportById);
 router.post("/create-report", authenticateUser, upload.single("attachment"), createReport);
 router.put("/admin-update-report/:id", authenticateAdmin, updateReportAdmin);
