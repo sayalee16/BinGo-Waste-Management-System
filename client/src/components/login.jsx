@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import UserMainNavigation from './userMainNavigation';
-
+import CollectorMap from '../pages/map/CollectorMap';
 import { useContext } from 'react';
 import { AuthContext } from '../context/authContext'; // Importing AuthContext for user authentication
 
@@ -81,7 +81,10 @@ const Login = () => {
           setLoggedIn(true);
           alert("Login successful!");
           updateUser(data.token);
-          if (data.user.isAdmin) {
+          if(data.user.isWC){
+            navigate("/collectorMap"); // Redirect to waste collector Main page
+          }
+          else if (data.user.isAdmin) {
             navigate("/adminMainNavigation"); // Redirect to admin Main page
           } else {
             navigate("/userMainNavigation"); // Redirect to user Main page
