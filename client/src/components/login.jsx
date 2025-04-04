@@ -79,7 +79,7 @@ const Login = () => {
           setOldUser({ phone: "", password: "" });
           setError("");
           setLoggedIn(true);
-          alert("Login successful!");
+          // alert("Login successful!");
           updateUser(data.token);
           if (data.user.isAdmin) {
             navigate("/adminMainNavigation"); // Redirect to admin Main page
@@ -146,7 +146,8 @@ const Login = () => {
         setNewUser({ name: "", phone: "", email: "", password: "" });
         setError("");
         setRegisteredIn(true);
-        alert("Registration successful!");
+        // setIsSignIn(true);
+        // alert("Registration successful!");
     } catch (error) {
         console.error("Registration error:", error);
         setError("Something went wrong. Please try again.");
@@ -202,6 +203,11 @@ const Login = () => {
           <div className={`absolute w-full sm:w-3/4 md:w-1/2  transition-all duration-500 ease-in-out ${
             isSignIn ? "opacity-0 scale-90 pointer-events-none" : "opacity-100 scale-100"
           }`}>
+            {registerdIn && (
+    <p className="text-green-500 text-center font-semibold mb-4">
+      Registration successful! Please log in.
+    </p>
+  )}
             <h1 className={`sm:hidden text-white font-bold z-20 transition-all  duration-500 ease-in-out text-4xl  [text-shadow:2px_2px_4px_rgba(0,0,0,0.5)] pb-10 `}>Join With Us</h1>
             <div className="bg-white p-6 rounded-2xl shadow-xl">
               <h2 className="text-xl font-bold text-center mb-4">Register</h2>

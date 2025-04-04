@@ -3,7 +3,7 @@ import { Home, Calendar, User, Flag } from 'lucide-react';
 import { useContext } from 'react'; // Importing useContext to access context values
 import { AuthContext } from '../context/authContext'; // Importing AuthContext for user authentication
 
-const Navbar = () => {
+const AdminNavbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activePage, setActivePage] = useState('/');
@@ -27,8 +27,8 @@ const Navbar = () => {
   }, []);
   
   const navLinks = [
-    { name: 'Home', path: '/userMainNavigation', icon: <Home size={18} /> },
-    { name: 'Report', path: '/userReportForm', icon: <Flag size={18} /> },
+    { name: 'Home', path: '/adminMainNavigation', icon: <Home size={18} /> },
+    { name: 'Schedule', path: '/schedule', icon: <Flag size={18} /> },
   ];
   
   return (
@@ -42,7 +42,7 @@ const Navbar = () => {
               <span className="text-white text-2xl font-bold">Bin<span className="text-green-200">GO</span></span>
 
               <h1 className="text-2xl pl-16 font-extrabold text-white tracking-wide drop-shadow-lg">
-    ♻️User Dashboard
+    ♻️Admin Dashboard
   </h1>
             </div>
           </div>
@@ -127,4 +127,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default AdminNavbar;

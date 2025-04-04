@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Navbar from "./Navbar";
+import AdminNavbar from "./adminNav";
 import { AuthContext } from "../context/authContext";
 import { useContext } from "react";
 import { FaTruck, FaCheckCircle, FaRecycle } from "react-icons/fa";
@@ -118,12 +118,9 @@ const AdminMainNavigation = () => {
 
   return (
     <>
-      <Navbar />
+      <AdminNavbar />
       {/* Admin Dashboard Banner */}
-      <div className="bg-gradient-to-r from-green-700 via-green-600 to-green-500 text-white py-6 px-4 shadow-lg text-center rounded-b-2xl">
-  <h1 className="text-4xl font-extrabold tracking-wide drop-shadow-lg">
-    ♻️Admin Dashboard
-  </h1>
+      <div className="bg-gradient-to-r from-green-700 via-green-600 to-green-500 text-white py-1 shadow-lg text-center rounded-b-2xl">
   <p className="text-base mt-2 text-green-100 italic">
     Command center for cleaner cities and smarter waste solutions
   </p>
