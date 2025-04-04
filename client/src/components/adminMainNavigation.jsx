@@ -12,7 +12,7 @@ const AdminMainNavigation = () => {
   }
   // Fetch reports from the backend when the component mounts
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_BACKEND_URL}/api/userreport/reports`, {
+    const data = fetch(`${import.meta.env.VITE_BACKEND_URL}/api/userreport/reports`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

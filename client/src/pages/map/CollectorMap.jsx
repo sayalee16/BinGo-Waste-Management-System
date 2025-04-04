@@ -4,7 +4,8 @@ import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 
 
-const LOCATION = [18.497536, 73.793536]
+
+
 // Icons for different types of waste points
 const icons = {
   // Bin status icons
@@ -123,7 +124,9 @@ function WastePointsLayer({ points, collectorPosition }) {
 }
 
 function CollectorMap() {
-      
+  const LOCATION = [18.497536, 73.793536];
+  const RADIUS = 5000;
+
   const defaultPosition = [18.5532, 73.8426]; // default position
   const [collectorPosition, setCollectorPosition] = useState(null);
   const [wastePoints, setWastePoints] = useState([]);
@@ -132,39 +135,66 @@ function CollectorMap() {
   const [route, setRoute] = useState([]);
   const [completedIds, setCompletedIds] = useState([]);
 
+    function getDistance(lat1, lon1, lat2, lon2) {
+      const R = 6371e3; // Earth radius in meters
+      const C1 = lat1 * (Math.PI / 180);
+      const C2 = lat2 * (Math.PI / 180);
+      const C3 = (lat2 - lat1) * (Math.PI / 180);
+      const C4 = (lon2 - lon1) * (Math.PI / 180);
+
+      const a = Math.sin(C3 / 2) * Math.sin(C3 / 2) +
+                Math.cos(C1) * Math.cos(C2) *
+                Math.sin(C4 / 2) * Math.sin(C4 / 2);
+
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      return R * c; // Distance in meters
+  }
+
   // Fetch waste points from backend
   useEffect(() => {
-    const fetchWastePoints = async () => {
-      // Fetch reports data
-      try {
-      //const reportsResponse = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/userreport/reports`);
-      //const reportsData = reportsResponse.data;
+      const fetchWastePoints = async () => {
+        // Fetch reports data
+        try {
+        const reportsResponse = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/userreport/reports`);
+        const reportsData = reportsResponse.data;
 
-      // Fetch wastebins data
-      const wastebinsResponse = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/wastebins/wastebins`);
-      const wastebinsData = wastebinsResponse.data;
+        // Fetch wastebins data
+        const wastebinsResponse = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/wastebin/wastebins-filtered`);
 
-      // Filter wastebins that are "partially_filled" or "filled"
-      const filteredWastebins = wastebinsData.filter(bin => bin.status === "partially_filled" || bin.status === "filled");
+        const wastebinsData = await wastebinsResponse.json();
+        console.log("Fetched Data:", wastebinsData); // Debugging
+
+        // Ensure it's an array
+      const wastebinArray = Array.isArray(wastebinsData) ? wastebinsData : [wastebinsData];
+
+      // Filter wastebins
+      const filteredWastebins = wastebinArray.filter(bin =>
+          bin.status === "partially_filled" || bin.status === "filled"
+      );
+      console.log("Filtered Wastebins:", filteredWastebins); //debugging
 
       // Convert wastebin data to match report format
       const formattedWastebins = filteredWastebins.map(bin => ({
-        id: bin.id,
-        location: {
-          latitude: bin.locn.latitude,
-          longitude: bin.locn.longitude,
-        },
-        status: bin.status,
-        isBin: true, // Mark it as a bin
-        lastUpdated: bin.lastEmptiedAt, // Use last emptied time as last updated
+          id: bin.id,
+          location: {
+              latitude: bin.locn?.latitude,
+              longitude: bin.locn?.longitude,
+          },
+          status: bin.status,
+          isBin: true, // Mark it as a bin for symbol purpose
       }));
 
-      // Combine reports and filtered wastebins
-      //const combinedData = [...reportsData, ...formattedWastebins];
-      const combinedData = [formattedWastebins];
-      console.log(formattedWastebins);
+      console.log("Formatted Wastebins:", formattedWastebins);
 
-      setWastePoints(combinedData);
+      const wastePointsWithinRadius = formattedWastebins.filter(point => {
+        if (!point.location.latitude || !point.location.longitude) return false;
+        const distance = getDistance(LOCATION[0], LOCATION[1], point.location.latitude, point.location.longitude);
+        return distance <= RADIUS;
+      });
+
+      console.log("Waste Points within RADIUS:", wastePointsWithinRadius); //debigging
+
+      setWastePoints(wastePointsWithinRadius);
       setLoading(false);
 
       } catch (err) {
@@ -203,9 +233,9 @@ function CollectorMap() {
         
         // Update the route
         setRoute(routeCoordinates);
-      } catch (error) {
-        console.error("Error creating collection route:", error);
-      }
+        } catch (error) {
+         console.error("Error creating collection route:", error);
+        }
     };
 
     createOptimizedRoute();
