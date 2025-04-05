@@ -69,7 +69,7 @@ const Navbar = () => {
           <div className="hidden md:flex items-center space-x-3 text-white">
   <User size={30} />
   <div className="flex flex-col">
-    <span className="font-semibold text-lg"> Hey {currUser?.username || 'Admin'}</span>
+    <span className="font-semibold text-lg"> Hey {currUser?.username || 'Guest'}</span>
     <div className="text-s text-gray-200 mt-1">
       {currUser?.username ? 
         "Your waste-saving journey begins!" :

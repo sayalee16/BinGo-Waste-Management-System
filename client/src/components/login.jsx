@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import UserMainNavigation from './userMainNavigation';
 
+
 import { useContext } from 'react';
 import { AuthContext } from '../context/authContext'; // Importing AuthContext for user authentication
 
@@ -83,7 +84,11 @@ const Login = () => {
           updateUser(data.token);
           if (data.user.isAdmin) {
             navigate("/adminMainNavigation"); // Redirect to admin Main page
-          } else {
+          } 
+          else if (data.user.isWasteCollector) {
+            navigate("/collectorMap"); // Redirect to admin Main page
+          }
+          else {
             navigate("/userMainNavigation"); // Redirect to user Main page
           }
       } catch (error) {

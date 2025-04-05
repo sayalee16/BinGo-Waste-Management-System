@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
+import AdminNavbar from "../components/adminNav";
 
 const Schedule = () => {
   const [predictions, setPredictions] = useState([]);
@@ -54,7 +55,7 @@ const Schedule = () => {
 
   return (
     <>
-    <Navbar/>
+    <AdminNavbar/>
     <div className="p-6 mt-3 max-w-4xl mx-auto bg-white shadow-lg rounded-2xl">
       
       <h1 className="text-2xl font-bold text-center mb-6">Waste Bin Schedule Predictions</h1>

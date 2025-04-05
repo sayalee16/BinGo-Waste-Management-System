@@ -15,7 +15,7 @@ const userReportSchema = new Schema({
     status: {
         type: String,
         enum: ["full", "damaged", "needs maintenance", "partially filled", "done"],
-        required: true
+        required: false
     },
     attachment: {
         data: {
