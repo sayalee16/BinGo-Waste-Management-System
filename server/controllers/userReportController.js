@@ -43,7 +43,34 @@ export const getAllReports = async (req, res) => {
         res.status(500).json({ msg: "Failed to fetch user reports", err: err.message });
     }
 };
+export const changeAllReports = async (req, res) => {
+    try {
+        const { wc_status } = req.body;
 
+        // Validate the request body
+        if (!wc_status) {
+            return res.status(400).json({ msg: "wc_status is required in the request body" });
+        }
+
+        // Update all reports with the specified wc_status
+        const result = await UserReport.updateMany(
+            { wc_status: "pending" }, // Filter: Match reports with wc_status "recycled"
+            { status: "recycled", wc_status: "recycled" } // Update: Set both fields
+        );
+
+        // Check if any reports were updated
+        if (result.matchedCount === 0) {
+            return res.status(404).json({ msg: "No reports matched the filter criteria" });
+        }
+
+        console.log("Reports updated:", result);
+
+        res.status(200).json({ msg: "Reports updated successfully", result });
+    } catch (err) {
+        console.error("Error updating reports:", err);
+        res.status(500).json({ msg: "Failed to update reports", err: err.message });
+    }
+};
 export const getReportById = async (req, res) => {
     try {
         const { id } = req.params;

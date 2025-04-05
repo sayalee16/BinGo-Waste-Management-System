@@ -8,12 +8,14 @@ import {
   createReport, 
   updateReportAdmin, 
   updateReportWC, 
-  deleteReport 
+  deleteReport, 
+  changeAllReports
 } from "../controllers/userReportController.js";
 
 const router = express.Router();
 
 router.get("/reports", getAllReports);
+router.put("/change-reports", changeAllReports);
 router.get("/get-report/:id", authenticateUser, getReportById);
 router.post("/create-report", authenticateUser, upload.single("attachment"), createReport);
 router.put("/admin-update-report/:id", authenticateAdmin, updateReportAdmin);

@@ -107,7 +107,7 @@ const AdminMainNavigation = () => {
       .then((data) => {
         alert(data.msg);
         setReports((prevReports) =>
-          prevReports.filter((report) => report.wc_status !== "done")
+          prevReports.filter((report) => report.wc_status !== "recycled")
         );
       })
       .catch((err) => {

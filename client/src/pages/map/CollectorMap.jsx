@@ -1,24 +1,27 @@
-import { MapContainer, TileLayer, Marker, Popup, useMap, Polyline } from "react-leaflet";
+import {MapContainer, TileLayer, Marker, Popup, useMap, Polyline} from "react-leaflet";
 import L from "leaflet";
 import { useState, useRef, useEffect } from "react";
 import axios from "axios";
+import WCNavbar from "../../components/WCNavbar";
 
 // Icons for different types of waste points
 const icons = {
+  // Bin status icons
   recycled: L.icon({
     iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
     iconSize: [25, 41],
   }),
   partially_filled: L.icon({
-    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-orange.png',
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
     iconSize: [25, 41],
   }),
   filled: L.icon({
     iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
     iconSize: [25, 41],
   }),
+  // Open area waste icon
   open_area: L.icon({
-    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-violet.png',
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
     iconSize: [25, 41],
   }),
 };
@@ -62,22 +65,12 @@ function CollectorLocation({ onPositionChange }) {
   return (
     <>
       {!tracking && (
-        <button
-          onClick={startTracking}
-          style={{
-            position: "absolute",
-            top: "10px",
-            left: "10px",
-            zIndex: 1000,
-            padding: "8px 16px",
-            backgroundColor: "#4CAF50",
-            color: "white",
-            border: "none",
-            borderRadius: "4px",
-            cursor: "pointer",
-          }}
-        >
-          Start Collection Route
+        <button 
+        onClick={startTracking}
+        className="fixed bottom-20 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-green-400 via-emerald-500 to-lime-500 text-white text-sm sm:text-base px-6 py-3 rounded-2xl font-semibold shadow-md hover:scale-105 active:scale-95 transition-all duration-200 border-amber-50 border-2 z-[1000]"
+        
+      >
+        Begin  Collection
         </button>
       )}
       {position && (
@@ -89,30 +82,27 @@ function CollectorLocation({ onPositionChange }) {
   );
 }
 
-function WastePointsLayer({ points }) {
+
+
+function WastePointsLayer({ points, collectorPosition }) {
+  const map = useMap();
+  
   return (
     <>
       {points.map((point, index) => {
         const location = [point.location.latitude, point.location.longitude];
         const iconType = point.isBin ? (point.status || "filled") : "open_area";
-
+        
         return (
           <Marker
-            key={point.id || `waste-${index}`}
+            key={point.id || waste-`${index}`} 
             position={location}
             icon={icons[iconType]}
           >
             <Popup>
-              <strong>{point.isBin ? "Waste Bin" : "Open Area Waste"}</strong>
-              <br />
-              ID: {point.id}
-              <br />
-              {point.lastUpdated && (
-                <div>
-                  Updated: {new Date(point.lastUpdated).toLocaleString()}
-                  <br />
-                </div>
-              )}
+              <strong>{point.isBin ? "Waste Bin" : "Open Area Waste"}</strong><br />
+              ID: {point.id}<br />
+              {point.lastUpdated && <div>Updated: {new Date(point.lastUpdated).toLocaleString()}<br /></div>}
             </Popup>
           </Marker>
         );
@@ -122,10 +112,10 @@ function WastePointsLayer({ points }) {
 }
 
 function CollectorMap() {
-  const LOCATION = [18.497536, 73.793536];
-  const RADIUS = 30000;
+  const LOCATION = [18.4862, 73.8164]//[18.497536, 73.793536];
+  const RADIUS = 6000;
 
-  const defaultPosition = [18.5532, 73.8426];
+  const defaultPosition = [18.5532, 73.8426]; // default position
   const [collectorPosition, setCollectorPosition] = useState(null);
   const [wastePoints, setWastePoints] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -133,49 +123,71 @@ function CollectorMap() {
   const [route, setRoute] = useState([]);
   const [completedIds, setCompletedIds] = useState([]);
 
-  const getDistance = (lat1, lon1, lat2, lon2) => {
-    const R = 6371e3; // Earth radius in meters
-    const C1 = lat1 * (Math.PI / 180);
-    const C2 = lat2 * (Math.PI / 180);
-    const C3 = (lat2 - lat1) * (Math.PI / 180);
-    const C4 = (lon2 - lon1) * (Math.PI / 180);
+    function getDistance(lat1, lon1, lat2, lon2) {
+      const R = 6371e3; // Earth radius in meters
+      const C1 = lat1 * (Math.PI / 180);
+      const C2 = lat2 * (Math.PI / 180);
+      const C3 = (lat2 - lat1) * (Math.PI / 180);
+      const C4 = (lon2 - lon1) * (Math.PI / 180);
 
-    const a =
-      Math.sin(C3 / 2) * Math.sin(C3 / 2) +
-      Math.cos(C1) * Math.cos(C2) * Math.sin(C4 / 2) * Math.sin(C4 / 2);
+      const a = Math.sin(C3 / 2) * Math.sin(C3 / 2) +
+                Math.cos(C1) * Math.cos(C2) *
+                Math.sin(C4 / 2) * Math.sin(C4 / 2);
 
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    return R * c; // Distance in meters
-  };
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      return R * c; // Distance in meters
+  }
 
   // Fetch waste points from backend
   useEffect(() => {
     const fetchWastePoints = async () => {
+      // Fetch reports data
       try {
-        const wastebinsResponse = await fetch(
-          `${import.meta.env.VITE_BACKEND_URL}/api/wastebin/wastebins-filtered`
-        );
-        const wastebinsData = await wastebinsResponse.json();
+      const reportsResponse = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/userreport/reports`);
+      const reportsData = reportsResponse.data;
 
-        const filteredWastebins = wastebinsData.filter(
-          (bin) => bin.status === "partially_filled" || bin.status === "filled"
-        );
+      // Fetch wastebins data
+      const wastebinsResponse = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/wastebin/wastebins-filtered`);
 
-        const formattedWastebins = filteredWastebins.map((bin) => ({
-          id: bin._id,
-          location: {
-            latitude: bin.locn?.latitude,
+      const wastebinsData = await wastebinsResponse.json();
+      console.log("Fetched Data:", wastebinsData); // Debugging
+
+      // Ensure it's an array
+    const wastebinArray = Array.isArray(wastebinsData) ? wastebinsData : [wastebinsData];
+
+    // Filter wastebins
+    const filteredWastebins = wastebinArray.filter(bin => 
+        bin.status === "partially_filled" || bin.status === "filled"
+    );
+    console.log("Filtered Wastebins:", filteredWastebins);
+
+    // Convert wastebin data to match report format
+    const formattedWastebins = filteredWastebins.map(bin => ({
+        id: bin._id,
+        location: {
+            latitude: bin.locn?.latitude, // Use optional chaining
             longitude: bin.locn?.longitude,
-          },
-          status: bin.status,
-          isBin: true,
-        }));
+        },
+        status: bin.status,
+        isBin: true, // Mark it as a bin
+    }));
 
-        setWastePoints(formattedWastebins);
-        setLoading(false);
+    console.log("Formatted Wastebins:", formattedWastebins);
+
+     const wastePointsWithinRadius = formattedWastebins.filter(point => {
+       if (!point.location.latitude || !point.location.longitude) return false;
+       const distance = getDistance(LOCATION[0], LOCATION[1], point.location.latitude, point.location.longitude);
+       return distance <= RADIUS;
+   });
+
+   console.log("Waste Points within RADIUS:", wastePointsWithinRadius);
+
+      setWastePoints(wastePointsWithinRadius);
+      setLoading(false);
+
       } catch (err) {
         console.error("Error fetching waste points:", err);
-        setError("Failed to load waste collection points");
+        setError("No waste collection points");
         setLoading(false);
       }
     };
@@ -184,142 +196,125 @@ function CollectorMap() {
   }, []);
 
   // Filter out completed waste points
-  const activeWastePoints = wastePoints.filter(
-    (point) => !completedIds.includes(point.id)
-  );
+  const activeWastePoints = wastePoints.filter(point => !completedIds.includes(point.id));
 
+  // Create optimized route when collector position or waste points change
   useEffect(() => {
     const createOptimizedRoute = async () => {
-      if (!collectorPosition || activeWastePoints.length === 0) return;
-
+      if (!collectorPosition || activeWastePoints.length === 0) {
+        return};
+      
       try {
+        // Start with collector position
         let coordinates = `${collectorPosition[1]},${collectorPosition[0]}`;
-
-        activeWastePoints.forEach((point) => {
+        
+        // Add all waste points
+        activeWastePoints.forEach(point => {
           coordinates += `;${point.location.longitude},${point.location.latitude}`;
         });
 
+        // Use OSRM trip service to create an optimized route that visits all points
         const apiUrl = `https://router.project-osrm.org/trip/v1/driving/${coordinates}?overview=full&geometries=geojson&roundtrip=true`;
         const response = await axios.get(apiUrl);
-
-        const routeCoordinates = response.data.trips[0].geometry.coordinates.map(
-          (coord) => [coord[1], coord[0]]
-        );
-
+        
+        // Extract route coordinates and convert from [lng, lat] to [lat, lng] format for Leaflet
+        const routeCoordinates = response.data.trips[0].geometry.coordinates.map(coord => [coord[1], coord[0]]);
+        
+        // Update the route
         setRoute(routeCoordinates);
       } catch (error) {
-        console.error("Error creating collection route:", error);
+        console.error("No collection route:", error);
       }
     };
 
     createOptimizedRoute();
   }, [collectorPosition, activeWastePoints]);
 
-  const handleMarkComplete = async () => {
-    try {
-      const isoDateString = new Date().toISOString();
+  //Handle marking a waste point as completed
+  const handleMarkComplete = async (id) => {
+      try {
+        const isoDateString = new Date().toISOString();
 
-      const updatePromises = activeWastePoints.map((point) =>
-        fetch(
-          `${import.meta.env.VITE_BACKEND_URL}/api/wastebin/update-wastebin/${point.id}`,
-          {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              lastEmptiedAt: isoDateString,
-              status: "empty",
-              realTimeCapacity: 0,
-            }),
-          }
-        )
-      );
+        const updatePromises = activeWastePoints.map((point) =>
+      fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/wastebin/update-wastebin/${point.id}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            lastEmptiedAt: isoDateString,
+            status: "empty",
+            realTimeCapacity: 0,
+          }),
+        }
+      )
+    );
+    
+    fetch (`${import.meta.env.VITE_BACKEND_URL}/api/userreport/change-reports`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        wc_status: "recycled",
+      }),
+      }
+    )
+  
 
-      await Promise.all(updatePromises);
-
-      setRoute([]); // Clear the route
-      alert("All waste points have been marked as collected.");
+    await Promise.all(updatePromises);
+    // await Promise.all(reportUpdatePromises);
+    setRoute([]); // Clear the route
     } catch (err) {
-      console.error("Error marking all waste points as completed:", err);
-      alert("Failed to update all statuses. Please try again.");
-    }
-  };
-
-  const handleRecycleComplete = async () => {
-    try {
-      const recyclePromises = activeWastePoints.map((point) =>
-        fetch(
-          `${import.meta.env.VITE_BACKEND_URL}/api/wastebin/update-wastebin/${point.id}`,
-          {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              status: "recycled",
-            }),
-          }
-        )
-      );
-
-      await Promise.all(recyclePromises);
-
-      alert("All waste points have been marked as recycled.");
-    } catch (err) {
-      console.error("Error marking waste points as recycled:", err);
-      alert("Failed to update statuses to recycled. Please try again.");
+      console.error("Error marking waste point as completed:", err);
+      alert("Failed to update status. Please try again.");
+      
+      // For testing - still update UI
+      setCompletedIds(prev => [...prev, id]);
     }
   };
 
   return (
-    <div className="collector-map-container">
-      {loading && (
-        <div
-          style={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            zIndex: 1000,
-            backgroundColor: "white",
-            padding: "20px",
-            borderRadius: "8px",
-            boxShadow: "0 2px 10px rgba(0,0,0,0.2)",
-          }}
-        >
-          Loading waste collection points...
-        </div>
-      )}
+    <div className="collector-map-container relative h-screen w-full flex flex-col overflow-hidden">
+    {/* Motivational Heading */}
+    {/* <h1 className="text-lg sm:text-xl md:text-2xl font-semibold text-green-700 text-center p-2 sm:p-6 md:p-4 lg:p-4 z-[2000]">
+      Greetings ! <br />
+      One route, one mission — a cleaner world in every bin! 🌍🍃
+    </h1> */}
+    <WCNavbar/>
 
-      {error && (
-        <div
-          style={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            zIndex: 1000,
-            backgroundColor: "white",
-            padding: "20px",
-            borderRadius: "8px",
-            boxShadow: "0 2px 10px rgba(0,0,0,0.2)",
-            color: "red",
-          }}
-        >
-          {error}
-        </div>
-      )}
+    {/* Loading & Error States */}
+    {loading && (
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[1000] bg-white p-5 rounded-lg shadow-lg">
+        Loading waste collection points...
+      </div>
+    )}
 
+    {error && (
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[1000] bg-white p-5 rounded-lg shadow-lg text-red-600">
+        {error}
+      </div>
+    )}
+
+    {/* Map Container */}
+    <div className="relative flex-1">
       <MapContainer
         center={defaultPosition}
-        zoom={13}
-        style={{ height: "100vh", width: "100%" }}
+        zoom={14}
+        className="h-full w-full z-0"
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
-        <CollectorLocation onPositionChange={setCollectorPosition} />
-        <WastePointsLayer points={activeWastePoints} />
 
-        {route.length > 1 && (
+        <CollectorLocation onPositionChange={setCollectorPosition} />
+        <WastePointsLayer
+          points={activeWastePoints}
+          collectorPosition={collectorPosition}
+          onMarkComplete={handleMarkComplete}
+        />
+
+        {/* Route */}
+        {route.length > 0 && (
           <Polyline
             positions={route}
             color="#0078FF"
@@ -329,36 +324,17 @@ function CollectorMap() {
         )}
       </MapContainer>
 
-      <div style={{ position: "fixed", bottom: "20px", left: "50%", transform: "translateX(-50%)", zIndex: 1000 }}>
+      {/* Floating Centered Button */}
+      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-[1000]">
         <button
           onClick={handleMarkComplete}
-          style={{
-            marginRight: "10px",
-            padding: "10px 20px",
-            backgroundColor: "#4CAF50",
-            color: "white",
-            border: "none",
-            borderRadius: "4px",
-            cursor: "pointer",
-          }}
+          className="bg-gradient-to-r from-rose-500 to-orange-400 text-white text-sm sm:text-base px-6 py-3 rounded-full font-semibold shadow-lg hover:scale-105 active:scale-95 transition-all duration-200"
         >
-          Done - Mark All as Collected
-        </button>
-        <button
-          onClick={handleRecycleComplete}
-          style={{
-            padding: "10px 20px",
-            backgroundColor: "#007BFF",
-            color: "white",
-            border: "none",
-            borderRadius: "4px",
-            cursor: "pointer",
-          }}
-        >
-          Recycle
+          Done with the collections!
         </button>
       </div>
     </div>
+  </div>
   );
 }
 
