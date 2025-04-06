@@ -7,19 +7,21 @@ BinGO is a **practical, scalable waste management system** designed to keep citi
 
 Traditional waste collection follows rigid schedules, leading to **wasted resources and overflowing bins**. BinGO optimizes waste collection by ensuring **timely pickups where they are actually needed**, reducing inefficiencies and improving urban sanitation.  
 
-## Tech Stack  
-### Frontend:  
-- React.js  
-- Bootstrap / Tailwind CSS  
+## Tech Stack
 
-### Backend:  
-- Node.js  
-- Express.js  
-- MongoDB  
+### Frontend  
+- **React.js** – for building interactive user interfaces  
+- **Tailwind CSS** – for utility-first, responsive styling  
 
-### Additional Technologies:  
-- Machine Learning (for optimized scheduling)  
-- Sensors (for real-time bin status updates)  
+### Backend  
+- **Node.js** – for server-side logic  
+- **Express.js** – for handling HTTP requests and routing  
+- **MongoDB** – for efficient and scalable data storage  
+
+### Additional Technologies  
+- **Machine Learning** – for optimized scheduling and predictive analytics  
+- **Sensors Integration** – for real-time bin status updates  
+- **OpenStreetMap API** – for location mapping and geospatial visualization  
 
 ## Features  
 ### 1. **User Reporting System**  
