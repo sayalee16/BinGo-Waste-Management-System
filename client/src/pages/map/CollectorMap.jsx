@@ -65,23 +65,9 @@ function CollectorLocation({ onPositionChange }) {
     <>
       {!tracking && (
         <button 
-        onClick={startTracking} 
-        style={{ 
-          position: "absolute", 
-          bottom: "80px", 
-          left: "50%", 
-          transform: "translateX(-50%)",
-          zIndex: 1000,
-          padding: "12px 24px",
-          backgroundColor: "#4CAF50",
-          color: "white",
-          fontSize: "16px",
-          fontWeight: "bold",
-          border: "white 1px",
-          borderRadius: "8px",
-          cursor: "pointer",
-          boxShadow: "0 4px 8px rgba(0,0,0,0.2)"
-        }}
+        onClick={startTracking}
+        className="fixed bottom-20 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-green-400 via-emerald-500 to-lime-500 text-white text-sm sm:text-base px-6 py-3 rounded-2xl font-semibold shadow-md hover:scale-105 active:scale-95 transition-all duration-200 border-amber-50 border-2 z-[1000]"
+        
       >
         Begin  Collection
         </button>
@@ -125,7 +111,7 @@ function WastePointsLayer({ points, collectorPosition }) {
 }
 
 function CollectorMap() {
-  const LOCATION = [18.497536, 73.793536];
+  const LOCATION = [18.4862, 73.8164]//[18.497536, 73.793536];
   const RADIUS = 5000;
 
   const defaultPosition = [18.5532, 73.8426]; // default position
@@ -200,7 +186,7 @@ function CollectorMap() {
 
       } catch (err) {
         console.error("Error fetching waste points:", err);
-        setError("Failed to load waste collection points");
+        setError("No waste collection points");
         setLoading(false);
       }
     };
@@ -214,7 +200,8 @@ function CollectorMap() {
   // Create optimized route when collector position or waste points change
   useEffect(() => {
     const createOptimizedRoute = async () => {
-      if (!collectorPosition || activeWastePoints.length === 0) return;
+      if (!collectorPosition || activeWastePoints.length === 0) {
+        return};
       
       try {
         // Start with collector position
@@ -235,7 +222,7 @@ function CollectorMap() {
         // Update the route
         setRoute(routeCoordinates);
       } catch (error) {
-        console.error("Error creating collection route:", error);
+        console.error("No collection route:", error);
       }
     };
 
@@ -274,98 +261,67 @@ function CollectorMap() {
   };
 
   return (
-    <div className="collector-map-container max-h-full">
-      <h1 className="text-xl md:text-2xl font-semibold text-green-700 text-center p-8 mx-auto max-w-3xl" style={{zIndex : "2000"}}>
-        Hey, <br/>
-        One route, one mission — a cleaner world in every bin! 🌍🍃
-      </h1>
+    <div className="collector-map-container relative h-screen w-full flex flex-col overflow-hidden">
+    {/* Motivational Heading */}
+    <h1 className="text-lg sm:text-xl md:text-2xl font-semibold text-green-700 text-center p-2 sm:p-6 md:p-4 lg:p-4 z-[2000]">
+      Greetings ! <br />
+      One route, one mission — a cleaner world in every bin! 🌍🍃
+    </h1>
 
-      {loading && (
-        <div style={{ 
-          position: "absolute", 
-          top: "50%", 
-          left: "50%", 
-          transform: "translate(-50%, -50%)",
-          zIndex: 1000,
-          backgroundColor: "white",
-          padding: "20px",
-          borderRadius: "8px",
-          boxShadow: "0 2px 10px rgba(0,0,0,0.2)"
-        }}>
-          Loading waste collection points...
-        </div>
-      )}
-      
-      {error && (
-        <div style={{ 
-          position: "absolute", 
-          top: "50%", 
-          left: "50%", 
-          transform: "translate(-50%, -50%)",
-          zIndex: 1000,
-          backgroundColor: "white",
-          padding: "20px",
-          borderRadius: "8px",
-          boxShadow: "0 2px 10px rgba(0,0,0,0.2)",
-          color: "red"
-        }}>
-          {error}
-        </div>
-      )}
-      
-      <MapContainer center={defaultPosition} zoom={13} style={{ height: '100vh', width: '100%' }}>
+    {/* Loading & Error States */}
+    {loading && (
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[1000] bg-white p-5 rounded-lg shadow-lg">
+        Loading waste collection points...
+      </div>
+    )}
 
+    {error && (
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[1000] bg-white p-5 rounded-lg shadow-lg text-red-600">
+        {error}
+      </div>
+    )}
+
+    {/* Map Container */}
+    <div className="relative flex-1">
+      <MapContainer
+        center={defaultPosition}
+        zoom={14}
+        className="h-full w-full z-0"
+      >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
+
         <CollectorLocation onPositionChange={setCollectorPosition} />
-        <WastePointsLayer 
-          points={activeWastePoints} 
+        <WastePointsLayer
+          points={activeWastePoints}
           collectorPosition={collectorPosition}
-           onMarkComplete={handleMarkComplete}
+          onMarkComplete={handleMarkComplete}
         />
-        
-        {/* Display optimized route as a blue polyline when available */}
+
+        {/* Route */}
         {route.length > 0 && (
-          <Polyline 
-            positions={route} 
-            color="#0078FF" 
-            weight={5} 
-            opacity={0.7} 
+          <Polyline
+            positions={route}
+            color="#0078FF"
+            weight={5}
+            opacity={0.7}
           />
         )}
-        <div style={{
-  position: "absolute",
-  bottom: "20px",
-  width: "100%",
-  display: "flex",
-  justifyContent: "center",
-  zIndex: 1000
-}}>
-  <button onClick={handleMarkComplete}
-    style={{
-      padding: "14px 28px",
-      backgroundColor: "#FF5722",
-      color: "white",
-      fontSize: "16px",
-      fontWeight: "bold",
-      border: "none", // cleaner without white border
-      borderRadius: "10px",
-      cursor: "pointer",
-      boxShadow: "0 6px 12px rgba(0,0,0,0.3)",
-      transition: "transform 0.2s",
-    }}
-    onMouseOver={e => e.currentTarget.style.transform = "scale(1.05)"}
-    onMouseOut={e => e.currentTarget.style.transform = "scale(1)"}
-  >
-    Done with the collections! 🌟
-  </button>
-</div>
       </MapContainer>
-      
-      {/* Progress indicator */}
+
+      {/* Floating Centered Button */}
+      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-[1000]">
+        <button
+          onClick={handleMarkComplete}
+          className="bg-gradient-to-r from-rose-500 to-orange-400 text-white text-sm sm:text-base px-6 py-3 rounded-full font-semibold shadow-lg hover:scale-105 active:scale-95 transition-all duration-200"
+        >
+          Done with the collections!
+        </button>
+      </div>
     </div>
+  </div>
   );
 }
 

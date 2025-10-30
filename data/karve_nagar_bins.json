@@ -1,0 +1,122 @@
+[
+    {
+        "_id": {
+            "$oid": "67ede138cd0a038db4d9b8b1"
+        },
+        "id": "b1c64227-197a-49be-b757-1ac31dcf27f2",
+        "totalCapacity": 100,
+        "realTimeCapacity": 92,
+        "approxTime": "6 hrs",
+        "lastEmptiedAt": {
+            "$date": "2025-04-03T12:40:10.512Z"
+        },
+        "locn": {
+            "latitude": 18.492734,
+            "longitude": 73.808439
+        },
+        "category": "organic",
+        "status": "filled",
+        "sensorEnabled": true,
+        "ward": "Karve Nagar",
+        "zone": "Kothrud-Bavdhan",
+        "wasteQuantityPerDay": "15.21 tonnes",
+        "predictedApproxTime": 10.34,
+        "predictedEmptyingDateTime": "2025-04-07 04:30:45"
+    },
+    {
+        "_id": {
+            "$oid": "67ede138cd0a038db4d9b8b2"
+        },
+        "id": "c3d7e5f8-6a3d-42e8-9df6-bc732a4871ea",
+        "totalCapacity": 100,
+        "realTimeCapacity": 78,
+        "approxTime": "8 hrs",
+        "lastEmptiedAt": {
+            "$date": "2025-04-01T10:20:35.112Z"
+        },
+        "locn": {
+            "latitude": 18.486945,
+            "longitude": 73.810123
+        },
+        "category": "plastic",
+        "status": "half-full",
+        "sensorEnabled": false,
+        "ward": "Karve Nagar",
+        "zone": "Kothrud-Bavdhan",
+        "wasteQuantityPerDay": "18.32 tonnes",
+        "predictedApproxTime": 9.25,
+        "predictedEmptyingDateTime": "2025-04-06 16:10:00"
+    },
+    {
+        "_id": {
+            "$oid": "67ede138cd0a038db4d9b8b3"
+        },
+        "id": "e9a8b7c6-4d5f-43e9-bc2a-9d8f6b732471",
+        "totalCapacity": 100,
+        "realTimeCapacity": 85,
+        "approxTime": "5 hrs",
+        "lastEmptiedAt": {
+            "$date": "2025-04-02T18:55:25.332Z"
+        },
+        "locn": {
+            "latitude": 18.490127,
+            "longitude": 73.807859
+        },
+        "category": "paper",
+        "status": "filled",
+        "sensorEnabled": true,
+        "ward": "Karve Nagar",
+        "zone": "Kothrud-Bavdhan",
+        "wasteQuantityPerDay": "12.78 tonnes",
+        "predictedApproxTime": 8.41,
+        "predictedEmptyingDateTime": "2025-04-05 22:45:12"
+    },
+    {
+        "_id": {
+            "$oid": "67ede138cd0a038db4d9b8b4"
+        },
+        "id": "f4d7c8a9-3b2e-46c1-a8df-95e7b6c4321f",
+        "totalCapacity": 100,
+        "realTimeCapacity": 90,
+        "approxTime": "7 hrs",
+        "lastEmptiedAt": {
+            "$date": "2025-04-01T08:40:50.772Z"
+        },
+        "locn": {
+            "latitude": 18.488236,
+            "longitude": 73.811924
+        },
+        "category": "glass",
+        "status": "filled",
+        "sensorEnabled": false,
+        "ward": "Karve Nagar",
+        "zone": "Kothrud-Bavdhan",
+        "wasteQuantityPerDay": "20.64 tonnes",
+        "predictedApproxTime": 11.12,
+        "predictedEmptyingDateTime": "2025-04-06 14:30:50"
+    },
+    {
+        "_id": {
+            "$oid": "67ede138cd0a038db4d9b8b5"
+        },
+        "id": "g8h7f6e5-d4c3-b2a1-9876-5f4e3d2c1a9b",
+        "totalCapacity": 100,
+        "realTimeCapacity": 95,
+        "approxTime": "9 hrs",
+        "lastEmptiedAt": {
+            "$date": "2025-03-31T15:30:20.512Z"
+        },
+        "locn": {
+            "latitude": 18.487542,
+            "longitude": 73.813245
+        },
+        "category": "electronic",
+        "status": "filled",
+        "sensorEnabled": true,
+        "ward": "Karve Nagar",
+        "zone": "Kothrud-Bavdhan",
+        "wasteQuantityPerDay": "11.43 tonnes",
+        "predictedApproxTime": 12.75,
+        "predictedEmptyingDateTime": "2025-04-07 10:20:35"
+    }
+]

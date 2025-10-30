@@ -117,7 +117,7 @@ const Login = () => {
 
     const userLocation = {
         type: "Point",
-        coordinates: [18.0594, 173.065], // Default coordinates (0, 0) if not provided
+        coordinates: [18.0594, 17.3065], // Default coordinates (0, 0) if not provided
     };
     try {
         const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/users/register`, {

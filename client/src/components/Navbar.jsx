@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, AuthContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
