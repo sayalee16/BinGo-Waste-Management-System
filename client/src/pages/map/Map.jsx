@@ -81,86 +81,27 @@ Small steps, big change.
 }
 
 function UserLocation({ onPositionChange }) {
-  const [position, setPosition] = useState(null);
-  const [tracking, setTracking] = useState(false);
+
+  // Hardcoded COEP position
+  const coepPosition = [18.5294, 73.8567];
   const map = useMap();
-  const watchIdRef = useRef(null);
 
+  // On mount, tell parent about the hardcoded position and center the map
   useEffect(() => {
-    navigator.permissions && navigator.permissions.query({ name: 'geolocation' })
-      .then(permissionStatus => {
-        if (permissionStatus.state === 'granted') {
-          startTracking();
-        }
-
-        permissionStatus.onchange = () => {
-          if (permissionStatus.state === 'granted') {
-            startTracking();
-          }
-        };
-      })
-      .catch(err => {
-        console.error("Permission API error:", err);
-      });
-  }, []);
-
-  const startTracking = () => {
-    if (navigator.geolocation) {
-      setTracking(true);
-      watchIdRef.current = navigator.geolocation.watchPosition(
-        (pos) => {
-          const newPos = [pos.coords.latitude, pos.coords.longitude];
-          setPosition(newPos);
-          onPositionChange(newPos);
-          map.flyTo(newPos, 16);
-        },
-        (err) => {
-          console.error("Error getting location:", err);
-          if (err.code === 1) {
-            setTracking(false);
-          }
-        },
-        { enableHighAccuracy: true, maximumAge: 10000, timeout: 10000 }
-      );
+    try {
+      onPositionChange(coepPosition);
+      // center map on COEP
+      map.setView(coepPosition, 16);
+    } catch (err) {
+      console.error("Error setting hardcoded position:", err);
     }
-  };
-
-  useEffect(() => {
-    return () => {
-      if (watchIdRef.current) {
-        navigator.geolocation.clearWatch(watchIdRef.current);
-      }
-    };
   }, []);
 
   return (
     <>
-      {!tracking && (
-        <button
-          onClick={startTracking}
-          style={{
-            position: "absolute",
-            top: "10px",
-            left: "10px",
-            zIndex: 1000,
-            padding: "8px 16px",
-            backgroundColor: "#4CAF50",
-            color: "white",
-            border: "none",
-            borderRadius: "4px",
-            cursor: "pointer",
-            display: "flex",
-            alignItems: "center"
-          }}
-        >
-          <span style={{ marginRight: "5px" }}>📍</span> Enable Location
-        </button>
-      )}
-      {position && (
-        <Marker position={position} icon={userIcon}>
-          <Popup>Your current location</Popup>
-        </Marker>
-      )}
+      <Marker position={coepPosition} icon={userIcon}>
+        <Popup>YOU!</Popup>
+      </Marker>
     </>
   );
 }

@@ -3,7 +3,7 @@ import L from "leaflet";
 import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import WCNavbar from "../../components/WCNavbar";
-
+const LOCATION = [18.5308, 73.8476]
 // Icons for different types of waste points
 const icons = {
   // Bin status icons
@@ -46,7 +46,7 @@ function CollectorLocation({ onPositionChange }) {
           const newPos = [pos.coords.latitude, pos.coords.longitude];
           setPosition(newPos);
           onPositionChange(newPos); // Update parent component with position
-          map.flyTo(newPos, 16); // Center map on collector location
+          map.flyTo(LOCATION, 16); // Center map on collector location
         },
         (err) => console.error("Error getting location:", err),
         { enableHighAccuracy: true, maximumAge: 10000, timeout: 5000 }
@@ -74,7 +74,7 @@ function CollectorLocation({ onPositionChange }) {
         </button>
       )}
       {position && (
-        <Marker position={position} icon={collectorIcon}>
+        <Marker position={LOCATION} icon={collectorIcon}>
           <Popup>Your current location</Popup>
         </Marker>
       )}
@@ -112,8 +112,8 @@ function WastePointsLayer({ points, collectorPosition }) {
 }
 
 function CollectorMap() {
-  const LOCATION = [18.4862, 73.8164]//[18.497536, 73.793536];
-  const RADIUS = 6000;
+  //[18.497536, 73.793536];
+  const RADIUS = 10000;
 
   const defaultPosition = [18.5532, 73.8426]; // default position
   const [collectorPosition, setCollectorPosition] = useState(null);
@@ -206,7 +206,7 @@ function CollectorMap() {
       
       try {
         // Start with collector position
-        let coordinates = `${collectorPosition[1]},${collectorPosition[0]}`;
+        let coordinates = `${LOCATION[1]},${LOCATION[0]}`;
         
         // Add all waste points
         activeWastePoints.forEach(point => {
@@ -297,7 +297,7 @@ function CollectorMap() {
     {/* Map Container */}
     <div className="relative flex-1">
       <MapContainer
-        center={defaultPosition}
+        center={LOCATION}
         zoom={14}
         className="h-full w-full z-0"
       >

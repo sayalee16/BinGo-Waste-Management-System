@@ -3,8 +3,8 @@ const Schema = mongoose.Schema;
 
 const userReportSchema = new Schema({
     bin: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "WasteBin",
+        type: String,
+        // REMOVE: ref: "WasteBin" - can't reference with String type
         required: false
     },
     user_id: {
@@ -26,7 +26,7 @@ const userReportSchema = new Schema({
           type: String,
           required: true,
         },
-      },      
+    },      
     description: {
         type: String,  
         required: false  
@@ -38,10 +38,9 @@ const userReportSchema = new Schema({
     },
     wc_status: {
         type: String,
-        enum: ["pending", "done","recycled"],
+        enum: ["pending", "done", "recycled"],
         default: "pending"
     },
-    
-});  
+}, { timestamps: true });
 
 export default mongoose.model("UserReport", userReportSchema);
